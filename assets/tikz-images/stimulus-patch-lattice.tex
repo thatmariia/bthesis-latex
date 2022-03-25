@@ -1,0 +1,27 @@
+\newcommand{\splw}{0.9\textwidth}
+\newcommand{\splh}{\splw}
+
+\newcommand{\splnrverticallines}{2}
+\newcommand{\splverticalinterval}{0.33333} % 1 / (splnrverticallines + 1)
+
+\newcommand{\splnrhorizontallines}{2}
+\newcommand{\splhorizontalinterval}{0.33333}
+
+\begin{tikzpicture}[
+    cline/.style = {very thick, main-color},
+]
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\splw]{assets/images/stimulus-patch.png}};
+        
+        % vertical
+        \foreach \i in {1, 2, ..., \splnrverticallines}{
+            \draw[cline] (\i * \splverticalinterval * \splw, 0) -- (\i * \splverticalinterval * \splw, \splh) {};
+        }
+        
+        % horizontal
+        \foreach \i in {1, 2, ..., \splnrverticallines}{
+            \draw[cline] (0, \i * \splhorizontalinterval * \splh) -- (\splw, \i * \splhorizontalinterval * \splh) {};
+        }
+
+    \end{scope}
+\end{tikzpicture}

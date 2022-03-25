@@ -1,0 +1,53 @@
+\begin{tikzpicture}[
+    arr/.style = { -{Stealth[ ]} },
+    cnodeex/.style = {circle,thick,fill=main-color},
+    cnodein/.style = {circle,thick,fill=sec-color},
+    cframerounded/.style = {rounded corners=0.8cm, very thick, third-color},
+]
+
+    \begin{scope}
+        \node (in) at (6, 6.6) {Excitatory neurons};
+        \draw[cframerounded] (0, 4.3) rectangle (12, 6.3) {};
+        \node[style=cnodeex] (Vex0) at (1, 5) {$v_0$};
+        \node[style=cnodeex] (Vex1) at (6, 5) {$v_1$};
+        \node[style=cnodeex] (Vex2) at (11, 5) {$v_2$};
+        
+        \node (in) at (6, 0) {Inhibitory neurons};
+        \draw[cframerounded] (2.5, 0.5) rectangle (9.5, 2.1) {};
+        \node[style=cnodein] (Vin3) at (3.5, 1.3) {$v_3$};
+        \node[style=cnodein] (Vin4) at (8.5, 1.3) {$v_4$};
+    \end{scope}
+    
+    \begin{scope}[>={Stealth[black]}]
+        
+        \path [->] (Vex0) edge[bend left=7] node {} (Vex1);
+        \path [->] (Vex1) edge[bend left=7] node {} (Vex0);
+        
+        \path [->] (Vex0) edge[bend left=12] node {} (Vex2);
+        \path [->] (Vex2) edge[bend right=18] node {} (Vex0);
+        
+        \path [->] (Vex1) edge[bend left=7] node {} (Vex2);
+        \path [->] (Vex2) edge[bend left=7] node {} (Vex1);
+        
+        \path [->] (Vin3) edge[bend left=7] node {} (Vin4);
+        \path [->] (Vin4) edge[bend left=7] node {} (Vin3);
+        
+        \path [->] (Vex0) edge[bend left=7] node {} (Vin3);
+        \path [->] (Vin3) edge[bend left=7] node[below left] {$\cost_{(v_3 \to v_0)}$} (Vex0);
+        
+        \path [->] (Vex0) edge[bend left=7] node {} (Vin4);
+        \path [->] (Vin4) edge[bend left=7] node {} (Vex0);
+        
+        \path [->] (Vex1) edge[bend left=7] node {} (Vin3);
+        \path [->] (Vin3) edge[bend left=7] node {} (Vex1);
+        
+        \path [->] (Vex1) edge[bend left=7] node {} (Vin4);
+        \path [->] (Vin4) edge[bend left=7] node {} (Vex1);
+        
+        \path [->] (Vex2) edge[bend left=7] node {} (Vin3);
+        \path [->] (Vin3) edge[bend left=7] node {} (Vex2);
+        
+        \path [->] (Vex2) edge[bend left=7] node[below right] {$\cost_{(v_2 \to v_4)}$} (Vin4);
+        \path [->] (Vin4) edge[bend left=7] node {} (Vex2);
+    \end{scope}
+\end{tikzpicture}

@@ -1,0 +1,55 @@
+\subsection{Neural dynamics}
+\label{sec:neural-dynamics}
+
+A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. Every neuron in a PING network is a dynamical system that can be described with a two-dimensional system of ordinary differential equations. 
+
+The set of neurons can be separated in the following way: $V = \{ V_{\ex}, V_{\inh}\}$, where $V_{\ex}$ is a set of excitatory neurons, and $V_{\inh}$ - a set of inhibitory neurons, such that $V_{\ex} \cap V_{\inh} = \emptyset$.
+Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mapping a neuron to its type: $\ex$ corresponds to excitatory, and $\inh$ - to inhibitory neurons. Then, for all $v \in V$,
+\begin{align}
+    \frac{dp_v}{dt} =\ & 0.04 p_v^2 + 5p_v + 140 - r_v + I_v,
+    \label{eq:Izhikevich-model-dv-dt} \\
+    \frac{dr_v}{dt} =\ & \alpha_{\type(v)} \cdot (\beta_{\type(v)} p_v - r_v), \label{eq:Izhikevich-model-dr-dt} \\
+    \text{if } p_v \geq\ & 30 \text{ mV, then } 
+    \begin{cases}
+        p_v \leftarrow \gamma_{\type(v)} \\
+        r_v \leftarrow r_v + \zeta_{\type(v)}
+    \end{cases}, 
+    \label{eq:Izhikevich-model-p30}
+\end{align}
+where
+\begin{itemize}
+    \item $p$ represents the membrane potential of the neuron; 
+    
+    \item $r$ represents a membrane recovery variable; provides negative feedback to $p$;
+    
+    \item $\alpha$ describes the timescale of $r$;
+    
+    \item $\beta$ describes the sensitivity of $r$ to the subthreshold fluctuations of $p$;
+    
+    \item $\gamma$ describes the after-spike reset value of $p$;
+    
+    \item $\zeta$ describes the after-spike reset of $r$;
+    
+    \item $I$ describes the current.
+\end{itemize}
+The parameters $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. The parameters' values for regular spiking (RS) and fast spiking (FS) neurons used in this thesis are displayed in Table \ref{tab:params-izhikevich-model}. The constants in Equation (\ref{eq:Izhikevich-model-dv-dt}) have been obtained by fitting the spike initiation of neural dynamics in such a way that $p$ has a scale of \textit{mV}, and $t$ - a scale of \textit{ms}.
+
+\begin{table}[!htp] 
+    \centering
+    \input{assets/tables/params-izhikevich-model}
+    \caption{Parameters of the Izhikevich model for regular and fast spiking neurons.}
+\label{tab:params-izhikevich-model}
+\end{table}
+
+In the network, neurons are not isolated, and the current ($I_v$) in Equation (\ref{eq:Izhikevich-model-dv-dt}) involves the accumulated effect of interactions with other neurons. Hence, the equation must include the input current ($I_{\stim}$) as well as the coupling weights between the neurons ($K$), and the effects of synaptic potentials GABA-A (inhibitory) and AMPA (excitatory; $I_{\syn}$):
+\begin{gather}
+    I_v = 
+    \sum_{w \in V} \cost_{(v \to w)} + I_{\stim, v} \mathbb{1} \{ \type(v) = \ex \},  \label{eq:current-components} \\
+    \cost_{(v \to w)} = K_{v, w} \cdot I_{\syn, w}. 
+    \label{eq:cost-function}
+\end{gather}
+
+In this project, the external input ($I_{\stim}$) is provided by a set of texture stimuli, and a grid network of PING oscillators is supposed to reflect local neural networks of the primary visual cortex (V1). The external stimuli is described in Section \ref{sec:external-stimuli}.
+
+\input{sections/network/grid-network/neural-dynamics/coupling-weights}
+\input{sections/network/grid-network/neural-dynamics/synaptic-potentials}

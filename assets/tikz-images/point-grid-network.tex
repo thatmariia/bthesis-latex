@@ -1,0 +1,40 @@
+\begin{tikzpicture}[
+    cnode/.style = {circle,thick,fill=third-color}
+]
+    
+    
+    \begin{scope}[>={Stealth[black]}]
+        % vertical 
+        
+        \draw (0, 0) to (0, 1);
+        \draw (0, 1) to (0, 2);
+        \draw (1, 0) to (1, 1);
+        \draw (1, 1) to (1, 2);
+        \draw (2, 0) to (2, 1);
+        \draw (2, 1) to (2, 2);
+        
+        % horizontal 
+        
+        \draw (0, 0) to (1, 0);
+        \draw (1, 0) to (2, 0);
+        \draw (0, 1) to (1, 1);
+        \draw (1, 1) to (2, 1);
+        \draw (0, 2) to (1, 2);
+        \draw (1, 2) to (2, 2);
+    \end{scope}
+    
+    \begin{scope}
+        
+        \node[style=cnode] (V1) at (0, 0) {};
+        \node[style=cnode] (V2) at (0, 1) {};
+        \node[style=cnode] (V3) at (0, 2) {};
+        \node[style=cnode] (V4) at (1, 0) {};
+        \node[style=cnode] (V5) at (1, 1) {};
+        \node[style=cnode] (V6) at (1, 2) {};
+        \node[style=cnode] (V7) at (2, 0) {};
+        \node[style=cnode] (V8) at (2, 1) {};
+        \node[style=cnode] (V9) at (2, 2) {};
+    \end{scope}
+
+
+\end{tikzpicture}

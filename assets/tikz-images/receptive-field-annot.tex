@@ -1,0 +1,42 @@
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        mainarrow/.style = {arr, draw=black, fill=black},
+        shadowarrow/.style = {arr, draw=white, fill=white, very thick}
+    ]
+      
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=0.8\textwidth]{assets/images/receptive-field.pdf}};
+        
+        % light
+        \node[] (light) at (0.06\textwidth, 0.25\textwidth) {light};
+        
+        %cornea
+        \node[] (corneatxt) at (0.15\textwidth, 0.37\textwidth) {cornea};
+        \node[] (cornea) at (0.16\textwidth, 0.224\textwidth) {};
+        \path [shadowarrow] (corneatxt) edge[bend right=10] node {} (cornea);
+        \path [mainarrow] (corneatxt) edge[bend right=10] node {} ($ (cornea) + (-0.05, 0.2) $);
+        
+        %lens
+        \node[] (lenstxt) at (0.2\textwidth, 0.33\textwidth) {lens};
+        \node[] (lens) at (0.188\textwidth, 0.205\textwidth) {};
+        \path [shadowarrow] (lenstxt) edge[bend right=7] node {} (lens);
+        \path [mainarrow] (lenstxt) edge[bend right=7] node {} ($ (lens) + (-0.005, 0.2) $);
+        
+        % retina
+        \node[] (retinatxt) at (0.33\textwidth, 0.35\textwidth) {retina};
+        \node[] (retina) at (0.25\textwidth, 0.26\textwidth) {};
+        \path [shadowarrow] (retinatxt) edge[bend left=7] node {} (retina);
+        \path [mainarrow] (retinatxt) edge[bend left=7] node {} ($ (retina) + (0.19, 0.17) $);
+        
+        % fovea
+        \node[] (foveatxt) at (0.4\textwidth, 0.25\textwidth) {fovea};
+        \node[] (fovea) at (0.283\textwidth, 0.216\textwidth) {};
+        \path [shadowarrow] (foveatxt) edge[bend left=7] node {} (fovea);
+        \path [mainarrow] (foveatxt) edge[bend left=7] node {} ($ (fovea) + (0.2, 0.025) $);
+        
+        % receptive field
+        \node[text width=0.8in] (RFperiphery) at (0.8\textwidth, 0.5\textwidth) {RF in the periphery};
+        \node[text width=0.8in] (RFfovea) at (0.87\textwidth, 0.1\textwidth) {RF near the fovea};
+        
+    \end{scope}
+\end{tikzpicture}

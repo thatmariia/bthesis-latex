@@ -1,0 +1,58 @@
+\subsection{Visual processing}
+
+\paragraph{Visual processing}
+
+Vision starts with the stimulation of the cornea, the protective outer layer of an eye, by light in the visual scene \cite{KandelBook2003:26}. Then, light passes through the lens, which focuses that light onto the retina. On the retina, the photoreceptor cells, the cells responding to light, are located. The mentioned components of the visual system are depicted in Figure \ref{fig:receptive-field}. These photoreceptors are connected to so-called bipolar cells that induce action potentials. An action potential, or spike, is a nerve signal that occurs when a cell's membrane's potential suddenly rises and then rapidly falls \cite{IzhikevichBook2004:2}. The spikes are propagated to target areas. This concept plays an integral role in interneural communication.
+The visual information is then processed and sent to the visual cortex \cite{KandelBook2003:26}.
+
+\begin{figure}[!htp]
+    \centering
+    \input{assets/tikz-images/receptive-field-annot}
+    \caption{Visual system and size variability of receptive fields (RF) depending on their eccentricity \cite{KandelBook2003:25}.}
+    \label{fig:receptive-field}
+\end{figure}
+
+The segregation of figures from the background is an integral part of object recognition \cite{KandelBook2003:25}. The visual scenes are analyzed at three levels. At the low level, the discrimination on such visual attributes as local contrast, orientation, color, and movement occurs. The intermediate level is responsible for parsing an image into surfaces, their depths, shapes, and global contours and distinguishing foreground from background. Then, finally, at the highest level of visual analysis, object identification takes place.
+
+\todo{I thought this entire work focuses on the low level, but it says that the segregation of figures from background happens at intermediate level?}
+
+\paragraph{Receptive field}
+
+The receptive field of a fiber is the area on the retina that responds to the light cast on this particular fiber. The receptive fields in the visual cortex perform the parsing of information from complex scenes into contours of individual objects and separate those from their background. Its size is measured in degrees of a visual angle, the entirety of which is nearly equal to $180^\circ$.
+The central region of the retina, the fovea, corresponds to the center of the gaze and thus has the highest density of photoreceptors, leading to the greatest visual acuity. Eccentricity is defined as the distance between the receptive field center and fovea. Therefore, as depicted in Figure \ref{fig:receptive-field}, the number of photoreceptors in the receptive field receiving input is smaller when eccentricity is smaller, that is, the closer they are to the fovea.
+
+The neurons' receptive fields follow a center-surround organization and have two functionally distinct subareas: on-center and off-center (pink and grey areas in Figure \ref{fig:receptive-field}, respectively). As depicted in Table \ref{tab:on-off-center}, the firing response of on- and off-center cells varies depending on the light location: the regions of the spatial contrast are emphasized, while little response is received from homogeneous illumination. The center and surrounding areas are mutually inhibitory, making the receptive field sensitive to borders and contours and thus allowing it to encode information about contrast.
+
+\begin{table}[!htp]
+    \centering
+    \input{assets/tables/on-off-center}
+    \caption{Response of on- and off-center neurons depending on presence and location of light (yellow) in the receptive field \cite{KandelBook2003:25}.}
+    \label{tab:on-off-center}
+\end{table}
+
+\paragraph{Grating stimuli}
+
+Evidently, small spots of light are helpful for studying receptive fields of single neurons. However, in order to learn about visual perception, more complex stimuli are needed \cite{KandelBook2003:26}. For instance, grating stimuli are used to investigate the perception of spatial patterns. Such stimuli comprise images, where the luminosity varies about the mean as a sinusoidal function of space, as displayed in Figure \ref{fig:grating-stimuli-examples}. 
+
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{assets/images/grating-stimuli/1.png}
+        \caption{{Low spatial frequency.}}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{assets/images/grating-stimuli/2.png}
+        \caption{High spatial frequency, high contrast.}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{assets/images/grating-stimuli/3.png}
+        \caption{High spatial frequency, low contrast.}
+    \end{subfigure}
+    \caption{Examples of grating stimuli \cite{KandelBook2003:26}.}
+    \label{fig:grating-stimuli-examples}
+\end{figure}

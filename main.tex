@@ -1,0 +1,44 @@
+\input{setup/packages}
+
+
+\begin{document}
+
+    % TITLE PAGE
+    
+    \thispagestyle{empty}
+    \input{setup/titlepage}
+    
+    % ABSTRACT
+    
+    \newpage
+    \thispagestyle{empty}
+    \input{abstract}
+    
+    % TABLE OF CONTENTS
+    
+    \newpage
+    \pagenumbering{roman}
+    
+    \toc
+    
+    % SECTIONS
+    
+    \newpage
+    \pagenumbering{arabic}
+    
+    %\input{sections/intro/all}
+    \input{sections/preliminaries/all}
+    \input{sections/network/all}
+    \input{sections/stimulus/all}
+    
+    % BIBLIOGRAPHY
+    
+    \newpage
+    \printbibliography
+    
+    % APPENDICES
+    \appendix
+    
+    \newpage
+    \input{appendices/vars-params}
+\end{document}

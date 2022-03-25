@@ -1,0 +1,100 @@
+% ----- INPUT
+\newcommand{\fsaimagew}{\textwidth}
+\newcommand{\fsaimageh}{\fsaimagew}
+
+% figure center
+\newcommand{\fsafigcenterx}{0.68 * \fsaimagew}
+\newcommand{\fsafigcentery}{0.2925 * \fsaimageh}
+
+% figure dimensions
+\newcommand{\fsafigw}{0.16 * \fsaimagew}
+\newcommand{\fsafigh}{0.255 * \fsaimageh}
+
+% patch dimensions
+\newcommand{\fsapatchw}{0.1 * \fsaimagew}
+\newcommand{\fsapatchh}{0.1 * \fsaimageh}
+
+% shifts
+\newcommand{\fsashiftw}{0.03 * \fsaimagew}
+\newcommand{\fsashifth}{0.03 * \fsaimageh}
+
+% ----- misc
+\newcommand{\fsacenterx}{0.5 * \fsaimagew}
+\newcommand{\fsacentery}{0.5 * \fsaimageh}
+
+% figure coords
+\newcommand{\fsafigleftx}{\fsafigcenterx - 0.5 * \fsafigw}
+\newcommand{\fsafigrightx}{\fsafigcenterx + 0.5 * \fsafigw}
+\newcommand{\fsafigtopy}{\fsafigcentery + 0.5 * \fsafigh}
+\newcommand{\fsafigbottomy}{\fsafigcentery - 0.5 * \fsafigh}
+
+% patch coords
+\newcommand{\fsapatchleftx}{\fsafigcenterx - 0.5 * \fsapatchw}
+\newcommand{\fsapatchrightx}{\fsafigcenterx + 0.5 * \fsapatchw}
+\newcommand{\fsapatchtopy}{\fsafigcentery + 0.5 * \fsapatchh}
+\newcommand{\fsapatchbottomy}{\fsafigcentery - 0.5 * \fsapatchh}
+
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        whitedoublearrow/.style = {>=stealth, draw=white, fill=white, very thick, <->},
+        pinkarrow/.style = {arr, draw=sec-color, fill=sec-color, very thick},
+        yellowframe/.style = {rounded corners=0.2cm, very thick, main-color, fill=main-color, fill opacity=0.2},
+        blueframe/.style = {rounded corners=0.2cm, very thick, third-color, fill=third-color, fill opacity=0.2},
+        anglearrow/.style = {draw, >=stealth, white, very thick, ->, angle eccentricity=2}
+    ]
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\fsaimagew]{assets/images/full-stimulus.png}};
+        
+        % side length
+        \node[] (startell) at (0, 0.95 * \fsaimageh) {};
+        \node[] (endell) at (\fsaimagew, 0.95 * \fsaimageh) {};
+        \path[whitedoublearrow, ultra thick] (startell) edge node {\bgcolorsmalltext{white}{black}{side length $\hat{\ell_\full}, ^\bigcirc$}} (endell);
+        
+        % center of gaze & stimulsus
+        \node[style=cnode] (cent) at (\fsacenterx, \fsacentery) {};
+        \node[shift={(-0.5 * \fsacenterx, 0)}] (centtxt) at (\fsacenterx, \fsacentery) {\bgcolorsmalltext{white}{black}{center of gaze \& stimulus $O_{L_\full}$}};
+        \path [pinkarrow] (centtxt) edge[bend right=10] node {} (cent);
+        
+        % figure
+        \node[shift={(0, \fsashifth)}] (figuretxt) at (\fsafigcenterx, \fsafigtopy) {\bgcolorsmalltext{white}{black}{figure $F$}};
+        \draw[yellowframe] (\fsafigleftx, \fsafigtopy) rectangle (\fsafigrightx, \fsafigbottomy) {};
+        
+        % figure width
+        \node[shift={(0, -1 * \fsashifth)}] (startfigw) at (\fsafigleftx, \fsafigbottomy) {};
+        \node[shift={(0, -1 * \fsashifth)}] (endfigw) at (\fsafigrightx, \fsafigbottomy) {};
+        
+        \path[whitedoublearrow] (startfigw) edge node {\bgcolorsmalltext{white}{black}{$\hat{\ell_{F_w}}, ^\bigcirc$}} (endfigw);
+        
+        \draw[very thick, white] (\fsafigleftx, \fsafigbottomy) -- (\fsafigleftx, \fsafigbottomy - 2 * \fsashifth);
+        \draw[very thick, white] (\fsafigrightx, \fsafigbottomy) -- (\fsafigrightx, \fsafigbottomy - 2 * \fsashifth);
+        
+        % figure height
+        \node[shift={(\fsashiftw, 0)}] (startfigh) at (\fsafigrightx, \fsafigtopy) {};
+        \node[shift={(\fsashiftw, 0)}] (endfigh) at (\fsafigrightx, \fsafigbottomy) {};
+        
+        \path[whitedoublearrow] (startfigh) edge node[rotate=90] {\bgcolorsmalltext{white}{black}{$\hat{\ell_{F_h}}, ^\bigcirc$}} (endfigh);
+        
+        \draw[very thick, white] (\fsafigrightx, \fsafigtopy) -- (\fsafigrightx + 2 * \fsashiftw, \fsafigtopy);
+        \draw[very thick, white] (\fsafigrightx, \fsafigbottomy) -- (\fsafigrightx + 2 * \fsashiftw, \fsafigbottomy);
+        
+        % patch
+        \node[shift={(0, \fsashifth)}] (patchtxt) at (\fsafigcenterx, \fsapatchtopy) {\bgcolorsmalltext{white}{black}{patch $L$}};
+        \draw[blueframe] (\fsapatchleftx, \fsapatchtopy) rectangle (\fsapatchrightx, \fsapatchbottomy) {};
+        
+        % center of figure & patch
+        \node[shift={(-0.3 * \fsaimagew, -0.1 * \fsaimageh)}] (cent2txt) at (\fsafigcenterx, \fsafigcentery) {\bgcolorsmalltext{white}{black}{center of figure \& patch $F_O$}};
+        \node[style=cnode] (cent2) at (\fsafigcenterx, \fsafigcentery) {};
+        \path [pinkarrow] (cent2txt) edge[bend right=10] node {} (cent2);
+        
+        % eccentricity
+        \path[whitedoublearrow] (cent) edge node[sloped] {\bgcolorsmalltext{white}{black}{$\hat{\ecc_F}, ^\bigcirc$}} (cent2);
+        
+        % angle
+        \draw[main-color] (\fsacenterx, \fsacentery) -- (\fsaimagew, \fsacentery);
+        \node[] (xright) at (\fsaimagew, \fsacentery) {};
+        \pic[anglearrow, "\bgcolorsmalltext{white}{black}{$\; \theta \;$}"] {angle = cent2--cent--xright};
+        
+        
+    \end{scope}
+\end{tikzpicture}

@@ -1,0 +1,67 @@
+% ----- INPUT
+\newcommand{\apimagew}{0.6\textwidth}
+\newcommand{\apimageh}{0.775 * \apimagew}
+
+\newcommand{\apthesh}{0.38 * \apimageh}
+\newcommand{\apresth}{0.27 * \apimageh}
+\newcommand{\appeakh}{0.99 * \apimageh}
+
+\newcommand{\apshifth}{0.04 * \apimageh}
+
+
+%
+\newcommand{\apwest}{-0.2 * \apimagew}
+
+
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        blackarrow/.style = {arr, ultra thick},
+    ]
+    
+    \begin{scope}
+        % rest
+        \draw[dashed, black, very thick] (\apwest, \apresth) -- (1.1 * \apimagew, \apresth);
+        \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \apresth) {rest};
+        
+        % threshold
+        \draw[main-color, ultra thick] (\apwest, \apthesh) -- (1.1 * \apimagew, \apthesh);
+        \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \apthesh) {threshold};
+        
+        % peak
+        \draw[main-color, ultra thick] (\apwest, \appeakh) -- (1.1 * \apimagew, \appeakh);
+        \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \appeakh) {peak};
+        
+        % depolarization
+        \node[] (depolarizationtxt) at (0.1 * \apimagew, 0.7 * \apimageh) {\bgcolorsmalltext{third-color}{black}{depolarization}};
+        \node[] (depolarization) at (0.35 * \apimagew, 0.6 * \apimageh) {};
+        \path [bluearrow] (depolarizationtxt) edge[bend right=10] node {} (depolarization);
+        
+        % repolarization
+        \node[] (repolarizationtxt) at (0.8 * \apimagew, 0.8 * \apimageh) {\bgcolorsmalltext{third-color}{black}{repolarization}};
+        \node[] (repolarization) at (0.55 * \apimagew, 0.7 * \apimageh) {};
+        \path [bluearrow] (repolarizationtxt) edge[bend left=10] node {} (repolarization);
+        
+        % hyperpolarization
+        \node[] (hyperpolarizationtxt) at (0.85 * \apimagew, 0.48 * \apimageh) {\bgcolorsmalltext{third-color}{black}{hyperpolarization}};
+        \node[] (hyperpolarization) at (0.7 * \apimagew, 0.05 * \apimageh) {};
+        \path [bluearrow] (hyperpolarizationtxt) edge[bend right=15] node {} (hyperpolarization);
+        
+        % passive-response
+        \node[] (passive-responsetxt) at (0.2 * \apimagew, 0 * \apimageh) {\bgcolorsmalltext{third-color}{black}{passive response}};
+        \node[] (passive-response) at (0.4 * \apimagew, \apresth) {};
+        \path [bluearrow] (passive-responsetxt) edge[bend right=15] node {} (passive-response);
+        
+        % time
+        \path[blackarrow] (\apimagew, \apresth - \apshifth) edge node[sloped, below] {time} (1.1 * \apimagew, \apresth - \apshifth);
+        
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\apimagew]{assets/images/action-potential.png}};
+        
+        % trigger event
+        \path[blackarrow] (0.3 * \apimagew, 0.18 * \apimageh) edge node[sloped, above] {trigger} (0.3 * \apimagew, 0.36 * \apimageh);
+    \end{scope}
+        
+\end{tikzpicture}

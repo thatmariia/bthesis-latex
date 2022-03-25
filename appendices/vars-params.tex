@@ -1,0 +1,68 @@
+\section{Variables and parameters}
+
+\begin{longtable}{|m{0.07\textwidth}|m{0.45\textwidth}|m{0.4\textwidth}|}
+\hline
+\rowcolor{main-color} 
+\textbf{Name} & \multicolumn{1}{c|}{\cellcolor{main-color}\textbf{Description}} & \textbf{First mention} \\ \hline
+
+$n$ & Side length of the grid of PING networks & First paragraph of Section \ref{sec:grid-network}    \\ \hline
+
+$D$ & Graph of neurons in the network & Second paragraph of Section \ref{sec:grid-network}   \\ \hline
+
+$V$ & Set of vertices (neurons) in $D$ & Second paragraph of Section \ref{sec:grid-network}   \\ \hline
+
+$E$ & Set of edges in $D$  & Second paragraph of Section \ref{sec:grid-network}   \\ \hline
+
+$\cost$ & Cost function for $D$ & Equation (\ref{eq:cost-function})  \\ \hline
+
+$V_\ex$ & Set of excitatory neurons in $D$, $V_\ex \in V$ & Second paragraph of Section \ref{sec:neural-dynamics}   \\ \hline
+
+$V_\inh$ & Set of inhibitory neurons in $D$, $V_\inh \in V$ & Second paragraph of Section \ref{sec:neural-dynamics}   \\ \hline
+
+$\type$ & Function mapping a neuron to its type & Second paragraph of Section \ref{sec:neural-dynamics}   \\ \hline
+
+$p$ & Membrane potential of a neuron & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}) \\ \hline
+
+$r$ & Membrane recovery variable, provides negative feedback to $p$ & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}) \\ \hline
+
+$\alpha$ & Timescale of $r$ & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}) \\ \hline
+
+$\beta$ & Sensitivity of $r$ to subthreshold oscillations of $p$ & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}) \\ \hline
+
+$\gamma$ & After-spike reset value of $p$ & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}) \\ \hline
+
+$\zeta$ & After-spike reset of $r$ & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}) \\ \hline
+
+$I$ & Current & Equations (\ref{eq:Izhikevich-model-dv-dt})-(\ref{eq:Izhikevich-model-p30}), (\ref{eq:current-components}) \\ \hline
+
+$I_\stim$ & Current from external stimulus & Equation (\ref{eq:current-components}) \todo{add def later} \\ \hline
+
+$K$ & Coupling weight between neurons & Equations (\ref{eq:cost-function}), (\ref{eq:coupling-weights}) \\ \hline
+
+$I_\syn$ & Synaptic current & Equations (\ref{eq:cost-function}), (\ref{eq:synaptic-current}) \\ \hline
+
+$\loc$ & Function mapping a neuron to the position of the PING network in belongs to in the grid & First paragraph of Section \ref{sec:coupling-weights} \\ \hline
+
+$C$ & Maximum connection strength between neurons & Equation (\ref{eq:coupling-weights}) \\ \hline
+
+$s$ & Decay rate of connectivity in space & Equation (\ref{eq:coupling-weights}) \\ \hline
+
+$P$ & Neural membrane potential & Equation (\ref{eq:synaptic-current}) \\ \hline
+
+$P_\ex$ & Reversal potential of excitation & Equation (\ref{eq:synaptic-current}) \\ \hline
+
+$P_\inh$ & Reversal potential of inhibition & Equation (\ref{eq:synaptic-current}) \\ \hline
+
+$G_\ex$ & Total synaptic conductance from excitatory presynaptic neurons & Equation (\ref{eq:synaptic-current}) \\ \hline
+
+$G_\inh$ & Total synaptic conductance from inhibitory presynaptic neurons & Equations (\ref{eq:synaptic-current}), (\ref{eq:total-synaptic-conductance-in}) \\ \hline
+
+$g$ & Conductance & Equation (\ref{eq:total-synaptic-conductance-in}) \\ \hline
+
+$s$ & Synaptic gating & Equations (\ref{eq:total-synaptic-conductance-in}), (\ref{eq:synaptic-gates}) \\ \hline
+
+$\rho$ & Rising time & Equation (\ref{eq:synaptic-gates}) \\ \hline
+
+$\tau$ & Decay time & Equation (\ref{eq:synaptic-gates}) \\ \hline
+
+\end{longtable}

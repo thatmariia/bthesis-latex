@@ -1,0 +1,68 @@
+\subsubsection{Synaptic potentials}
+\label{sec:synaptic-potentials}
+
+Let $v, w \in V$ be the pre- and postsynaptic neurons, respectively, and let $(v \to w) \in E$ be the electrically conductive link (synapse) between them. When a spike arrives at the synapse, it triggers the release of a neurotransmitter: AMPA when $\type(v) = \ex$, GABA when $\type(v) = \inh$ \cite{Lowet2015}. After firing an action potential, the voltage of the presynaptic neuron resets to its equilibrium potential, at which there is no net flow through its ionic channels \cite{JohnsBook2014:6}. The equilibrium potential is equal to the reversal (Nernst) potential (whereat the net current flow reverses its direction), which only depends on the type of the postsynaptic neuron, $P_\ex$ if $\type(w) = \ex$, $P_\inh$ if $\type(w) = \inh$. 
+
+From Ohm's law, it follows that the current through a neuron is proportional to its conductance and driving force \cite{KandelBook2003:6}. The latter is the difference between the synapse's reversal (presynaptic neuron's equilibrium) and the neuron's membrane potentials. The conductance of a neuron is the sum of all synapses' conductances of that neuron. Additionally, each neuron receives two synaptic inputs: from excitatory and inhibitory neurons. Therefore, the synaptic current of a postsynaptic neuron $w$ is
+\begin{equation}
+    I_{\syn, w} = G_{\inh, w} (p_{w} - P_{\inh}) + G_{\ex, w} (p_{w} - P_{\ex}),
+    \label{eq:synaptic-current}
+\end{equation}
+where $P_w$ is the neural membrane potential, and $G_{\inh}$ and $G_{\ex}$ are total synaptic conductances from the inhibitory and excitatory presynaptic neurons, respectively \cite{Lowet2015}, \cite{Jensen2005}. The former is of the form 
+\begin{equation}
+    G_{\inh, w} = \sum_{v \in V: \type(v) = \inh} g_{\inh \to \type(w)} \cdot s_{(v \to w)},
+    \label{eq:total-synaptic-conductance-in},
+\end{equation}
+where $g$ is the conductance density of the GABA-mediated receptor between a pair of neurons, the values of which are displayed in Table \ref{tab:conductance-synaptic}, and $s$ is the synaptic gating value. The expression for the excitatory synaptic conductance $G_{\ex, v}$ is analogous to Equation (\ref{eq:total-synaptic-conductance-in}).
+
+A synaptic gate can be though of as a transistor that modifies the conductance of a synapse, it can amplify and switch electrical signals. The gating value includes the rise $\rho$ and decay $\tau$ times and the transmission concentration term to mediate the interneural signal transmission \cite{Destexhe1994}:
+\begin{equation}
+    \frac{ds_{(v \to w)}}{dt} = \rho_{(v \to w)} \underbrace{\left( 1 + \tanh \left( \frac{p_{w}}{4} \right) \right)}_{T_w: \text{trans. conc.}} (1 - s_{(v \to w)}) - \frac{s_{(v \to w)}}{\tau_{(v \to w)}}.
+    \label{eq:synaptic-gates2}
+\end{equation}
+For a given neuron, it is assumed that the dynamics of all its synapses are synchronized. Therefore, although a synaptic gate is located on the postsynaptic neuron $w$, it follows the potential and gating parameters of the presynaptic neuron $v$ \cite{Lowet2015}. Hence, Equation (\ref{eq:synaptic-gates2}) is equivalent to
+\begin{equation}
+    \frac{ds_{(v \to w)}}{dt} = \rho_{v} \underbrace{\left( 1 + \tanh \left( \frac{p_{v}}{4} \right) \right)}_{T_v: \text{trans. conc.}} (1 - s_{(v \to w)}) - \frac{s_{(v \to w)}}{\tau_{v}}.
+    \label{eq:synaptic-gates}
+\end{equation}
+The values for the synaptic parameters are presented in Table \ref{tab:synaptic-current-params}.
+The initial value of the gating value is zero. The equation is separable, and, thus, its solution is
+\begin{equation}
+    s_{(v \to w)} = \frac{\rho_v T_v / \tau_v}{\rho_v T_v / \tau_v + 1} \exp \left( -t \cdot \tau_v (\rho_v T_v + 1)  \right).
+\end{equation}
+Since all the terms are positive, this solution is bounded below by $0$ and above by $1$.
+
+As mentioned in Section \ref{sec:action-potential}, the spike initiating threshold for excitatory neurons is between $-60$ and $-40$ mV. When the neuron is at rest, that is $p_v < -40$ mV, the transmission concentration is at its minimum:
+\begin{gather}
+\begin{split}
+    & T_v = 1 + \tanh \left( \frac{p_{v}}{4} \right) \approx 0 \\
+    \Rightarrow \ & \frac{ds_{(v \to w)}}{dt} \approx - \frac{s_{(v \to w)}}{\tau_{v}}.
+\end{split}
+\end{gather}
+This implies that the gating decays exponentially.
+So, in between spikes, the conductance and thus the synaptic input from the neuron $v$ decreases. 
+
+During an action potential, the membrane potential reaches $p_v > 10$. Thus, the transmission concentration is at its maximum, and
+\begin{gather}
+\begin{split}
+    & T_v = 1 + \tanh \left( \frac{p_{v}}{4} \right) \approx 2 \\
+    \Rightarrow \ & \frac{ds_{(v \to w)}}{dt} \approx 2 \cdot \rho_v (1 - s_{(v \to w)}) - \frac{s_{(v \to w)}}{\tau_{v}},
+\end{split}
+\end{gather}
+which indicates that the gating rises during the action potential and falls once it is over. 
+
+\begin{table}[!htp] 
+    \centering
+    \input{assets/tables/conductance-synaptic}
+    \caption{Synaptic conductance values \cite{Lowet2015}.}
+    \label{tab:conductance-synaptic}
+\end{table}
+
+\begin{table}[!htp] 
+    \centering
+    \input{assets/tables/synaptic-current-params}
+    \caption{Synaptic parameter values for AMPA and GABA-A \cite{Lowet2015}.}
+    \label{tab:synaptic-current-params}
+\end{table}
+
+

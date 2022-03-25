@@ -1,0 +1,202 @@
+% ------------------------ MATH
+
+\newcommand{\cost}{\mathsf{cost}}
+\newcommand{\type}{\mathsf{type}}
+\newcommand{\loc}{\mathsf{loc}}
+\newcommand{\res}{\mathsf{res}}
+\newcommand{\unirand}{\mathsf{unirand}}
+\newcommand{\view}{\mathsf{view}}
+\newcommand{\ecc}{\mathsf{ecc}}
+\newcommand{\centr}{\mathsf{center}}
+\newcommand{\LC}{\mathsf{LC}}
+\newcommand{\weight}{\mathsf{weight}}
+\newcommand{\slope}{\mathsf{slope}}
+\newcommand{\intercept}{\mathsf{intercept}}
+\newcommand{\diamRF}{\mathsf{diamRF}}
+\newcommand{\fwhm}{\mathsf{fwhm}}
+\newcommand{\pix}{\mathsf{pix}}
+\newcommand{\reps}{\mathsf{reps}}
+\newcommand{\annulus}{\mathsf{annulus}}
+\newcommand{\atopix}{\mathsf{atopix}}
+\newcommand{\vlum}{\mathsf{vlum}}
+\newcommand{\nrann}{\mathsf{nrann}}
+
+\newcommand{\full}{\mathrm{full}}
+\newcommand{\stim}{\mathrm{stim}}
+\newcommand{\ping}{\mathrm{ping}}
+\newcommand{\syn}{\mathrm{syn}}
+\newcommand{\inh}{\mathrm{in}}
+\newcommand{\ex}{\mathrm{ex}}
+\newcommand{\foreground}{\mathrm{foreground}}
+\newcommand{\background}{\mathrm{background}}
+
+\newcommand{\fancyA}{\mathcal{A}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% ------------------------ TIKZ
+
+% ------------------------ COLORS
+
+\definecolor{main-color}{HTML}{FCEA88}
+\definecolor{sec-color}{HTML}{FFA3AF}
+\definecolor{third-color}{HTML}{ACDDE7}
+
+\definecolor{gray-color}{HTML}{D0D0D0}
+
+\DeclareRobustCommand{\dochl}[1]{{\sethlcolor{sec-color}\hl{#1}}}
+
+% ------------------------ FONTS
+
+\setmainfont{AvenirNextCyr}[
+    Path=fonts/avenir/,
+    Extension = .ttf,
+    UprightFont=*-Regular,
+    BoldFont=*-Demi,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-DemiItalic
+]
+
+\urlstyle{same}
+
+\newfontfamily{\emphfont}{Canela}[
+    Path=fonts/canela/,
+    Extension = .ttf,
+    UprightFont=*-Regular,
+    BoldFont=*-Bold,
+    ItalicFont=*-RegularItalic,
+    BoldItalicFont=*-BoldItalic
+]
+
+\setmathfont{Libertinus Math}
+
+% ------------------------ TITLE STYLE
+
+\setcounter{secnumdepth}{3}
+
+\titleformat{\section}
+  {\emphfont\LARGE\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}
+  {\emphfont\Large\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}
+  {\emphfont\large\bfseries}{\thesubsubsection.}{0.5em}{}
+  
+\titlespacing*{\section}{0pt}{\baselineskip}{0.3em}
+\titlespacing*{\subsection}{0pt}{0.5em}{0.3em}
+\titlespacing*{\subsubsection}{0pt}{0.3em}{0em}
+
+\renewcommand{\cfttoctitlefont}{\LARGE\bfseries\emphfont}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\newcommand\mydot[1]{\scalebox{#1}{.}}
+\renewcommand\cftdot{{\color{main-color}\mydot{2}}}
+
+%\renewcommand{\cftsecindent}{0em}
+%\renewcommand{\cftsubsecindent}{0em}
+%\renewcommand{\cftsubsubsecindent}{0em}
+%\renewcommand{\cftsecafterpnum}{\hspace*{0em}}
+%\renewcommand{\cftsubsecafterpnum}{\hspace*{0em}}
+%\renewcommand{\cftsubsubsecafterpnum}{\hspace*{0em}}
+\addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+\newcommand{\toc}{\vskip -2em \tableofcontents}
+  
+% ------------------------ TABLES
+
+\setlength\arrayrulewidth{1pt}
+\arrayrulecolor{main-color}
+
+% ------------------------ FIELDS
+
+\newenvironment{paraphrase}{{\bf \Large TO PARAPHRASE::}}{}
+\surroundwithmdframed[
+    hidealllines=true,
+    backgroundcolor=third-color,
+    roundcorner=10pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+    innertopmargin=15pt,
+    innerbottommargin=15pt,
+    skipabove=1em,
+    skipbelow=0em
+]{paraphrase}
+
+\newenvironment{notes}{{\bf \Large NOTES::}}{}
+\surroundwithmdframed[
+    hidealllines=true,
+    backgroundcolor=third-color,
+    roundcorner=10pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+    innertopmargin=15pt,
+    innerbottommargin=15pt,
+    skipabove=1em,
+    skipbelow=0em
+]{notes}
+
+\newcommand{\todo}[1]{
+    \begin{tikzpicture}
+    \begin{scope}
+        \node[draw=sec-color, fill=sec-color, rounded corners=0.3cm] (1) {%
+        \begin{varwidth}{\textwidth}
+            {\bf \large TODO::} {\normalsize #1}
+        \end{varwidth}
+        };
+    \end{scope}
+\end{tikzpicture}
+}
+
+\newcommand{\bgcolorsmalltext}[3]{
+    \begin{tikzpicture}
+    \begin{scope}
+        \node[draw=#1, fill=#1, rounded corners=0.3cm] (1) {%
+        \begin{varwidth}{\textwidth}
+            {\footnotesize \textcolor{#2}{#3}}
+        \end{varwidth}
+        };
+    \end{scope}
+\end{tikzpicture}
+}
+
+% ------------------------ IMAGES
+
+% save the meaning of \includegraphics
+\LetLtxMacro\latexincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+    \begin{tikzpicture}
+        
+        \begin{scope}
+            \node[anchor=south west,inner sep=0] at (0,0) {\latexincludegraphics[#1]{#2}};
+        \end{scope}
+        
+        \begin{scope}
+            \clip
+                (current bounding box.north west) -- 
+                (current bounding box.north east) --
+                (current bounding box.south east) --
+                (current bounding box.south west) -- cycle
+            [rounded corners=0.2cm]
+                (current bounding box.north west) -- 
+                (current bounding box.south west) -- 
+                (current bounding box.south east) --
+                (current bounding box.north east) -- cycle;
+            \fill[white]
+                (current bounding box.north west) -- 
+                (current bounding box.north east) --
+                (current bounding box.south east) --
+                (current bounding box.south west) -- cycle;
+        \end{scope}
+
+    \end{tikzpicture}
+}
+
+% ------------------------ OTHER
+
+\pgfplotsset{compat=1.18} 
+
+\setlength\parskip{.5em}
+\setlength{\parindent}{0pt}
+
+\sloppy
+
+\makeatother
+

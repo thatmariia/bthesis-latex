@@ -1,0 +1,27 @@
+\subsection{Luminance stimulus construction}
+
+The composition of the stimulus is a rather involved process, which can be separated in the following simpler steps:
+\begin{enumerate}
+    \item construction of the Gabor annulus with maximal contrast; \\
+    First, a single annulus with maximal contrast is generated. To do this, we first compute the distance from the annulus center at every pixel. The pixels where this distance is smaller than the given radius of the annulus are assigned the corresponding luminance of the Gabor grating; others are assigned the designated void value. For more details, see Section \ref{sec:annulus-composition}.
+    
+    \item determining the position and coordinates of the figure in the stimulus; \\
+    We start by selecting a random position of the figure within the stimulus given the figure size and its distance from the center of the stimulus. From there, the center of the figure, its coordinates, and the luminance matrix are computed. For more details, see Section \ref{sec:figure-composition}.
+    
+    \item positioning of the copies of the Gabor annulus in the stimulus; \\
+    At this step, we first determine the distance between the neighboring annuli in the grid, which is equal to the number of pixels allocated to each annulus and void around it. Then, the number of annuli in each grid row and column is determined. Finally, the set of all annuli's coordinates is computed. For more details, see Section \ref{sec:annuli-locations}.
+    
+    \item assigning random contrasts to the different stimulus areas (figure, ground, void) depending on their location; \\
+    First, the stimulus is initialized with the void luminance. Then, the annuli with relevant contrasts are added to the matrix at locations determined in the previous step. If annulus is located in the figure, its contrast is selected randomly from a small range of values, otherwise, from the larger range. For more details, see Section \ref{sec:luminance-assignment}.
+    
+    \item selecting a patch from the figure for further processing. For more details, see Section \ref{sec:patch-selection}.
+\end{enumerate}
+
+The result of completing the aforementioned steps includes a stimulus luminance matrix and a figure patch, examples of which are displayed in Figure \ref{fig:full-stimulus-example} and Figure \ref{fig:stim-patch-example}, respectively.
+
+\input{src/sections/stimulus/luminance-stimulus/parameters}
+\input{src/sections/stimulus/luminance-stimulus/annulus-composition}
+\input{src/sections/stimulus/luminance-stimulus/figure-composition}
+\input{src/sections/stimulus/luminance-stimulus/annuli-locations}
+\input{src/sections/stimulus/luminance-stimulus/luminance-assignment}
+\input{src/sections/stimulus/luminance-stimulus/patch-selection}

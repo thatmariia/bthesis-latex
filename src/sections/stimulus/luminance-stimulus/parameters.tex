@@ -1,0 +1,80 @@
+\subsubsection{Input parameters}
+\label{sec:stimulus-parameters}
+
+For the construction of an annulus, the following parameters are given:
+\begin{itemize}
+    \item $\spatfreq \in \mathbb{R}_+$ - the spatial frequency in cycles per degree;
+    
+    \item $\vlum \in [0, 1]$ - the void luminance value;
+    
+    \item $\diamdg \in \mathbb{R}_+$ - the diameter of a single annulus in visual degrees;
+    
+    \item $\diam \in \mathbb{N}$ - the diameter of a single annulus in pixels.
+\end{itemize}
+Since the mapping of the physical space (degrees) to pixel values in isomorphic, a conversion coefficient $\atopix \in \mathbb{R}_+$ between the two can be defined as follows:
+\begin{equation}
+    \atopix = \frac{\diam}{\diamdg}.
+\end{equation}
+
+The parameters relevant for the full stimulus are
+\begin{itemize}
+    \item $\anndistscale \in [1, \infty)$ - the scalar that represents the distance scale between neighboring annuli (the minimum possible value is $1$ to ensure the annuli do not overlap);
+    
+    \item $\fullwidthdg \in [\diam, \infty)$ - the width of the stimulus in visual degrees; in pixels, the width is
+    $
+        \fullwidth = \ceil{\atopix \cdot \fullwidthdg};
+    $
+    
+    \item $\fullheightdg \in [\diam, \infty)$ - the height of the stimulus in visual degrees; in pixels, the height is
+    $
+        \fullheight = \ceil{\atopix \cdot \fullheightdg};
+    $
+\end{itemize}
+
+The parameters relevant for the figure are
+\begin{itemize}
+
+    \item $\contrange \in (0, 1]$ - the range of annuli contrasts in the figure;
+    
+    \item $\figwidthdg \in (0, \frac{1}{2} \fullwidthdg]$ - the width of the figure in visual degrees (must fit in the bottom right quadrant of the stimulus); in pixels, the width is
+    $
+        \figwidth = \ceil{\atopix \cdot \figwidthdg};
+    $
+    
+    \item $\figheightdg \in (0, \frac{1}{2} \fullheightdg]$ - the height of the figure in visual degrees; in pixels, the width is
+    $
+        \figheight = \ceil{\atopix \cdot \figheightdg};
+    $
+    
+    \item $\figeccdg \in [\figdiag, \| (\frac{1}{2} \fullwidthdg, \frac{1}{2} \fullheightdg)\| - \figdiag]$, where
+    \begin{equation*}
+        \figdiag = \left\| 
+            \left(
+                \frac{1}{2} \figwidthdg, 
+                \frac{1}{2} \figheightdg 
+            \right)
+        \right\|,
+    \end{equation*}
+    - the distance between the center of the stimulus and the center of the figure in visual degrees; in pixels, this distance is
+    $
+        \figecc = \ceil{\atopix \cdot \figeccdg}.
+    $
+\end{itemize}
+
+Finally, the parameter for the stimulus patch is
+\begin{itemize}
+    \item $\patchsizedg \in (0, \min(\figwidthdg, \figheightdg)]$ - the side length of the stimulus patch in visual degrees; in pixels, the length is
+    $
+        \patchsize = \ceil{\atopix \cdot \patchsizedg}.
+    $
+    Additionally, for further processing, $(n | \patchsize)$ must hold.
+\end{itemize}
+
+The parameters' values used for composing the stimuli are displayed in Table \ref{tab:stimulus-composition-params}.
+
+\begin{table}[!htp]
+    \centering
+    \input{assets/tables/stimulus-composition-params}
+    \caption{The values of the parameters used to generate texture stimuli.}
+    \label{tab:stimulus-composition-params}
+\end{table}

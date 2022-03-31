@@ -1,15 +1,12 @@
 \subsection{Neural dynamics}
 \label{sec:neural-dynamics}
 
-A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. Every neuron in a PING network is a dynamical system that can be described with a two-dimensional system of ordinary differential equations. 
-
-The set of neurons can be separated in the following way: $V = \{ V_{\ex}, V_{\inh}\}$, where $V_{\ex}$ is a set of excitatory neurons, and $V_{\inh}$ - a set of inhibitory neurons, such that $V_{\ex} \cap V_{\inh} = \emptyset$.
-Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mapping a neuron to its type: $\ex$ corresponds to excitatory, and $\inh$ - to inhibitory neurons. Then, for all $v \in V$,
+A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is biologically plausible enough to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. There, every neuron is a dynamical system that can be described with a two-dimensional system of ordinary differential equations: for all $v \in V$,
 \begin{align}
     \frac{dp_v}{dt} =\ & 0.04 p_v^2 + 5p_v + 140 - r_v + I_v,
     \label{eq:Izhikevich-model-dv-dt} \\
     \frac{dr_v}{dt} =\ & \alpha_{\type(v)} \cdot (\beta_{\type(v)} p_v - r_v), \label{eq:Izhikevich-model-dr-dt} \\
-    \text{if } p_v \geq\ & 30 \text{ mV, then } 
+    \text{if } p_v \geq\ & p_{\thres} \text{, then } 
     \begin{cases}
         p_v \leftarrow \gamma_{\type(v)} \\
         r_v \leftarrow r_v + \zeta_{\type(v)}
@@ -18,28 +15,62 @@ Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mappi
 \end{align}
 where
 \begin{itemize}
+    \item $p_\thres$ is the threshold membrane potential ($= 30$ mV);
+    
     \item $p$ represents the membrane potential of the neuron; 
     
-    \item $r$ represents a membrane recovery variable; provides negative feedback to $p$;
+    \item $r$ represents a membrane recovery variable, which dramatically increases after spikes; it provides negative feedback that suppresses the increase of $p$ and reduces the fluctuations in the output;
     
-    \item $\alpha$ describes the timescale of $r$;
+    \item $\alpha$ describes the timescale of $r$, it is proportional to the recovery speed;
     
-    \item $\beta$ describes the sensitivity of $r$ to the subthreshold fluctuations of $p$;
+    \item $\beta$ describes the sensitivity of $r$ to the subthreshold fluctuations of the membrane potential $p$: greater values of $\beta$ lead to stronger coupling between $p$ and $r$, resulting in more possible subthreshold oscillations;
     
     \item $\gamma$ describes the after-spike reset value of $p$;
     
-    \item $\zeta$ describes the after-spike reset of $r$;
+    \item $\zeta$ describes the after-spike reset value of $r$;
     
     \item $I$ describes the current.
 \end{itemize}
-The parameters $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. The parameters' values for regular spiking (RS) and fast spiking (FS) neurons used in this thesis are displayed in Table \ref{tab:params-izhikevich-model}. The constants in Equation (\ref{eq:Izhikevich-model-dv-dt}) have been obtained by fitting the spike initiation of neural dynamics in such a way that $p$ has a scale of \textit{mV}, and $t$ - a scale of \textit{ms}.
+The constants in Equation (\ref{eq:Izhikevich-model-dv-dt}) have been obtained by fitting the spike initiation of neural dynamics in such a way that $p$ has a scale of \textit{mV}, and $t$ - a scale of \textit{ms}.
+The effects the parameters $\alpha, \beta, \gamma, \zeta$ have on membrane potential and recovery are visualized in Figure \ref{fig:neural-dynamics}.
+
+\begin{figure}
+    \centering
+    \input{src/assets/tikz-images/neural-dynamics-annot}
+    \caption{Effects of parameters on neural dynamics in the Izhikevich model. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
+    \label{fig:neural-dynamics}
+\end{figure}
+
+The parameters $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. The parameters' values for regular spiking (RS) excitatory and fast spiking (FS) inhibitory neurons used in this thesis are displayed in Table \ref{tab:params-izhikevich-model}. When a stimulus is applied, RS neurons typically first fire with a short interspike period, which later increases (see Figure \ref{fig:neuron-types-rs}). Thus, this neuron type corresponds to the large value of $\zeta$, which causes an after-spike jump in $r$. FS neurons produce periodic spikes with high frequency, hence the extremely low value of $\alpha$, which allows for fast recovery (see Figure \ref{fig:neuron-types-fs}).
 
 \begin{table}[!htp] 
     \centering
     \input{assets/tables/params-izhikevich-model}
-    \caption{Parameters of the Izhikevich model for regular and fast spiking neurons.}
+    \caption{Parameters of the Izhikevich model for regular and fast spiking neurons \cite{Izhikevich2003}.}
 \label{tab:params-izhikevich-model}
 \end{table}
+
+\begin{figure}[!htp]
+\hspace*{-1.5cm} 
+    \centering
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \input{src/assets/tikz-images/neuron-types/RS-annot}
+        \caption{{Regular spiking (RS).}}
+        \label{fig:neuron-types-rs}
+    \end{subfigure}
+    \hspace{0.1\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \input{src/assets/tikz-images/neuron-types/FS-annot}
+        \caption{Fast spiking (FS).}
+        \label{fig:neuron-types-fs}
+    \end{subfigure}
+    \caption{Spiking behavior of neurons regular and fast spiking neurons in the Izhikevich model. Each horizontal bar represents 20 ms of simulation. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
+    \label{fig:neuron-types}
+\end{figure}
+
+\paragraph{Current composition}
 
 In the network, neurons are not isolated, and the current ($I_v$) in Equation (\ref{eq:Izhikevich-model-dv-dt}) involves the accumulated effect of interactions with other neurons. Hence, the equation must include the input current ($I_{\stim}$) as well as the coupling weights between the neurons ($K$), and the effects of synaptic potentials GABA-A (inhibitory) and AMPA (excitatory; $I_{\syn}$):
 \begin{gather}

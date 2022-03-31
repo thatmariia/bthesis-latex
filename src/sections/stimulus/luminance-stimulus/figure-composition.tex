@@ -1,0 +1,55 @@
+\subsubsection{Figure composition}
+\label{sec:figure-composition}
+
+Let $\fullmatrix \in [0, 1]^{\fullwidth \times \fullheight}$ be the matrix allocated for the stimulus' luminance values.
+Let $\figmatrix \in [0, 1]^{\figwidth \times \figheight}$ be the submatrix of the full stimulus $\fullmatrix$ that comprises a figure. The figure is located at the pixel distance $\figecc$ from the stimulus center at a random angle $\figangle$ to the horizontal axis. Since the figure is located in the bottom right quadrant,
+\begin{equation}
+\begin{gathered}
+    \figangle \sim U (\figanglemin, \ \figanglemax), \\
+    \begin{aligned}
+        \figanglemin &=
+        \begin{cases}
+            \cos^{-1} \left(
+                \frac{\fullwidth - \figwidth}{2 \cdot \figecc}
+            \right)
+            &\text{ if } \figecc > \frac{\fullwidth - \figwidth}{2} \\
+            \sin^{-1} \left( 
+                \frac{\figheight}{2 \cdot \figecc}
+            \right)
+            &\text{ otherwise}
+        \end{cases}, \\
+        \figanglemax &= \frac{\pi}{2} - 
+        \begin{cases}
+            \cos^{-1} \left(
+                \frac{\fullheight - \figheight}{2 \cdot \figecc}
+            \right)
+            &\text{ if } \figecc > \frac{\fullheight - \figheight}{2} \\
+            \sin^{-1} \left( 
+                \frac{\figwidth}{2 \cdot \figecc}
+            \right)
+            &\text{ otherwise}
+        \end{cases}.
+    \end{aligned}
+\end{gathered}
+\end{equation}
+Now, we can locate the center of the figure $\figcenter \in \mathbb{R}_+^2$:
+\begin{equation}
+    \figcenter = \left(
+        \frac{1}{2} \fullwidth + \figecc \cdot \cos(\figangle), \
+        \frac{1}{2} \fullheight + \figecc \cdot \sin(\figangle)
+    \right).
+\end{equation}
+Now, the figure $\figmatrix$ can be defined as
+\begin{equation}
+\begin{gathered}
+    \figmatrix = 
+    \begin{pmatrix}
+        \fullmatrix_{\figstart} & & \\
+         & \ddots & \\
+         & &  \fullmatrix_{\figfinish},
+    \end{pmatrix}, \\
+    \figstart = (\ceil{\figcenter - \frac{1}{2} (\figheight, \figwidth)}), \; 
+    \figfinish = \figstart + (\figheight, \figwidth),
+\end{gathered}
+\end{equation}
+where $\figstart, \figfinish \in \mathbb{N}$ are the top left and bottom right coordinates of the figure, respectively.

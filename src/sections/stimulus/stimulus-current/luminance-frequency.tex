@@ -1,6 +1,31 @@
 \subsubsection{Luminance and frequency}
 
-To transform the stimulus patch $L$ to the patch of PING networks in V1, we apply the lattice of size $n \times n$, such that each oscillatory network contains a field of $m \times m$ pixels. An example of the resulting lattice is displayed in Figure \ref{fig:patch-lattice-example}.
+\todo{update variable names}
+
+To transform the stimulus patch $L$ to the patch of PING networks in V1, we apply the lattice of size $n \times n$, such that each oscillatory network contains a field of $m \times m$ pixels. An example of the resulting lattice is displayed in Figure \ref{fig:llc-lattice-example}.
+
+
+
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \input{src/assets/tikz-images/stimulus-patch-lattice}
+        \caption{A $12 \times 12$ lattice applied to a patch.}
+        \label{fig:llc-lattice-example}
+    \end{subfigure}
+    \hspace{0.06\textwidth}
+    \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{src/assets/images/local-contrast.png}
+        \caption{Local contrasts of the patch in Figure \ref{fig:llc-lattice-example}.}
+        \label{fig:llc-local-contrast-example}
+    \end{subfigure}
+    \caption{The lattice of a patch and its vertices' local contrasts. The parameters with which the patch was generated: $\diam = 53, \anndistscale = 1.6, \contrange = 1, \figeccdg = 11^\circ, \patchsizedg = 3^\circ$; the rest of the parameters are equal to the ones used in Figure \ref{fig:full-stimulus-example}.}
+    \label{fig:lattice-local-contrast-example}
+\end{figure}
+
+
 
 
 Let $V_\ping$ be the set containing the PING networks. Let $\pix: V_\ping \to (\mathbb{N}_0)^{2 \times m^2}$ be a function mapping a network to the set of all $m^2$ pixel coordinates it contains.

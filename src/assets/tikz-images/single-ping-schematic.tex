@@ -1,0 +1,58 @@
+\newcommand{\spexy}{1.5}
+
+
+\newcommand{\spiny}{0}
+\newcommand{\spidx}{-1.5}
+\newcommand{\splx}{1.5}
+\newcommand{\spltx}{2}
+
+\begin{tikzpicture}[
+    arr/.style = { -{Stealth[ ]} },
+    cnodeex/.style = {circle,thick,fill=main-color},
+    cnodeex2/.style = {circle,very thick,draw=main-color, fill=main-color, fill opacity=0.2},
+    cnodein/.style = {circle,thick,fill=sec-color},
+    cnodein2/.style = {circle,very thick,draw=sec-color,fill=sec-color, fill opacity=0.2},
+    inarrow/.style = {arr, draw=sec-color, fill=sec-color, ultra thick},
+    exarrow/.style = {arr, draw=main-color, fill=sec-color, ultra thick},
+    idl/.style = {draw=third-color, fill=sec-color, ultra thick},
+]
+    
+    \begin{scope}
+        % ex
+        \node[cnodeex] (ex) at (0, \spexy) {};
+        \node[cnodeex2, shift={(-0.25, 0.2)}] at (0, \spexy) {};
+        \node[cnodeex2, shift={(0.2, 0.25)}] at (0, \spexy) {};
+        
+        % in
+        \node[cnodein] (in) at (0, \spiny) {};
+        \node[cnodein2, shift={(0.1, -0.2)}] (in1) at (0, \spiny) {};
+        
+        % arows
+        \path[inarrow, shift={(-0.1, 0)}] (in) edge[bend left=15] node {} (ex);
+        \path[exarrow, shift={(0.1, 0)}] (ex) edge[bend left=15] node {} (in);
+        
+        % input drive
+        \node[rotate=90] at (\spidx - 0.4, 0.5 * \spexy)  {{\small input drive}};
+        \draw[idl] (\spidx, \spiny) -- (\spidx, \spexy);
+        \draw[arr, idl] (\spidx, \spiny) -- (-0.9, \spiny);
+        \draw[arr, idl] (\spidx, \spexy) -- (-0.9, \spexy);
+    \end{scope}
+    
+    \begin{scope}
+        % ex cells
+        \node[cnodeex, anchor=west] at (\splx, \spexy - 0 * \spexy) {};
+        \node[anchor=west] at (\spltx, \spexy - 0 * \spexy) {ex cells};
+        
+        % in cells
+        \node[cnodein, anchor=west] at (\splx, \spexy - 0.33 * \spexy) {};
+        \node[anchor=west] at (\spltx, \spexy - 0.33 * \spexy) {in cells};
+        
+        % ex
+        \draw[exarrow] (\splx, \spexy - 0.67 * \spexy) -- (\spltx, \spexy - 0.67 * \spexy);
+        \node[anchor=west] at (\spltx, \spexy - 0.67 * \spexy) {excitation (AMPA)};
+        
+        % in
+        \draw[inarrow] (\splx, \spexy - 1 * \spexy) -- (\spltx, \spexy - 1 * \spexy);
+        \node[anchor=west] at (\spltx, \spexy - 1 * \spexy) {inhibition (GABA)};
+    \end{scope}
+\end{tikzpicture}

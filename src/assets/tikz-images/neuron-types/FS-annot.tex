@@ -1,0 +1,16 @@
+% ----- INPUT
+\newcommand{\fsimagew}{\textwidth}
+\newcommand{\fsimageh}{0.833 * \fsimagew}
+
+\begin{tikzpicture}
+    
+    \begin{scope}
+        \node[] (It) at (-0.5, 0) {$I(t)$};
+        \node[] (pt) at (-0.5, 0.22 * \fsimageh) {$p(t)$};
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\fsimagew]{src/assets/images/neuron-types/neuron-types_FS.png}};
+    \end{scope}
+        
+\end{tikzpicture}

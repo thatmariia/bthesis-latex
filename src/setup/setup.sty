@@ -1,11 +1,7 @@
 % ------------------------ MATH
 
-\newcommand{\cost}{\mathsf{cost}}
-\newcommand{\type}{\mathsf{type}}
-\newcommand{\loc}{\mathsf{loc}}
-\newcommand{\res}{\mathsf{res}}
-\newcommand{\unirand}{\mathsf{unirand}}
-\newcommand{\view}{\mathsf{view}}
+% conversion to current
+
 \newcommand{\ecc}{\mathsf{ecc}}
 \newcommand{\centr}{\mathsf{center}}
 \newcommand{\LC}{\mathsf{LC}}
@@ -15,22 +11,77 @@
 \newcommand{\diamRF}{\mathsf{diamRF}}
 \newcommand{\fwhm}{\mathsf{fwhm}}
 \newcommand{\pix}{\mathsf{pix}}
-\newcommand{\reps}{\mathsf{reps}}
 \newcommand{\annulus}{\mathsf{annulus}}
-\newcommand{\atopix}{\mathsf{atopix}}
-\newcommand{\vlum}{\mathsf{vlum}}
-\newcommand{\nrann}{\mathsf{nrann}}
 
-\newcommand{\full}{\mathrm{full}}
+% neural dynamics
+
+\newcommand{\type}{\mathsf{type}}
+\newcommand{\loc}{\mathsf{loc}}
+\newcommand{\cost}{\mathsf{cost}}
 \newcommand{\stim}{\mathrm{stim}}
 \newcommand{\ping}{\mathrm{ping}}
 \newcommand{\syn}{\mathrm{syn}}
 \newcommand{\inh}{\mathrm{in}}
 \newcommand{\ex}{\mathrm{ex}}
-\newcommand{\foreground}{\mathrm{foreground}}
-\newcommand{\background}{\mathrm{background}}
+\newcommand{\thres}{\mathrm{thres}}
 
-\newcommand{\fancyA}{\mathcal{A}}
+% stimulus parameters
+
+\newcommand{\spatfreq}{\Omega}
+\newcommand{\vlum}{\epsilon}
+\newcommand{\diam}{d}
+\newcommand{\diamdg}{\measuredangle d}
+\newcommand{\contrange}{\eta}
+\newcommand{\figwidthdg}{\measuredangle w_F}
+\newcommand{\figwidth}{{w_F}}
+\newcommand{\figheightdg}{\measuredangle h_F}
+\newcommand{\figheight}{{h_F}}
+\newcommand{\figeccdg}{\measuredangle \ecc_F}
+\newcommand{\figecc}{\ecc_F}
+\newcommand{\anndistscale}{k}
+\newcommand{\fullwidthdg}{\measuredangle w_L}
+\newcommand{\fullwidth}{w_L}
+\newcommand{\fullheightdg}{\measuredangle h_L}
+\newcommand{\fullheight}{h_L}
+\newcommand{\patchsizedg}{\measuredangle \ell}
+\newcommand{\patchsize}{\ell}
+
+\newcommand{\atopix}{\mathsf{atopix}}
+\newcommand{\figdiag}{\mathsf{diag}_F}
+
+% - annulus composition
+\newcommand{\annmatrix}{\Gamma}
+\newcommand{\annradii}{R}
+
+% - figure composition
+\newcommand{\fullmatrix}{L}
+\newcommand{\figmatrix}{F}
+\newcommand{\figangle}{\theta}
+\newcommand{\figanglemin}{\theta_{\min}}
+\newcommand{\figanglemax}{\theta_{\max}}
+\newcommand{\figcenter}{\figmatrix_O}
+\newcommand{\figstart}{\odot_F}
+\newcommand{\figfinish}{\otimes_F}
+
+% - positioning annuli
+\newcommand{\anndist}{\delta}
+\newcommand{\repsinrow}{w_{\#}}
+\newcommand{\repsincol}{h_{\#}}
+\newcommand{\annuliset}{\mathcal{A}}
+\newcommand{\annstart}{\odot}
+\newcommand{\annfinish}{\otimes}
+
+% - luminance assignment
+\newcommand{\view}{\mathsf{view}}
+\newcommand{\fig}{\mathrm{figure}}
+\newcommand{\ground}{\mathrm{ground}}
+\newcommand{\annstimmatrix}{A}
+\newcommand{\unirand}{\mathsf{unirand}}
+
+% - patch selection
+\newcommand{\patchmatrix}{\Delta L}
+
+% general stuff
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}

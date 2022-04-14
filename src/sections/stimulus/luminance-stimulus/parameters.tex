@@ -1,6 +1,11 @@
 \subsubsection{Input parameters}
 \label{sec:stimulus-parameters}
 
+The appearance of the stimulus depends on many input parameters.
+The reader may omit this section as the parameters are explained as they appear in the text. The summary list below is presented for convenience.
+
+All spatial parameters are given in visual degrees: $1^\circ$ is equivalent to $1$ cm when the distance between the visual field and an eye is $37.5$ cm. For one such parameter (annulus diameter), the input is provided in pixels, too, allowing for scaling other parameters. The values given in visual degrees are further referred to as physical, and the pixel values - naturally, as pixel.
+
 For the construction of an annulus, the following parameters are given:
 \begin{itemize}
     \item $\spatfreq \in \mathbb{R}_+$ - the spatial frequency in cycles per degree;
@@ -47,14 +52,15 @@ The parameters relevant for the figure are
     $
     
     \item $\figeccdg \in [\figdiag, \| (\frac{1}{2} \fullwidthdg, \frac{1}{2} \fullheightdg)\| - \figdiag]$, where
-    \begin{equation*}
+    \begin{equation}
         \figdiag = \left\| 
             \left(
                 \frac{1}{2} \figwidthdg, 
                 \frac{1}{2} \figheightdg 
             \right)
         \right\|,
-    \end{equation*}
+        \label{eq:figdiag}
+    \end{equation}
     - the distance between the center of the stimulus and the center of the figure in visual degrees; in pixels, this distance is
     $
         \figecc = \ceil{\atopix \cdot \figeccdg}.
@@ -75,6 +81,6 @@ The parameters' values used for composing the stimuli are displayed in Table \re
 \begin{table}[!htp]
     \centering
     \input{assets/tables/stimulus-composition-params}
-    \caption{The values of the parameters used to generate texture stimuli.}
+    \caption[Stimuli parameters]{The values of the parameters used to generate texture stimuli.}
     \label{tab:stimulus-composition-params}
 \end{table}

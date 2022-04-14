@@ -1,9 +1,15 @@
 \section{External stimuli}
 \label{sec:external-stimuli}
 
-The external stimulus represents a rectangular grid of non-overlapping equispaced grating annuli - circular Gabor wavelets \cite{MaryamPLACEHOLDER}. The luminance of the stimuli varies between $0$ (black) and $1$ (white). All annuli have equal diameters but vary in contrast. The grid includes a figure - a rectangular subgrid in the bottom right quadrant of the stimulus, where all annuli share similar contrasts, and a background that constitutes the rest of the grid. There, annuli vary in contrast significantly. The contrast of every annulus is selected at random, depending on the location of the annulus. All areas in the stimulus uncovered by annuli (void) share the same luminance. A square-shaped patch of the stimulus' figure is selected for further analysis.
+The external stimulus represents a rectangular grid of non-overlapping equispaced grating annuli - circular Gabor wavelets \cite{MaryamPLACEHOLDER}. The luminance of the stimuli varies between $0$ (black) and $1$ (white), as shown in Figure \ref{fig:full-stimulus-example}. All annuli have equal diameters but vary in contrast. The grid includes a \stimfig{}\footnote{Because of the polysemous nature of the word \say{figure}, it is written in italics when refers to the stimulus \stimfig.} - a rectangular subgrid in the bottom right quadrant of the stimulus, where all annuli share similar contrasts, and a background that constitutes the rest of the grid. There, annuli vary in contrast significantly. The contrast of every annulus is selected at random, depending on the location of the annulus. All areas in the stimulus uncovered by annuli (void) share the same luminance. A square-shaped patch of the stimulus' \stimfig{} is selected for further analysis.
 
+\begin{figure}[!htp]
+    \centering
+    \input{assets/tikz-images/full-stimulus-annot}
+    \caption[Full stimulus annotated]{An example of the full stimulus with parameters $ \spatfreq = 5.7 \text{ cycles}/\circ, \vlum = 0.5, \diamdg = 0.7^\circ, \diam = 48, \anndistscale = 1, \fullwidthdg = 33.87^\circ, \fullheightdg = 27.09^\circ, \contrange = 0.01, \figwidthdg = 5^\circ, \figheightdg = 9^\circ, \figeccdg = 11^\circ, \patchsizedg = 4.9^\circ$.}
+    \label{fig:full-stimulus-example}
+\end{figure}
 
-\input{src/sections/stimulus/experimental-setup}
 \input{src/sections/stimulus/luminance-stimulus/all}
 \input{sections/stimulus/stimulus-current/all}
+\input{src/sections/stimulus/experimental-setup}

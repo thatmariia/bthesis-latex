@@ -1,11 +1,9 @@
 \subsubsection{Figure composition}
 \label{sec:figure-composition}
 
-Let $\fullmatrix \in [0, 1]^{\fullwidth \times \fullheight}$ be the matrix allocated for the stimulus' luminance values.
-Let $\figmatrix \in [0, 1]^{\figwidth \times \figheight}$ be the submatrix of the full stimulus $\fullmatrix$ that comprises a figure. The figure is located at the pixel distance $\figecc$ from the stimulus center at a random angle $\figangle$ to the horizontal axis. Since the figure is located in the bottom right quadrant,
+Let $\fullmatrix \in [0, 1]^{\fullwidth \times \fullheight}$ be the matrix allocated for the stimulus' luminance values, where $\fullwidth, \fullheight \in [\diam, \infty)$ represent the stimulus width and height, respectively.
+Let $\figwidth \in (0, \frac{1}{2} \fullwidthdg]$ be the \stimfig{} width, and $\figheight \in (0, \frac{1}{2} \fullheightdg]$ - its height. The \stimfig{} comprises a submatrix of the full stimulus $\fullmatrix$. The \stimfig{} is located at the pixel distance $\figecc$ from the stimulus center, as defined in Equation (\ref{eq:figdiag}), at an angle $\figangle \sim U(\figanglemin, \figanglemax)$ to the horizontal axis. Since the \stimfig{} is located in the bottom right quadrant,
 \begin{equation}
-\begin{gathered}
-    \figangle \sim U (\figanglemin, \ \figanglemax), \\
     \begin{aligned}
         \figanglemin &=
         \begin{cases}
@@ -30,26 +28,20 @@ Let $\figmatrix \in [0, 1]^{\figwidth \times \figheight}$ be the submatrix of th
             &\text{ otherwise}
         \end{cases}.
     \end{aligned}
-\end{gathered}
 \end{equation}
-Now, we can locate the center of the figure $\figcenter \in \mathbb{R}_+^2$:
+Now, we can locate the center of the \stimfig{} $\figcenter \in \mathbb{R}_+^2$:
 \begin{equation}
     \figcenter = \left(
         \frac{1}{2} \fullwidth + \figecc \cdot \cos(\figangle), \
         \frac{1}{2} \fullheight + \figecc \cdot \sin(\figangle)
     \right).
 \end{equation}
-Now, the figure $\figmatrix$ can be defined as
-\begin{equation}
-\begin{gathered}
-    \figmatrix = 
-    \begin{pmatrix}
-        \fullmatrix_{\figstart} & & \\
-         & \ddots & \\
-         & &  \fullmatrix_{\figfinish},
-    \end{pmatrix}, \\
-    \figstart = (\ceil{\figcenter - \frac{1}{2} (\figheight, \figwidth)}), \; 
-    \figfinish = \figstart + (\figheight, \figwidth),
-\end{gathered}
-\end{equation}
-where $\figstart, \figfinish \in \mathbb{N}$ are the top left and bottom right coordinates of the figure, respectively.
+The center of the \stimfig{} need not be integer as it is only used for determining the \stimfig{}'s top left ($\figstart \in \mathbb{N}^2$) and bottom right ($\figfinish \in \mathbb{N}^2$) coordinates:
+\begin{align}
+\begin{split}
+    \figstart &= \ceil{\figcenter - \frac{1}{2} (\figheight, \figwidth)}, \\
+    \figfinish &= \figstart + (\figheight, \figwidth),
+\end{split}
+\label{eq:figure-location}
+\end{align}
+The ceiling function in Equation (\ref{eq:figure-location}) is applied element-wise.

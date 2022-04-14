@@ -3,39 +3,28 @@
 
 The distance between the centers of neighboring annuli is
 \begin{equation}
-    \anndist = \ceil{\anndistscale \cdot \diam}.
+    \anndist = \ceil{\anndistscale \cdot \diam},
 \end{equation}
+where $k \in [1, \infty)$ is the distance between annuli in number of diameters.
 The variable $\anndist \in \mathbb{N}$ then also indicates the number of pixels allocated to each annulus and void around it. Consequently, we can determine the number of annuli that are (partially) located in each row $\repsinrow \in \mathbb{N}$ and column $\repsincol \in \mathbb{N}$ of the stimulus:
 \begin{equation}
     \repsinrow = \ceil{\frac{\fullwidth}{\anndist}}, \;
     \repsincol = \ceil{\frac{\fullheight}{\anndist}}. 
 \end{equation}
 
-Let $\annuliset$ be the set containing all matrices associated with annuli in $\fullmatrix$. Then, $|\annuliset| = \repsinrow \cdot \repsincol$, and
+Let $\annuliset$ be the set containing the top left coordinates of all stimulus' annuli:
 \begin{equation}
 \begin{gathered}
-    \annuliset \coloneqq \bigcup_{i = 0}^{\repsinrow - 1} \bigcup_{j = 0}^{\repsincol - 1}
-    \begin{pmatrix}
-        \fullmatrix_{\annstart_{\annuliset_{i, j}}} & & \\
-         & \ddots & \\
-         & & \fullmatrix_{\annfinish_{\annuliset_{i, j}}}
-    \end{pmatrix}, \\
-    \begin{aligned}
-    \annstart_{\annuliset_{i, j}} &= \left( 
+    \annuliset  \coloneqq \bigcup_{i = 0}^{\repsinrow - 1} \bigcup_{i = 0}^{\repsincol - 1}
+    \annstart_{i, j}, \\
+    \annstart_{i, j} = \left( 
         i \cdot \anndist + \floor{ \frac{1}{2} (\anndist - \diam) }, \ 
         j \cdot \anndist + \floor{ \frac{1}{2} (\anndist - \diam) }
-    \right), \\
-    \annfinish_{\annuliset_{i, j}} &=
-    \min(
-        \annstart_{\annuliset_{i, j}} + (d, d), \ 
-        (\fullwidth, \fullheight)
-    ),
-    \end{aligned}
+    \right).
 \end{gathered}
 \end{equation}
-where $\annstart_{\annuliset_{i, j}}, \annfinish_{\annuliset_{i, j}} \in \mathbb{N}^2$ are the top left and bottom right coordinates of an annulus $\annuliset_{i, j} \in \annuliset$, respectively. 
 
 As we position the annuli in the middle of the allocated space, for each stimulus, there exist values of $\anndistscale$, such that the last annulus in a row or column starts outside of the bounds of the figure. Such annuli need to be removed from the set $\annuliset$:
 \begin{equation}
-    \annuliset \leftarrow \annuliset \setminus \{ \annstimmatrix \in \annuliset \ | \ \annstart_\annstimmatrix > (\fullwidth, \fullheight) \}
+    \annuliset \leftarrow \annuliset \setminus \{ \annstart \in \annuliset \ | \ \annstart > (\fullwidth, \fullheight) \}.
 \end{equation}

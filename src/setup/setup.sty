@@ -1,3 +1,7 @@
+% ------------------------ TEXT
+
+\newcommand{\stimfig}{{\it figure}}
+
 % ------------------------ MATH
 
 % conversion to current
@@ -10,8 +14,9 @@
 \newcommand{\intercept}{\mathsf{intercept}}
 \newcommand{\diamRF}{\mathsf{diamRF}}
 \newcommand{\fwhm}{\mathsf{fwhm}}
-\newcommand{\pix}{\mathsf{pix}}
+\newcommand{\pix}{\mathsf{pixels}}
 \newcommand{\annulus}{\mathsf{annulus}}
+\newcommand{\stdrf}{\sigma}
 
 % neural dynamics
 
@@ -23,12 +28,13 @@
 \newcommand{\syn}{\mathrm{syn}}
 \newcommand{\inh}{\mathrm{in}}
 \newcommand{\ex}{\mathrm{ex}}
-\newcommand{\thres}{\mathrm{thres}}
+\newcommand{\peak}{\mathrm{peak}}
+\newcommand{\izhi}{\mathrm{Izhikevich}}
 
 % stimulus parameters
 
 \newcommand{\spatfreq}{\Omega}
-\newcommand{\vlum}{\epsilon}
+\newcommand{\vlum}{\mathsf{bg}}
 \newcommand{\diam}{d}
 \newcommand{\diamdg}{\measuredangle d}
 \newcommand{\contrange}{\eta}
@@ -60,16 +66,15 @@
 \newcommand{\figanglemin}{\theta_{\min}}
 \newcommand{\figanglemax}{\theta_{\max}}
 \newcommand{\figcenter}{\figmatrix_O}
-\newcommand{\figstart}{\odot_F}
-\newcommand{\figfinish}{\otimes_F}
+\newcommand{\figstart}{\scalebox{1}{\rotatebox[origin=c]{-90}{\Lsteel}}_F}
+\newcommand{\figfinish}{\scalebox{1}{\rotatebox[origin=c]{90}{\Lsteel}}_F}
 
 % - positioning annuli
 \newcommand{\anndist}{\delta}
 \newcommand{\repsinrow}{w_{\#}}
 \newcommand{\repsincol}{h_{\#}}
 \newcommand{\annuliset}{\mathcal{A}}
-\newcommand{\annstart}{\odot}
-\newcommand{\annfinish}{\otimes}
+\newcommand{\annstart}{\scalebox{1}{\rotatebox[origin=c]{-90}{\Lsteel}}}
 
 % - luminance assignment
 \newcommand{\view}{\mathsf{view}}
@@ -79,14 +84,21 @@
 \newcommand{\unirand}{\mathsf{unirand}}
 
 % - patch selection
-\newcommand{\patchmatrix}{\Delta L}
+\newcommand{\patchmatrix}{P}
+\newcommand{\patchstart}{\scalebox{1}{\rotatebox[origin=c]{-90}{\Lsteel}}_{\patchmatrix}}
 
 % general stuff
 
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 
 % ------------------------ TIKZ
+
+\DeclareRobustCommand{\tikzcirc}[1]{%
+    \begin{tikzpicture}[baseline=-0.7ex]
+        \filldraw[color=black, fill=#1, thick] (0, 0) circle (0.45ex);
+    \end{tikzpicture}%
+}
 
 % ------------------------ COLORS
 
@@ -121,6 +133,9 @@
 ]
 
 \setmathfont{Libertinus Math}
+%\DeclareMathSizes{12}{5}{5}{5}
+% {t-size} {mt-size} {s-size} {ss-size}
+% <mt-size> as the math text size, <s-size> as the script size and <ss-size> the scriptscript size to be used in math, when <t-size> is the current text size
 
 % ------------------------ TITLE STYLE
 
@@ -137,7 +152,10 @@
 \titlespacing*{\subsection}{0pt}{0.5em}{0.3em}
 \titlespacing*{\subsubsection}{0pt}{0.3em}{0em}
 
+
 \renewcommand{\cfttoctitlefont}{\LARGE\bfseries\emphfont}
+\renewcommand{\cftloftitlefont}{\LARGE\bfseries\emphfont}
+\renewcommand{\cftlottitlefont}{\LARGE\bfseries\emphfont}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \newcommand\mydot[1]{\scalebox{#1}{.}}
 \renewcommand\cftdot{{\color{main-color}\mydot{2}}}
@@ -150,6 +168,12 @@
 %\renewcommand{\cftsubsubsecafterpnum}{\hspace*{0em}}
 \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
 \newcommand{\toc}{\vskip -2em \tableofcontents}
+
+\addto\captionsenglish{\renewcommand{\listfigurename}{Figures}}
+\newcommand{\lof}{\listoffigures}
+
+\addto\captionsenglish{\renewcommand{\listtablename}{Tables}}
+\newcommand{\lot}{\listoftables}
   
 % ------------------------ TABLES
 
@@ -208,7 +232,25 @@
 \end{tikzpicture}
 }
 
-% ------------------------ IMAGES
+\newcommand{\bgcolortext}[3]{
+    \begin{tikzpicture}
+    \begin{scope}
+        \node[draw=#1, fill=#1, rounded corners=0.3cm] (1) {%
+        \begin{varwidth}{\textwidth}
+            {\textcolor{#2}{#3}}
+        \end{varwidth}
+        };
+    \end{scope}
+\end{tikzpicture}
+}
+
+% ------------------------ FLOATS
+
+\renewcommand{\floatpagefraction}{.8}%
+
+% ------------------------ FIGURES
+
+\captionsetup[subfigure]{justification=centering}
 
 % save the meaning of \includegraphics
 \LetLtxMacro\latexincludegraphics\includegraphics
@@ -242,7 +284,7 @@
 
 % ------------------------ OTHER
 
-\pgfplotsset{compat=1.18} 
+\pgfplotsset{compat=18} 
 
 \setlength\parskip{.5em}
 \setlength{\parindent}{0pt}

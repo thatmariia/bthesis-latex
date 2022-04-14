@@ -1,21 +1,22 @@
 \subsubsection{Patch selection}
 \label{sec:patch-selection}
 
-A square patch $\patchmatrix \in [0, 1]^{\patchsize \times \patchsize}$ is concentric to the figure $\figmatrix$. Thus, it can be defined as
+A square patch $\patchmatrix \in [0, 1]^{\patchsize \times \patchsize}$ concentric to the \stimfig{} with the side length $\patchsize \in (0, \min(\fullwidth, \fullheight)]$,  such that $n | \patchsize$, is selected. It can be defined as
 \begin{equation}
     \patchmatrix \coloneqq 
     \begin{pmatrix}
-        \fullmatrix_{\ceil{ \figcenter - \frac{\patchsize}{2}}, \ceil{  \figcenter - \frac{\patchsize}{2} }} &  &  \\
-         & \ddots &  \\
-         &  &  \fullmatrix_{\ceil{ \figcenter - \frac{\patchsize}{2}} + \ell, \ceil{  \figcenter - \frac{\patchsize}{2}} + \ell}
-    \end{pmatrix}.
+        \fullmatrix_{\ \patchstart} & \cdots  & \fullmatrix_{\ \patchstart + (\patchsize, 0)}  \\
+        \vdots & \ddots & \vdots  \\
+        \fullmatrix_{\ \patchstart + (0, \patchsize)} & \cdots  &  \fullmatrix_{\ \patchstart + (\patchsize, \patchsize)}
+    \end{pmatrix}, \;\
+    \patchstart = \left( \ceil{ \figcenter - \frac{\patchsize}{2}}, \ceil{  \figcenter - \frac{\patchsize}{2} } \right).
 \end{equation}
 An example of the resulting binary heat map of the texture stimulus patch is visualized in Figure \ref{fig:stim-patch-example}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.4\textwidth]{src/assets/images/stimulus-patch.png}
-    \caption{The stimulus patch obtained from Figure \ref{fig:full-stimulus-example}.}
+    \caption[Stimulus patch]{The stimulus patch obtained from Figure \ref{fig:full-stimulus-example}.}
     \label{fig:stim-patch-example}
 \end{figure}
 

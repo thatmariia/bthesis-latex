@@ -1,23 +1,22 @@
 \subsubsection{Synaptic potentials}
 \label{sec:synaptic-potentials}
 
-Let $v, w \in V$ be the pre- and postsynaptic neurons, respectively, and let $(v \to w) \in E$ be the electrically conductive link (synapse) between them. When a spike arrives at the synapse, it triggers the release of a neurotransmitter: AMPA when $\type(v) = \ex$, GABA when $\type(v) = \inh$ \cite{Lowet2015}. After firing an action potential, the voltage of the presynaptic neuron resets to its equilibrium potential, at which there is no net flow through its ionic channels \cite{JohnsBook2014:6}. The equilibrium potential is equal to the reversal (Nernst) potential (whereat the net current flow reverses its direction), which only depends on the type of the postsynaptic neuron, $P_\ex$ if $\type(w) = \ex$, $P_\inh$ if $\type(w) = \inh$. 
+Let $v, w \in V$ be the pre- and postsynaptic neurons, respectively, and let $(v \to w) \in E$ be the electrically conductive link (synapse) between them. When a spike arrives at the synapse, it triggers the release of a neurotransmitter: AMPA when $\type(v) = \ex$, GABA when $\type(v) = \inh$ \cite{Lowet2015}. After firing an action potential, the voltage of the presynaptic neuron resets to its equilibrium potential, at which there is no net flow through its ionic channels \cite{JohnsBook2014:6}. The equilibrium potential is equal to the reversal (Nernst) potential (whereat the net current flow reverses its direction), which only depends on the type of the postsynaptic neuron, $p_\ex$ if $\type(w) = \ex$, $p_\inh$ if $\type(w) = \inh$. 
 
 From Ohm's law, it follows that the current through a neuron is proportional to its conductance and driving force \cite{KandelBook2003:6}. The latter is the difference between the synapse's reversal (presynaptic neuron's equilibrium) and the neuron's membrane potentials. The conductance of a neuron is the sum of all synapses' conductances of that neuron. Additionally, each neuron receives two synaptic inputs: from excitatory and inhibitory neurons. Therefore, the synaptic current of a postsynaptic neuron $w$ can be modeled as
 \begin{equation}
-    I_{\syn, w} = G_{\inh, w} (p_{w} - P_{\inh}) + G_{\ex, w} (p_{w} - P_{\ex}),
+    I_{\syn, w} = G_{\inh, w} (p_{w} - p_{\inh}) + G_{\ex, w} (p_{w} - p_{\ex}),
     \label{eq:synaptic-current}
 \end{equation}
-where $P_w$ is the neural membrane potential, and $G_{\inh}$ and $G_{\ex}$ are total synaptic conductances from the inhibitory and excitatory presynaptic neurons, respectively \cite{Lowet2015}, \cite{Jensen2005}. The former is of the form 
+where $p_w$ is the neural membrane potential, and $G_{\inh}$ and $G_{\ex}$ are total normalized synaptic conductances from the inhibitory and excitatory presynaptic neurons, respectively \cite{Jensen2005}. The former is of the form 
 \begin{equation}
-    G_{\inh, w} = \sum_{v \in V: \type(v) = \inh} g_{\inh \to \type(w)} \cdot s_{(v \to w)},
-    \label{eq:total-synaptic-conductance-in},
+    G_{\inh, w} = \frac{1}{|V_\inh|} \sum_{v \in V_\inh} g_{\inh \to \type(w)} \cdot s_{(v \to w)},
+    \label{eq:total-synaptic-conductance-in}
 \end{equation}
-\todo{this now includes the postsynaptic neuron itself. do we assume that the graph has self-loops (autapses)?}
-\todo{in this eq, we now have summation over all $s$', which can even amount to smth larger than 1. But $s$ is supposed to somehow represent the proportion of open gates.}
+\todo{this now includes the postsynaptic neuron itself. do we assume that the graph has self-loops (autapses)?} 
 where $g$ is the conductance density of the GABA-mediated receptor between a pair of neurons, the values of which are displayed in Table \ref{tab:conductance-synaptic}, and $s$ is the synaptic gating value. The expression for the excitatory synaptic conductance $G_{\ex, v}$ is analogous to Equation (\ref{eq:total-synaptic-conductance-in}).
 
-A synaptic gate can be though of as a transistor that influences the synaptic transmission, it can amplify and switch electrical signals. It is located on the postsynaptic neuron $w$ and modifies the conductance of electrical signals by changing its state \todo{Can't it only be either open or closed? What does the value of, say, 0.5 mean exactly?}. The gating value includes the rise $\rho$ and decay $\tau$ times and the transmission concentration term to mediate the interneural signal transmission \cite{Destexhe1994}.
+A synaptic gate can be though of as a transistor that influences the synaptic transmission, it can amplify and switch electrical signals. It is located on the postsynaptic neuron $w$ and modifies the conductance of electrical signals by changing its state. The gating value includes the rise $\rho$ and decay $\tau$ times and the transmission concentration term to mediate the interneural signal transmission \cite{Destexhe1994}.
 
 For a given neuron, it is assumed that the dynamics of all its synapses are synchronized. Therefore, although a synaptic gate is located on the postsynaptic neuron $w$, it follows the potential and gating parameters of the presynaptic neuron $v$ \cite{Lowet2015}. Hence, $s_{(v \to w)} \to s_v$, and then the gating value can obtained from the following differential equation:
 \begin{equation}
@@ -25,8 +24,7 @@ For a given neuron, it is assumed that the dynamics of all its synapses are sync
     \label{eq:synaptic-gates}
 \end{equation}
 The values for the synaptic parameters are presented in Table \ref{tab:synaptic-current-params}.
-Since all terms are positive, and the initial values are zeros, we can see that rhs changes its sign at zero and one.
-Thus, we can conclude from the phase portrait that the solutions to this differential equation are bounded below by zero and above by one.
+Since all terms are positive, and the initial values are zeros, we can see that the RHS changes its sign at zero and one. So, we can conclude the solutions to this differential equation are bounded below by zero and above by one.
 
 As mentioned in Section \ref{sec:action-potential}, the spike initiating threshold for excitatory neurons is between $-60$ and $-40$ mV. When the neuron is at rest, that is $p_v < -40$ mV, the transmission concentration is at its minimum:
 \begin{gather}
@@ -50,14 +48,14 @@ which indicates that the gating rises during the action potential and falls once
 \begin{table}[!htp] 
     \centering
     \input{assets/tables/conductance-synaptic}
-    \caption{Synaptic conductance values \cite{Lowet2015}.}
+    \caption[Synaptic conductance values]{Synaptic conductance values \cite{Lowet2015}.}
     \label{tab:conductance-synaptic}
 \end{table}
 
 \begin{table}[!htp] 
     \centering
     \input{assets/tables/synaptic-current-params}
-    \caption{Synaptic parameter values for AMPA and GABA-A \cite{Lowet2015}.}
+    \caption[Synaptic parameter values]{Synaptic parameter values for AMPA and GABA neurotransmitters \cite{Lowet2015}.}
     \label{tab:synaptic-current-params}
 \end{table}
 

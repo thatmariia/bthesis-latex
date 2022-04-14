@@ -7,11 +7,11 @@ In this oscillatory network, a group of oscillators is arranged in a $n \times n
 \begin{figure}[!htp]
     \centering
     \input{assets/tikz-images/grid-network}
-    \caption{An example of a 3 $\times$ 3 oscillatory network arranged in a grid. The arrows represent pairwise connections between all neurons (only shown for neighbouring cells, exist for all neurons). All connections in the network represent a bidirectional interaction.}
+    \caption[Oscillatory network arranged in a grid]{An example of a 3 $\times$ 3 oscillatory network arranged in a grid. The arrows represent pairwise connections between all neurons (only shown for neighbouring cells, exist for all neurons). All connections in the network represent a bidirectional interaction.}
     \label{fig:oscillatory-grid-graph}
 \end{figure}
 
-This oscillatory network can be represented as a complete weighted directed graph $D = (V, E)$, where the set of vertices $V$ represents all neurons in the network, and the set of edges $E$ represents the synapses. Structurally, the oscillatory network connects $n^2$ identical subgraphs, each representing a PING network. 
+This oscillatory network can be represented as a complete weighted directed graph $D = (V, E)$, where the set of vertices $V$ represents all neurons in the network, and the set of edges $E$ represents the synapses. Structurally, the oscillatory network connects $n^2$ identical subgraphs, each representing a PING network. Each PING network must contain at least one excitatory and one inhibitory neuron. Thus, $|V| > 2 \cdot n^2$ must hold.
 
 The set of neurons can be separated in the following way: $V = \{ V_{\ex}, V_{\inh}\}$, where $V_{\ex}$ is a set of excitatory neurons, and $V_{\inh}$ - a set of inhibitory neurons, such that $V_{\ex} \cap V_{\inh} = \emptyset$.
 Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mapping a neuron to its type: $\ex$ corresponds to excitatory, and $\inh$ - to inhibitory neurons. Each subgraph contains the same number of excitatory and inhibitory neurons. Thus, it must hold that
@@ -24,7 +24,7 @@ The cost function $\cost: E \to \mathbb{R}$ for the graph $D$ that reflects the 
 \begin{figure}[!htp]
     \centering
     \input{assets/tikz-images/single-ping}
-    \caption{An example of a PING network represented as graph with three excitatory and two inhibitory neurons. Each edge has a cost function but only two are displayed for aesthetic reasons.}
+    \caption[PING network represented as graph]{An example of a PING network represented as graph with three excitatory and two inhibitory neurons. Each edge has a cost function but only two are displayed for aesthetic reasons.}
     \label{fig:single-ping-graph}
 \end{figure}
 

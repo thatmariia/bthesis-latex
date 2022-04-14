@@ -1,11 +1,13 @@
 \subsubsection{Coupling weights}
 \label{sec:coupling-weights}
 
-The interaction strength of lateral connections is represented by a matrix of coupling weights ($K$), in which $K_{v, w}$ is the coupling weight between the neurons $v$ and $w$. 
-The coupling weight between each pair of neurons is defined by an exponential function decaying by the euclidean distance between the oscillators they belong to. The PING networks in Figure \ref{fig:oscillatory-grid-graph} are reduced to the point oscillators as portrayed in Figure \ref{fig:oscillatory-point-grid}. 
-Let $\loc: V \to \mathbb{N}^2$ be a function mapping a neuron to the position of the oscillator it belongs to in the grid. Then the coupling weigh between the neurons $v$ and $w$ is
+The interaction strength of lateral connections is represented by a matrix of coupling weights $K: E \to \mathbb{R}$, in which $K_{(v \to w)}$ is the coupling weight between the neurons $v$ and $w$. 
+The coupling weight between each pair of neurons is defined by an exponential function decaying with the euclidean distance between the oscillators they belong to. 
+
+The PING networks in Figure \ref{fig:oscillatory-grid-graph} are reduced to the point oscillators as portrayed in Figure \ref{fig:oscillatory-point-grid}. 
+Let $\loc: V \to \mathbb{Z}_+^2$ be a function mapping a neuron to the position of the oscillator it belongs to in the grid, assuming the unit distance between the neighbouring PING networks. Then the coupling weigh between the neurons $v$ and $w$ is
 \begin{equation}
-    K_{v, w} = C_{\type(v) \to \type(w)} \exp \left( \frac{-\| \loc(v), \loc(w) \|}{s_{\type(v) \to \type(w)}} \right),
+    K_{(v \to w)} = C_{\type(v) \to \type(w)} \exp \left( \frac{-\| \loc(v), \loc(w) \|}{s_{\type(v) \to \type(w)}} \right),
     \label{eq:coupling-weights}
 \end{equation}
 where $C$ and $s$ are connectivity dependent values representing the maximum connection strength between neurons and the decay rate of connectivity over space, respectively. The values for these constants are presented in Table \ref{tab:connectivity-network-constants}.
@@ -13,13 +15,13 @@ where $C$ and $s$ are connectivity dependent values representing the maximum con
 \begin{figure}[!htp]
     \centering
     \input{assets/tikz-images/point-grid-network}
-    \caption{A 3 $\times$ 3 oscillatory network, where each PING network is a point.}
+    \caption[Point-PING oscillatory network]{A 3 $\times$ 3 oscillatory network, where each PING network is a point.}
     \label{fig:oscillatory-point-grid}
 \end{figure}
 
 \begin{table}[!htp] 
     \centering
     \input{assets/tables/connectivity-network-constants}
-    \caption{The constants of the network connectivity \cite{Lowet2015}.}
+    \caption[Constants of the network connectivity]{The constants of the network connectivity \cite{Lowet2015}.}
     \label{tab:connectivity-network-constants}
 \end{table}

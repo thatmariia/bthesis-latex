@@ -11,6 +11,7 @@
     % ABSTRACT
     
     \newpage
+    \restoregeometry
     \thispagestyle{empty}
     \input{abstract}
     
@@ -20,6 +21,8 @@
     \pagenumbering{roman}
     
     \toc
+    \lof
+    \lot
     
     % SECTIONS
     
@@ -37,8 +40,8 @@
     \printbibliography
     
     % APPENDICES
-    \appendix
+    %\appendix
     
-    \newpage
-    \input{appendices/vars-params}
+    %\newpage
+    %\input{appendices/vars-params}
 \end{document}

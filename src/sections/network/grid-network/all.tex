@@ -1,31 +1,5 @@
-\subsection{The network}
-\label{sec:grid-network}
-
-The network considered in this thesis is an oscillatory network that represents a patch of neural networks in V1. Each PING network stands for an oscillator reflecting a neural circuit in V1, which interacts with other neural circuits in this area through lateral connections.
-In this oscillatory network, a group of oscillators is arranged in a $n \times n$ grid similar to the network illustrated in Figure \ref{fig:oscillatory-grid-graph}.
-
-\begin{figure}[!htp]
-    \centering
-    \input{assets/tikz-images/grid-network}
-    \caption[Oscillatory network arranged in a grid]{An example of a 3 $\times$ 3 oscillatory network arranged in a grid. The arrows represent pairwise connections between all neurons (only shown for neighbouring cells, exist for all neurons). All connections in the network represent a bidirectional interaction.}
-    \label{fig:oscillatory-grid-graph}
-\end{figure}
-
-This oscillatory network can be represented as a complete weighted directed graph $D = (V, E)$, where the set of vertices $V$ represents all neurons in the network, and the set of edges $E$ represents the synapses. Structurally, the oscillatory network connects $n^2$ identical subgraphs, each representing a PING network. Each PING network must contain at least one excitatory and one inhibitory neuron. Thus, $|V| > 2 \cdot n^2$ must hold.
-
-The set of neurons can be separated in the following way: $V = \{ V_{\ex}, V_{\inh}\}$, where $V_{\ex}$ is a set of excitatory neurons, and $V_{\inh}$ - a set of inhibitory neurons, such that $V_{\ex} \cap V_{\inh} = \emptyset$.
-Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mapping a neuron to its type: $\ex$ corresponds to excitatory, and $\inh$ - to inhibitory neurons. Each subgraph contains the same number of excitatory and inhibitory neurons. Thus, it must hold that
-\begin{equation}
-    (|V_\ex| \ | \ n^2) \land (|V_\inh| \ | \ n^2).
-\end{equation}
-An example of such a subgraph is visualized in Figure \ref{fig:single-ping-graph}. 
-The cost function $\cost: E \to \mathbb{R}$ for the graph $D$ that reflects the interactions between neurons is defined later in Equation (\ref{eq:cost-function}).
-
-\begin{figure}[!htp]
-    \centering
-    \input{assets/tikz-images/single-ping}
-    \caption[PING network represented as graph]{An example of a PING network represented as graph with three excitatory and two inhibitory neurons. Each edge has a cost function but only two are displayed for aesthetic reasons.}
-    \label{fig:single-ping-graph}
-\end{figure}
+\input{src/sections/network/grid-network/the-network/all}
 
 \input{sections/network/grid-network/neural-dynamics/all}
+
+\input{src/sections/network/grid-network/current-composition/all}

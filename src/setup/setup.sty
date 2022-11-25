@@ -6,17 +6,29 @@
 
 % conversion to current
 
+\newcommand{\pingnets}{N_\ping}
+\newcommand{\pingnet}{\chi}
 \newcommand{\ecc}{\mathsf{ecc}}
 \newcommand{\centr}{\mathsf{center}}
 \newcommand{\LC}{\mathsf{LC}}
 \newcommand{\weight}{\mathsf{weight}}
-\newcommand{\slope}{\mathsf{slope}}
-\newcommand{\intercept}{\mathsf{intercept}}
-\newcommand{\diamRF}{\mathsf{diamRF}}
+\newcommand{\slopeRF}{a_\mathsf{RF}}
+\newcommand{\interceptRF}{b_\mathsf{RF}}
+\newcommand{\diamRF}{{d_\mathsf{RF}}}
 \newcommand{\fwhm}{\mathsf{fwhm}}
 \newcommand{\pix}{\mathsf{pixels}}
 \newcommand{\annulus}{\mathsf{annulus}}
 \newcommand{\stdrf}{\sigma}
+
+\newcommand{\meancurrent}{\mu}
+\newcommand{\fcslope}{a_\mathsf{fc}}
+\newcommand{\fcintercept}{b_\mathsf{fc}}
+
+\newcommand{\eccangle}{\Phi}
+\newcommand{\cortk}{k}
+\newcommand{\corta}{a}
+\newcommand{\cortb}{b}
+\newcommand{\cortalpha}{\alpha}
 
 % neural dynamics
 
@@ -25,8 +37,10 @@
 \newcommand{\cmap}{\mathsf{cmap}}
 \newcommand{\cost}{\mathsf{cost}}
 \newcommand{\stim}{\mathrm{stim}}
+\newcommand{\inpt}{\mathrm{input}}
 \newcommand{\ping}{\mathrm{ping}}
 \newcommand{\syn}{\mathrm{syn}}
+\newcommand{\noise}{\mathrm{noise}}
 \newcommand{\inh}{\mathrm{in}}
 \newcommand{\ex}{\mathrm{ex}}
 \newcommand{\peak}{\mathrm{peak}}
@@ -55,6 +69,7 @@
 
 \newcommand{\atopix}{\mathsf{atopix}}
 \newcommand{\figdiag}{\mathsf{diag}_F}
+\newcommand{\stimcenter}{\fullmatrix_O}
 
 % - annulus composition
 \newcommand{\annmatrix}{\Gamma}

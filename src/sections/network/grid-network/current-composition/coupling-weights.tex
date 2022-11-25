@@ -1,5 +1,4 @@
 \subsubsection{Coupling weights}
-\label{sec:coupling-weights}
 
 The interaction strength of lateral connections is represented by a matrix of coupling weights $K: E \to \mathbb{R}$, in which $K_{(v \to w)}$ is the coupling weight between the neurons $v$ and $w$. 
 The coupling weight between each pair of neurons is defined by an exponential function decaying with the euclidean distance in the visual cortex between the oscillators they belong to \cite{Lowet2015}. 
@@ -26,7 +25,7 @@ where $C$ and $s$ are connectivity dependent values representing the maximum con
 \end{table}
 
 As shown in Figure \ref{fig:receptive-field}, the receptive field varies in size with distance to the fovea and occupies a three-dimensional space. So, a two-dimensional stimulus projected onto the receptive field gets distorted. Therefore, a non-linear mapping is required to predict its location in the cortex.
-The function $\cmap: \mathbb{R}^2 \to \mathbb{R}^2$ in Equation (\ref{eq:coupling-weights}) maps the coordinates of a grid element from the visual field to the visual cortex. The function is defined later \todo{ref to definition}
+The function $\cmap: \mathbb{R}^2 \to \mathbb{R}^2$ in Equation (\ref{eq:coupling-weights}) maps the coordinates of a grid element from the visual field to the visual cortex. Since the mapping depends on the location of the stimulus in the visual field, we first need to determine the coordinates of the neurons' locations there. Hence, the function $\cmap$ is defined later in Section \ref{sec:cortical-coords}.
 
 \begin{comment}
 

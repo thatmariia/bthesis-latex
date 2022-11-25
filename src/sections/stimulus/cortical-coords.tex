@@ -1,0 +1,30 @@
+\subsection{Cortical coordinates}
+\label{sec:cortical-coords}
+
+As shown in Figure \ref{fig:receptive-field}, the receptive field varies in size with distance to the fovea and occupies a three-dimensional space. So, a two-dimensional stimulus projected onto the receptive field gets distorted. Therefore, a non-linear mapping is required to predict its location in the cortex. 
+
+Let $\cmap: \mathbb{R}^2 \to \mathbb{R}^2$ be the function mapping the coordinates of a grid element (PING network) from the visual field to the visual cortex.
+Let $\eccangle: V \to \left[ 0, \frac{\pi}{2} \right]$ be the angle between the horizontal axis and the line passing through points $\stimcenter$ and $(\patchstart + \centr(v))$. 
+The complex-logarithm transformation from the cortical coordinates to the visual was introduced by Shwartz \cite{Schwartz1980}. The inverse of said transformation is used to define $\cmap$:
+\begin{equation}
+\begin{gathered}
+    Z_v = \ecc_v \cdot \exp(i \cdot \cortalpha \cdot \eccangle_v). 
+    \\
+    W_v = \cortk \cdot \log \left( 
+        \frac{Z_v + \corta}{Z_v + \cortb}
+    \right) - \cortk \cdot \log \left( 
+        \frac{\corta}{\cortb}
+    \right).
+    \\
+    \cmap(v) = (\Re(W_v), \Im(W_v)).
+\end{gathered}
+\end{equation}
+The values of parameters $\cortk, \corta, \cortb, \cortalpha$ are presented in Table \ref{tab:cortical-coords-params}.
+
+
+\begin{table}[!htp]
+    \centering
+    \input{src/assets/tables/cortical-coords-params}
+    \caption{Parameters for coordinates conversion \cite{Polimeni2005}.}
+    \label{tab:cortical-coords-params}
+\end{table}

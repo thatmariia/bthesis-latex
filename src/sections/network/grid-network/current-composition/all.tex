@@ -1,0 +1,28 @@
+\subsection{Current composition}
+\label{sec:current-composition}
+
+The excitatory neurons are subjected to the effects of external stimuli, which contribute to the current ($I_v$) in Equation (\ref{eq:Izhikevich-model-dp-dt}). Additionally, in the network, neurons are not isolated, and the current involves the accumulated effect of interactions with other neurons. Finally, the network is subjected to noise. 
+Hence, the equation for the current $I_v$ includes the input current from the external stimulus $I_{\stim}$ as well as the coupling weights $K$ between the neurons, the current involving the effects of synaptic potentials GABA (inhibitory) and AMPA (excitatory) $I_{\syn}$, and noise $I_\noise$:
+\begin{gather}
+    I_v = 
+    \sum_{w \in V} \cost_{(v \to w)} + I_\noise + I_{\stim, v} \mathbb{1} \{ \type(v) = \ex \},  \label{eq:current-components} \\
+    \cost_{(v \to w)} = K_{(v \to w)} \cdot I_{\syn, w}. 
+    \label{eq:cost-function}
+\end{gather}
+
+\begin{comment}
+
+The definition of each component is provided in the next three sections.
+
+In this project, the external input ($I_{\stim}$) is provided by a set of texture stimuli, and a grid network of PING oscillators is supposed to reflect local neural networks of the primary visual cortex (V1). The external stimuli is described in Section \ref{sec:external-stimuli}.
+
+\end{comment}
+
+
+\input{src/sections/network/grid-network/current-composition/coupling-weights}
+
+\input{src/sections/network/grid-network/current-composition/synaptic-current}
+
+\input{src/sections/network/grid-network/current-composition/noise}
+
+\input{src/sections/network/grid-network/current-composition/external-input}

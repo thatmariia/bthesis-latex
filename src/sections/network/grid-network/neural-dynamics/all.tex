@@ -1,7 +1,7 @@
 \subsection{Neural dynamics}
 \label{sec:neural-dynamics}
 
-A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is biologically plausible enough to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. There, every neuron is a dynamical system that can be described with a two-dimensional system of ordinary differential equations: for all $v \in V$,
+A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. There, every neuron is a dynamical system that can be described with a two-dimensional system of ordinary differential equations: for all $v \in V$,
 \begin{align}
     \frac{dp_v}{dt} =\ & 0.04 p_v^2 + 5p_v + 140 - r_v + I_v,
     \label{eq:Izhikevich-model-dp-dt} \\
@@ -104,19 +104,3 @@ When a small depolarizing current, such as in Figure \ref{fig:neural-dynamics-rs
 \paragraph{Fast spiking neurons}
 
 Similar to RS neurons, the frequency of FS neurons varies depending on the intensity of the applied current. Additionally, the phase portrait and dynamical behavior of FS neurons are qualitatively similar to those of RS neurons (Figure \ref{fig:neural-dynamics-fs}). Although, in contrast to the latter, FS neurons have a smaller after-spike reset value of the recovery variable ($\zeta$), which, in combination with a faster recovery rate ($\alpha$), allows for spikes with higher frequency (see Figure \ref{fig:neuron-types-fs}) and damped oscillations with higher friction.
-
-
-\paragraph{Current composition}
-
-In the network, neurons are not isolated, and the current ($I_v$) in Equation (\ref{eq:Izhikevich-model-dp-dt}) involves the accumulated effect of interactions with other neurons. Hence, the equation must include the input current ($I_{\stim}$) as well as the coupling weights between the neurons ($K$), and the effects of synaptic potentials GABA (inhibitory) and AMPA (excitatory; $I_{\syn}$):
-\begin{gather}
-    I_v = 
-    \sum_{w \in V} \cost_{(v \to w)} + I_{\stim, v} \mathbb{1} \{ \type(v) = \ex \},  \label{eq:current-components} \\
-    \cost_{(v \to w)} = K_{(v \to w)} \cdot I_{\syn, w}. 
-    \label{eq:cost-function}
-\end{gather}
-
-In this project, the external input ($I_{\stim}$) is provided by a set of texture stimuli, and a grid network of PING oscillators is supposed to reflect local neural networks of the primary visual cortex (V1). The external stimuli is described in Section \ref{sec:external-stimuli}.
-
-\input{sections/network/grid-network/neural-dynamics/coupling-weights}
-\input{sections/network/grid-network/neural-dynamics/synaptic-potentials}

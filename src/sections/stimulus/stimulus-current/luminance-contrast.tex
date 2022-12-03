@@ -28,12 +28,23 @@ For each network $\pingnet \in \pingnets$, a local contrast $\LC: V \to \mathbb{
 \begin{equation}
     \LC_\pingnet = \sqrt{
         \frac{
+            \sum_{(i, j) \in \patchmatrix} \weight_{\pingnet, (i, j)} \frac{(\patchmatrix_{i, j} - \overline{\fullmatrix})^2}{\overline{\fullmatrix}^2}
+        }{
+            \sum_{(i, j) \in \patchmatrix} \weight_{\pingnet, (i, j)}
+        }
+    },
+\end{equation}
+\begin{comment}
+\begin{equation}
+    \LC_\pingnet = \sqrt{
+        \frac{
             \sum_{(i, j) \in \pix(\pingnet)} \weight_{\pingnet, (i, j)} \frac{(\patchmatrix_{i, j} - \overline{\fullmatrix})^2}{\overline{\fullmatrix}^2}
         }{
             \sum_{(i, j) \in \pix(\pingnet)} \weight_{\pingnet, (i, j)}
         }
     },
 \end{equation}
+\end{comment}
 where $\overline{\fullmatrix}$ is the mean over all luminance values in $\fullmatrix$, and $\weight: \pingnets, \mathbb{N}^2 \to \mathbb{R}$ is the weight of a pixel with respect to a network, as shown in Equation (\ref{eq:weight-pixel-network}). An example of a local contrast matrix can be seen in Figure \ref{fig:llc-local-contrast-example}.
 
 To define that weight, one first needs to complete a number of steps.
@@ -52,7 +63,7 @@ Then, the diameter of the receptive field $\diamRF \in \mathbb{R}$ of $\pingnet$
     \diamRF_\pingnet = \max{( \slopeRF \cdot \ecc_\pingnet + \interceptRF, \ \diamRF_{\min} )}.
 \end{equation}
 
-Let $\stdrf: \pingnets \to \mathbb{R}$ be the standard deviation of the receptive field diameter of a Gaussian beam \todo{why do we consider it a Gaussian beam? Email Mario}. It can be obtained by utilizing the full width at half maximum $\fwhm: \pingnets \to \mathbb{R}$ in the following way \cite{MaryamPLACEHOLDER}:
+Let $\stdrf: \pingnets \to \mathbb{R}$ be the standard deviation of the receptive field diameter of a Gaussian beam \cite{MaryamPLACEHOLDER}. It can be obtained by utilizing the full width at half maximum $\fwhm: \pingnets \to \mathbb{R}$ in the following way:
 \begin{equation}
     \begin{cases}
         \fwhm_\pingnet = \sqrt{\frac{\ln(2)}{2}} \cdot \diamRF_\pingnet \\

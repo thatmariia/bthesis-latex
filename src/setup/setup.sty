@@ -18,11 +18,32 @@
 \newcommand{\fwhm}{\mathsf{fwhm}}
 \newcommand{\pix}{\mathsf{pixels}}
 \newcommand{\annulus}{\mathsf{annulus}}
-\newcommand{\stdrf}{\sigma}
+\newcommand{\stdrf}{\sigma_\mathsf{RF}}
 
-\newcommand{\meancurrent}{\mu}
+\newcommand{\meancurrent}{I}
 \newcommand{\fcslope}{a_\mathsf{fc}}
 \newcommand{\fcintercept}{b_\mathsf{fc}}
+\newcommand{\spikesignal}{\mathsf{sig}}
+\newcommand{\offset}{\mathsf{offset}}
+\newcommand{\tfrsimulations}{\mathsf{SIM}}
+\newcommand{\tfrsimulation}{\mathsf{sim}}
+\newcommand{\morlettime}{\mathsf{wt}}
+\newcommand{\ft}{\mathsf{ft}}
+\newcommand{\nconv}{\mathsf{nconv}}
+\newcommand{\gammafreq}{\Gamma}
+\newcommand{\onegammafreq}{\gamma}
+\newcommand{\domgammafreq}{\mathring{\gamma}}
+\newcommand{\gausswidth}{\mathsf{gw}}
+\newcommand{\morlet}{\omega}
+\newcommand{\complexi}{\pmb{i}}
+\newcommand{\tfr}{\mathsf{tfr}}
+\newcommand{\tmp}{\mathsf{tmp}}
+\newcommand{\halfwave}{\mathsf{hw}}
+\newcommand{\substart}{\mathsf{start}}
+\newcommand{\subend}{\mathsf{end}}
+\newcommand{\meanabsval}{\mathsf{meanabs}}
+\newcommand{\mostprominent}{\mathsf{mp}}
+\newcommand{\slope}{\mathsf{slope}}
 
 \newcommand{\eccangle}{\Phi}
 \newcommand{\cortk}{k}
@@ -45,6 +66,8 @@
 \newcommand{\ex}{\mathrm{ex}}
 \newcommand{\peak}{\mathrm{peak}}
 \newcommand{\izhi}{\mathrm{Izhikevich}}
+\newcommand{\timesteps}{T}
+\newcommand{\simulationtime}{\tau}
 
 % stimulus parameters
 
@@ -103,8 +126,26 @@
 \newcommand{\patchmatrix}{P}
 \newcommand{\patchstart}{\scalebox{1}{\rotatebox[origin=c]{-90}{\Lsteel}}_{\patchmatrix}}
 
+% - synchronization
+\newcommand{\phaselocking}{\mathsf{PL}}
+\newcommand{\singlecrosscorr}{\mathsf{cc}}
+\newcommand{\crosscorr}{\mathsf{CC}}
+\newcommand{\spiketrain}{\mathcal{S}}
+\newcommand{\smoothspiketrain}{\mathsf{g}\mathcal{S}}
+\newcommand{\timespiked}{s}
+\newcommand{\stdgaussfilter}{\sigma}
+\newcommand{\maxlag}{\mathsf{maxlag}}
+\newcommand{\lag}{\mathsf{lag}}
+\newcommand{\padded}{\mathsf{pad}}
+\newcommand{\spiketimewindow}{\mathsf{tw}}
+\newcommand{\spiketimewindowstart}{\mathsf{start}}
+\newcommand{\spiketimewindowend}{\mathsf{end}}
+\newcommand{\spikerate}{\mathsf{rate}}
+\newcommand{\phaselockingmatrix}{\mathsf{PLM}}
+
 % general stuff
 
+\DeclareMathOperator*{\median}{median}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 
@@ -300,7 +341,7 @@
 
 % ------------------------ OTHER
 
-\pgfplotsset{compat=18} 
+\pgfplotsset{compat=1.18} 
 
 \setlength\parskip{.5em}
 \setlength{\parindent}{0pt}

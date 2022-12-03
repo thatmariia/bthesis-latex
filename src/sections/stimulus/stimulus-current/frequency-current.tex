@@ -1,31 +1,187 @@
 \subsubsection{From frequency to current}
 
-Finally, knowing the frequencies, the corresponding current inputs to each PING network can be derived. The conversion from frequency to current is separated into the following steps: collecting the spiking data from simulating with relevant currents, computing the frequencies associated with each simulation, and discovering the relationship between frequency and current.
+This section describes a method for determining the relationship between gamma frequencies and input currents. It involves simulating the network using the Izhikevich model with different currents and constructing a time-frequency representation (TFR) of the resulting spike trains using the Morlet wavelet transform. The dominant frequency of gamma oscillations in the signal can be determined from the TFR. The dominant frequency for each simulation is then plotted against the corresponding input current to find the relationship between current and frequency.
 
-\paragraph{Collecting spiking data}
+\paragraph{Simulating with different currents}
 
-To collect the required data for a given input current, we simulate the Izhikevich model over 1000 epochs. The model consists of a single PING network that includes as many excitatory and inhibitory neurons as does a general PING network in this thesis, as introduced in Section \ref{sec:grid-network}. Additionally, instead of the current input from an external stimulus, $I_\stim$ in Equation (\ref{eq:current-components}), an artificially crafted current $I_\inpt$ is used:
+To collect the required data for a given input current, we simulate the Izhikevich model with the previously introduced parameters (see Section \ref{sec:grid-network}). Instead of the current input from an external stimulus, $I_\stim$ in Equation (\ref{eq:current-components}), current $I_\inpt$ is used:
 \begin{equation}
     I_{\inpt, v} = \begin{cases}
         \meancurrent_\ex & \text{ if } \type(v) = \ex \\
         \meancurrent_\inh & \text{ if } \type(v) = \inh
     \end{cases}.
 \end{equation}
-The input current to inhibitory neurons $\meancurrent_\inh$ is fixed for all simulations, while the input to excitatory neurons $\meancurrent_\ex$ is modulated per simulation. The simulations are performed for the values $\meancurrent_\ex = \{ 20, 21, \cdots, 50 \}$.
+The input current to inhibitory neurons $\meancurrent_\inh$ is fixed for all simulations at $4.0$, while the input to excitatory neurons $\meancurrent_\ex$ is modulated per simulation. The 26 simulations are performed for the values $\meancurrent_\ex = \{ 0, 2, 4, \cdots, 50 \}$.
 
-Equation (\ref{eq:Izhikevich-model-p30}) allows for detection of spikes. Thus, for each simulation, a list of numbers of excitatory neurons fired at each time step during that simulation can be extracted. A time-dependent signal is created for a simulation by discarding the first 300 time steps from that list.
+Equation (\ref{eq:Izhikevich-model-p30}) allows for the detection of spikes and, thus, the construction of spike trains, i.e., the sequence of neuronal firing times. For a neuron $v \in V$, the spike train $\spiketrain \in \{0, 1\}^{|\timesteps|}$ can be defined as follows:
+\begin{equation}
+    \spiketrain_v = 
+    \left( 
+        \timespiked_{v, \timesteps_i}
+    \right)_{\timesteps_i \in \timesteps},
+\end{equation}
+where the function $s: \{V, \timesteps\} \to \{0, 1\}$ returns $1$ if neuron spikes at a particular time, and otherwise returns $0$:
+\begin{equation}
+    \timespiked_{v, \timesteps_i} = \begin{cases}
+        1 &\text{ if } p_v(\timesteps_i) \geq p_\peak
+        , \\
+        0 &\text{ otherwise}.
+    \end{cases}
+\end{equation}
 
-\paragraph{Computing frequencies}
+As mentioned in Section \ref{sec:grid-ping}, the simulation time has been chosen to be $1000$ ms.
+For the purposes regarding the Fast Fourier Transform (FFT) algorithm, as discussed in the next paragraph, let $\offset \in \mathbb{N}$ be equal to $296$.
 
-This thesis is concerned with gamma oscillations ($20 - 80$ Hz). It is assumed that for a signal with a given input current, the corresponding frequency is the most prominent within the gamma band that said signal triggers. To analyze the frequency behavior of a signal, it is first converted from the time domain to the frequency domain using the discrete Fourier transform (DFT). 
+Let $\tfrsimulations$ be a set of the 26 simulations, each associated with a particular value of $\meancurrent_\ex$. Let $\tfrsimulation \in \tfrsimulations$ be one of these simulations. A time-dependent signal $\spikesignal \in \{0, 1\} ^ {|V| \ \times \ (|\timesteps| - \offset)}$ is created by discarding the first $\offset$ time steps from each neuron's spike train obtained during the simulation $\tfrsimulation$.
 
-Although it provides information about the frequencies present in the signal, the DFT loses all information regarding the times at which particular frequencies occur. However, that information is essential as the spectral content of neural action potentials changes over time. The use of wavelets allows for analyzing such non-stationary signals. While the DFT considers the contributions from every sine and cosine wave, a discrete wavelet transform (DWT) acts as a band-pass filter that admits only a subset of frequencies at a given time.
 
-Using a DWT, we can narrow the analysis to a particular frequency in the gamma band $\{ 20, 21, \cdots, 80 \}$. We apply a Morlet wavelet to the signal in the frequency domain for each frequency of interest. This wavelet represents a frequency carrier wave multiplied by a Gaussian window. Then, the number of spikes at the frequency of interest at each time step is obtained by performing the inverse DFT of the circular convolution of the signal in the frequency domain and the DFT of the wavelet. Finally, we take the mean of the number of spikes at each frequency of interest and find the frequency at which the resulting number is the largest. That frequency corresponds to the signal and, thus, the current input strength.
+\paragraph{Finding dominant frequencies from TFR}
+
+This thesis is concerned with gamma oscillations ($25 - 80$ Hz). Let $\gammafreq \in \mathbb{N}^{55}$ be a sequence of integer frequencies in the gamma range:
+\begin{equation}
+    \gammafreq = \left<
+    25, 26, \cdots, 80
+    \right>.
+\end{equation}
+For a signal with a given input current, the corresponding frequency that said signal triggers is the most prominent within the gamma band. To analyze the frequency behavior of a signal, one needs to construct its time-frequency representation (TFR). 
+The TFR encodes the energy of the signal as a function of time and frequency and is used to determine the dominant frequency of gamma oscillations in the signal.
+To compute the TFR using the Morlet wavelet transform, the steps outlined below are to be performed.
+
+\begin{enumerate}
+    \item The time axis for the Morlet wavelet $\morlettime \in [-1, 1]^{2001}$ is defined as a sequence of values spaced $0.001$ seconds apart, from -1 to 1:
+    \begin{equation}
+        \morlettime = \left<
+        -1, -0.999, \cdots, 1
+        \right>.
+    \end{equation}
+
+    \item The discrete Fourier transform (DFT) of the spike train signal $\ft\spikesignal_\tfrsimulation \in \mathbb{C}^{\nconv}$ is computed using the Fast Fourier Transform (FFT) algorithm. The length of the signal is increased by zero-padding to $\nconv \in \mathbb{N}$:
+    \begin{equation}
+        \nconv \leftarrow \nconv_\tfrsimulation = |\spikesignal_\tfrsimulation| + |\morlettime| - 1.
+    \end{equation}
+    Computing $\nconv$ in such a way ensures that the resulting length is a power of two and, therefore, is suitable for use in the FFT.
+    In the present case, $\nconv = 2704 = 52^2$ due to the value of $\offset$ defined earlier.
+    The values of $\nconv$ do not need to be computed for each simulation as $|\spikesignal_\tfrsimulation|$ does not change.
+
+    \item The edge indices later used to remove the zero-padding $\halfwave \in \mathbb{N}^2$ are computed:
+    \begin{equation}
+        \halfwave
+        = 
+        (\halfwave_\substart, \halfwave_\subend) 
+        =
+        \left(
+            \floor{
+                \frac{
+                    |\morlettime| - 1         
+                }{2}
+            },
+            |\nconv| - \floor{
+                \frac{
+                    |\morlettime| - 1         
+                }{2}
+            }
+        \right).
+    \end{equation}
+
+    \item For each gamma frequency $\onegammafreq \in \gammafreq$, a Morlet wavelet $\morlet \in \mathbb{C}^{|\morlettime|}$ is constructed as a complex sinusoid modulated by a Gaussian window. The width $\gausswidth \in \mathbb{R}$ of the Gaussian can be adjusted to change the shape of the wavelet. The wavelet is thus defined as follows:
+    \begin{equation}
+        \morlet_{\onegammafreq, j} = 
+        \underbrace{
+            \exp \left(
+            \complexi \cdot 2 \pi \cdot \onegammafreq \cdot \morlettime_j
+            \right)
+        }_{\text{complex sinusoid}}
+        \cdot
+        \underbrace{
+            \exp \left(
+                - \frac{
+                    \morlettime_j^2
+                }{
+                    2 \cdot \gausswidth^2
+                }
+            \right),
+        }_{\text{Gaussian window}}
+    \end{equation}
+    where $\complexi$ is the imaginary unit (boldface for readability and to distinguish from the index $i$).
+    
+    \item The normalized DFT of each Morlet wavelet $\overline{\ft\morlet}_{\onegammafreq} \in \mathbb{C}^{\nconv}$ is computed:
+    \begin{equation}
+        \overline{\ft\morlet}_{\onegammafreq} = 
+        \frac{
+            {\ft}{\morlet_{\onegammafreq}}
+        }{
+            \max \left(
+                {\ft}{\morlet_{\onegammafreq}}
+            \right)
+        }.
+    \end{equation}
+
+    \item For each simulation, the DFT of each Morlet wavelet is multiplied element-wise by the DFT of the spike train signal ($\ft{\morlet_{\onegammafreq}}$ multiplied by $\ft\spikesignal_\tfrsimulation$). This produces a new frequency-domain representation of the signal that encodes its frequency content at each point in time.
+
+    \item The product of the DFTs is inverse-transformed back into the time domain using the Inverse Fast Fourier Transform (IFFT) algorithm. Let the result be $\tmp \in \mathbb{C}^\nconv$.
+    
+    \item The resulting time-domain signal is trimmed to remove the parts that were added by zero-padding with $\halfwave$ and is used to construct the TFR of the signal. Then the TFR $\left( \tfr \in \mathbb{C}^{ |\gammafreq| \ \times \ |\spikesignal_\tfrsimulation|} \right)$ for the simulation $\tfrsimulation$ is
+    \begin{equation}
+        \tfr_{\tfrsimulation, \onegammafreq} 
+        = 
+        \left< 
+            \tmp_{\tfrsimulation, \onegammafreq, \halfwave_i} 
+            \ \mid \ 
+            \halfwave_\substart \leq \halfwave_i < \halfwave_\subend
+        \right>.
+    \end{equation}
+    
+    \item The TFR is analyzed to establish the dominant frequency of gamma oscillations in the signal. In particular, the signal's most prominent frequency $\domgammafreq \in \gammafreq$ is determined by computing the mean of the TFR magnitudes (absolute values) along the frequency dimension and finding the frequency at which the resulting number is the largest:
+    \begin{equation}
+    \begin{gathered}
+        \domgammafreq_\tfrsimulation = \arg \max_\onegammafreq \left(
+            \meanabsval\_\tfr_{\tfrsimulation}
+        \right),
+        \\
+        \meanabsval\_\tfr_{\tfrsimulation, \onegammafreq} = 
+        \frac{
+            \sum_{i=0}^{|\spikesignal_\tfrsimulation| - 1} 
+            |\tfr_{\tfrsimulation, \onegammafreq, i}|
+        }{
+           |\spikesignal_\tfrsimulation|
+        }.
+    \end{gathered}
+    \end{equation}
+\end{enumerate}
+
 
 \paragraph{Discovering frequency-current relationship}
 
-For each current input strength to excitatory neurons, the most prominent frequency is now known. Thus, the relationship can be analyzed and extrapolated. By plotting frequencies against currents, it can be clearly seen that they follow a linear relationship. Thus, the Theil–Sen estimator can be used to fit a predictive model for the observed data. This regression method has been chosen due to its robustness against outliers. Knowing the slope and the intercept of the linear relationship between the frequency and current, the function $\cmap: \mathbb{R} \to \mathbb{R}$ mapping frequencies to currents can be defined:
+For each current input strength to excitatory neurons, the most prominent frequency is now known. Thus, the relationship can be analyzed and extrapolated. By plotting frequencies against currents, it can be observed that they follow a linear relationship (see Figure ???). Thus, the Theil–Sen estimator can fit a predictive model for the observed data. This regression method has been chosen as it is robust against outliers and does not require the assumption of normally distributed errors. 
+
+The Theil–Sen estimator defines the slope of the fitted line $\fcslope \in \mathbb{R}$ as the median of all possible slopes between pairs of points from the frequency-current graph:
 \begin{equation}
-    \cmap = \fcslope \cdot f + \fcintercept.
+    \fcslope = \median_{
+        \tfrsimulation_i, \tfrsimulation_j \in \tfrsimulations \times \tfrsimulations
+    } \left( 
+        \frac{
+            \domgammafreq_{\tfrsimulation_i} - \domgammafreq_{\tfrsimulation_j}
+        }{
+            I_{\ex, \tfrsimulation_i} - I_{\ex, \tfrsimulation_j}
+        } 
+    \right)
 \end{equation}
+To compute the intercept $\fcintercept \in \mathbb{R}$, the estimator uses the average values along the axes and the previously computed slope:
+\begin{equation}
+    \fcintercept = 
+    \frac{1}{|\tfrsimulations|}
+    \sum_{\tfrsimulation \in \tfrsimulations}
+    \domgammafreq_\tfrsimulation
+    -
+    \frac{\fcslope}{|\tfrsimulations|}
+    \sum_{\tfrsimulation \in \tfrsimulations}
+    I_{\ex, \tfrsimulation}
+\end{equation}
+
+Knowing the slope of the linear relationship between the frequency and current, the current from external stimulus to the excitatory neurons in a PING network $\pingnet$ can be defined as follows:
+\begin{equation}
+    I_{\stim, \pingnet} = \fcslope \cdot f_\pingnet + \fcintercept.
+\end{equation}
+The derived values for $\fcslope$ and $\fcintercept$ are shown in Table ???.
+
+\todo{include table ??? and figure ???}

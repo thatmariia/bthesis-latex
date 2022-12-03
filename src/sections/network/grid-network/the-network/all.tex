@@ -27,3 +27,12 @@ The cost function $\cost: E \to \mathbb{R}$ for the graph $D$ that reflects the 
     \caption[PING network represented as graph]{An example of a PING network represented as graph with three excitatory and two inhibitory neurons. Each edge has a cost function but only two are displayed for aesthetic reasons.}
     \label{fig:single-ping-graph}
 \end{figure}
+
+It has been experimentally found before that the ratio of the number of excitatory neurons ($|V_{\ex}|$) and the number of inhibitory neurons ($|V_{\inh}|$) in a cortical population is four to one \cite{Pastore2018}. While the relationship has been utilized in the present thesis, the realistic number of neurons has not as it is computationally infeasible. The chosen values for the number of neurons of each type and the number of PING networks per grid side are displayed in Table \ref{tab:params-network}.
+
+\begin{table}[!htp]
+    \centering
+    \input{src/assets/tables/params-network}
+    \caption{Network parameters.}
+    \label{tab:params-network}
+\end{table}

@@ -1,15 +1,15 @@
 \subsubsection{Synaptic current}
 
-Let $v, w \in V$ be the pre- and postsynaptic neurons, respectively, and let $(v \to w) \in E$ be the electrically conductive link (synapse) between them. When a spike arrives at the synapse, it triggers the release of a neurotransmitter: AMPA when $\type(v) = \ex$, GABA when $\type(v) = \inh$ \cite{Lowet2015}.
-
-\todo{how to explain that we use gating as current?}
+Let $v, w \in V$ be the pre- and postsynaptic neurons, respectively, and let $(v \to w) \in E$ be the electrically conductive link (synapse) between them. When a spike arrives at the synapse, it triggers the release of a neurotransmitter: AMPA when $\type(v) = \ex$, and GABA when $\type(v) = \inh$ \cite{Lowet2015}.
 
 A synaptic gate can be thought of as a transistor that influences the synaptic transmission, it can amplify and switch electrical signals. It is located on the postsynaptic neuron $w$ and modifies the conductance of electrical signals by changing its state. The gating value includes the rise $\rho$ and decay $\tau$ times and the transmission concentration term to mediate the interneural signal transmission \cite{Destexhe1994}.
 
-For a given neuron, it is assumed that the dynamics of all its synapses are synchronized. Therefore, although a synaptic gate is located on the postsynaptic neuron $w$, it follows the potential and gating parameters of the presynaptic neuron $v$ \cite{Lowet2015}. Hence, $s_{(v \to w)} \to s_v$, and then the gating value can obtained from the following differential equation:
-\begin{equation}
-    \frac{ds_v}{dt} = \rho_{\type(v)} \underbrace{\left( 1 + \tanh \left( \frac{p_{v}}{4} \right) \right)}_{T_v: \text{trans. conc.}} (1 - s_v) - \frac{s_v}{\tau_{\type(v)}}.
-    \label{eq:synaptic-gates}\end{equation}
+For a given neuron, it is assumed that the dynamics of all its synapses are synchronized. Therefore, although a synaptic gate is located on the postsynaptic neuron $w$, it follows the potential and gating parameters of the presynaptic neuron $v$ \cite{Lowet2015}. Hence, $s_{(v \to w)} \to s_v$, and then the gating value can be obtained from the following differential equation:
+\begin{gather}
+    \frac{ds_v}{dt} = \rho_{\type(v)} \underbrace{\left( 1 + \tanh \left( \frac{p_{v}}{4} \right) \right)}_{T_v: \text{trans. conc.}} (1 - s_v) - \frac{s_v}{\tau_{\type(v)}}, \\
+    \label{eq:synaptic-gates}
+    s_v(0) = 0.
+\end{gather}
 The values for the synaptic parameters are presented in Table \ref{tab:synaptic-current-params}.
 Since all terms are positive, and the initial values are zeros, we can see that the RHS changes its sign at zero and one. So, we can conclude the solutions to this differential equation are bounded below by zero and above by one.
 

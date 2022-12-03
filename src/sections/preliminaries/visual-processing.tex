@@ -2,9 +2,11 @@
 
 \paragraph{Visual processing}
 
-Vision starts with the stimulation of the cornea, the protective outer layer of an eye, by light in the visual scene \cite{KandelBook2003:26}. Then, light passes through the lens, which focuses that light onto the retina. There, photoreceptors (cells responding to light) are located. The mentioned components of the visual system are depicted in Figure \ref{fig:receptive-field}. 
 
-The photoreceptors are connected to so-called bipolar cells that transmit electrical signals by inducing action potentials \cite{IzhikevichBook2004:2}. An action potential, or spike, is a nerve signal that occurs when a cell's membrane's potential suddenly rises and then rapidly falls (see Section \ref{sec:action-potential}). The spikes are propagated to target areas in the visual cortex for higher-level processing \cite{KandelBook2003:26}.
+In the visual system, light in the visual scene enters the eye and stimulates the cornea, the protective outer layer of the eye
+\cite{KandelBook2003:26}. The light then passes through the lens, which focuses it onto the retina. The retina contains photoreceptor cells, which respond to light by transmitting electrical signals. The mentioned components of the visual system are depicted in Figure \ref{fig:receptive-field}. 
+
+The signals from photoreceptors are passed onto so-called bipolar cells that transmit electrical (nerve) signals by inducing action potentials \cite{IzhikevichBook2004:2}. An action potential, or spike, is a nerve signal that occurs when a cell's membrane's potential suddenly rises and then rapidly falls (see Section \ref{sec:action-potential}). The spikes are propagated to target areas in the visual cortex for higher-level processing \cite{KandelBook2003:26}.
 
 \begin{figure}[!htp]
     \centering
@@ -13,28 +15,26 @@ The photoreceptors are connected to so-called bipolar cells that transmit electr
     \label{fig:receptive-field}
 \end{figure}
 
-The segregation of figures from the background is an integral part of object recognition \cite{KandelBook2003:25}. The visual scenes are analyzed at three levels. At the low level, the discrimination on such visual attributes as local contrast, orientation, color, and movement occurs. The intermediate level is responsible for parsing an image into surfaces, their depths, shapes, and global contours. Then, finally, at the highest level of visual analysis, object identification takes place.
+The segregation of figures from the background is an integral part of object recognition \cite{KandelBook2003:25}. It helps to separate the different objects in a scene and make them easier to identify. The visual scenes are analyzed at three levels. At the low level, discrimination on such visual attributes as local contrast, orientation, color, and movement occurs. The intermediate level is responsible for parsing an image into surfaces, their depths, shapes, and global contours. Then, finally, at the highest level of visual analysis, object identification takes place.
 
 \paragraph{Receptive field}
 
-The receptive field of a cell is the area on the retina that evokes a neural response to the visual stimuli (light) cast on this particular cell. Its size is measured in degrees of a visual angle, the entirety of which is nearly equal to $180^\circ$. The role of receptive fields in the visual cortex is to perform the parsing of information from complex scenes into contours of individual objects and separate those from their background.
+The receptive field of a cell is the area on the retina that evokes a neural response to the visual stimuli (light) cast on this particular cell. Its size is measured in degrees of a visual angle, with the entire visual field nearly equal to $180^\circ$. The role of receptive fields in the visual cortex is to parse information from complex scenes into the contours of individual objects and separate them from their background.
 
-The central region of the retina, the fovea, corresponds to the center of the gaze; eccentricity is defined as the distance between the receptive field center and fovea.
-As visualized in Figure \ref{fig:receptive-field}, the size of a receptive field is the smallest near the fovea and increases with eccentricity.
+The center of the retina, called the fovea, corresponds to the center of the gaze. The distance between the receptive field center and fovea is called eccentricity. As shown in Figure \ref{fig:receptive-field}, the size of a receptive field is smallest near the fovea and increases with eccentricity.
 
-The neurons' receptive fields follow a center-surround organization and have two functionally distinct subareas: on-center and off-center (pink and grey areas in Figure \ref{fig:receptive-field}, respectively). As depicted in Table \ref{tab:on-off-center}, the firing response of on- and off-center cells varies depending on the location of the light in a receptive field. The regions of the spatial contrast induce strong reaction, while little response is received from homogeneous illumination. The on- and off-center areas are mutually inhibitory, making the receptive field sensitive to borders and contours and thus enabling it to encode information about contrast.
+Receptive fields in neurons have a center-surround organization, with two distinct sub-areas: on-center and off-center (shown in pink and grey in Figure \ref{fig:receptive-field}, respectively). As illustrated in Table \ref{tab:on-off-center}, the firing response of on- and off-center cells varies depending on the location of the light in a receptive field. The regions of the spatial contrast induce a strong reaction, while little response is received from homogeneous illumination. The on- and off-center areas are mutually inhibitory, making the receptive field sensitive to borders and contours and thus enabling it to encode information about contrast.
 
 \begin{table}[!htp]
     \centering
     \input{assets/tables/on-off-center}
-    \caption[Neural response depending on light location]{Response of on- and off-center neurons depending on presence and location of light (yellow) in the receptive field \cite{KandelBook2003:25}.}
+    \caption[Neural response depending on light location]{Response of on- and off-center neurons depending on presence and location of the light (yellow) in the receptive field \cite{KandelBook2003:25}.}
     \label{tab:on-off-center}
 \end{table}
 
 \paragraph{Grating stimuli}
 
-Evidently, small spots of light are helpful for studying receptive fields of single neurons. However, in order to learn about visual perception, more complex stimuli are needed \cite{KandelBook2003:26}. For instance, grating stimuli are used to investigate the perception of spatial patterns. Such stimuli comprise images, where the luminosity varies about the mean as a sinusoidal function of space, as displayed in Figure \ref{fig:grating-stimuli-examples}. 
-
+Evidently, small spots of light are helpful for studying the receptive fields of single neurons. However, in order to learn about visual perception, more complex stimuli are needed \cite{KandelBook2003:26}. For instance, grating stimuli are used to investigate the perception of spatial patterns. Such stimuli are images where the luminosity varies around the mean as a sinusoidal function of space, as shown in Figure \ref{fig:grating-stimuli-examples}.
 \begin{figure}[!htp]
     \centering
     \begin{subfigure}[t]{0.3\textwidth}

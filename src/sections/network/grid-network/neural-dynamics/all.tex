@@ -1,7 +1,7 @@
 \subsection{Neural dynamics}
 \label{sec:neural-dynamics}
 
-A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. There, every neuron is a dynamical system that can be described with a two-dimensional system of ordinary differential equations: for all $v \in V$,
+A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. There, every neuron represents a dynamical system that can be described with a two-dimensional system of ordinary differential equations (ODEs): for all $v \in V$,
 \begin{align}
     \frac{dp_v}{dt} =\ & 0.04 p_v^2 + 5p_v + 140 - r_v + I_v,
     \label{eq:Izhikevich-model-dp-dt} \\
@@ -36,6 +36,8 @@ The effects the parameters $\alpha, \beta, \gamma, \zeta$ have on membrane poten
 
 The parameters $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS), and inhibitory - fast spiking (FS). 
 The parameters' values for these types of neurons  are displayed in Table \ref{tab:params-izhikevich-model}.
+
+
 
 \begin{figure}[!htp]
     \centering
@@ -85,6 +87,22 @@ The parameters' values for these types of neurons  are displayed in Table \ref{t
     \caption[Dynamics of an FS neuron]{$p-r$ phase plane: dynamics of an FS neuron depending on current $I_v$.}
     \label{fig:neural-dynamics-fs}
 \end{figure}
+
+
+In the present thesis, the network of Izhikevich neurons is simulated by solving the ODEs in Equations (\ref{eq:Izhikevich-model-dp-dt})-(\ref{eq:Izhikevich-model-p30}) using the forward Euler method. The overall simulation time is $\simulationtime = 1000$ ms with the discretization $dt$ of $1$ ms. So, the sequence of time steps $\timesteps \in \mathbb{R}^{\simulationtime \cdot dt}$ is the following:
+\begin{equation}
+    \timesteps = \left<
+        0, 1 \cdot dt, 2 \cdot dt, \cdots, (\simulationtime-1) \cdot dt
+    \right>.
+\end{equation}
+
+For a neuron $v \in V$, the initial value of the membrane potential is chosen uniformly at random from the range between the resting potential and the peak membrane potential. So, 
+\begin{equation}
+\begin{gathered}
+    p_v(0) \sim U(-65, p_\peak), \\
+    r_v(0) = \beta \cdot p_v(0).
+\end{gathered}
+\end{equation}
 
 \paragraph{Regular spiking neurons}
 

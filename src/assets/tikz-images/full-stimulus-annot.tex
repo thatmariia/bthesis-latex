@@ -37,18 +37,18 @@
 \begin{tikzpicture}[
         arr/.style = { -{Stealth[ ]} },
         whitedoublearrow/.style = {>=stealth, draw=white, fill=white, very thick, <->},
-        pinkarrow/.style = {arr, draw=sec-color, fill=sec-color, very thick},
-        yellowframe/.style = {rounded corners=0.2cm, very thick, main-color, fill=main-color, fill opacity=0.1},
-        blueframe/.style = {rounded corners=0.2cm, very thick, third-color, fill=third-color, fill opacity=0.1},
+        pinkarrow/.style = {arr, draw=color-three-light, fill=color-three-light, very thick},
+        yellowframe/.style = {rounded corners=0.2cm, very thick, color-one, fill=color-one, fill opacity=0.1},
+        blueframe/.style = {rounded corners=0.2cm, very thick, color-two-light, fill=color-two-light, fill opacity=0.1},
         anglearrow/.style = {draw, >=stealth, white, very thick, ->, angle eccentricity=2},
-        cnode/.style = {circle,thick,fill=main-color},
+        cnode/.style = {circle,thick,fill=color-one},
     ]
     
     \begin{scope}
         \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\fsaimagew]{assets/images/full-stimulus.png}};
         
         % horizontal axis
-        \draw[sec-color, thick] (\fsacenterx, \fsacentery) -- (\fsaimagew, \fsacentery);
+        \draw[color-three-light, thick] (\fsacenterx, \fsacentery) -- (\fsaimagew, \fsacentery);
         \node[] (xright) at (\fsaimagew, \fsacentery) {};
         
         % stimulus width

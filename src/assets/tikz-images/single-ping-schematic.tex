@@ -8,13 +8,13 @@
 
 \begin{tikzpicture}[
     arr/.style = { -{Stealth[ ]} },
-    cnodeex/.style = {circle,thick,fill=main-color},
-    cnodeex2/.style = {circle,very thick,draw=main-color, fill=main-color, fill opacity=0.2},
-    cnodein/.style = {circle,thick,fill=sec-color},
-    cnodein2/.style = {circle,very thick,draw=sec-color,fill=sec-color, fill opacity=0.2},
-    inarrow/.style = {arr, draw=sec-color, fill=sec-color, ultra thick},
-    exarrow/.style = {arr, draw=main-color, fill=sec-color, ultra thick},
-    idl/.style = {draw=third-color, fill=sec-color, ultra thick},
+    cnodeex/.style = {circle,thick,fill=color-two},
+    cnodeex2/.style = {circle,very thick,draw=color-two, fill=color-two, fill opacity=0.2},
+    cnodein/.style = {circle,thick,fill=color-one},
+    cnodein2/.style = {circle,very thick,draw=color-one,fill=color-one, fill opacity=0.2},
+    inarrow/.style = {arr, draw=color-one, fill=color-one, ultra thick},
+    exarrow/.style = {arr, draw=color-two, fill=color-one, ultra thick},
+    idl/.style = {draw=color-three, fill=color-one, ultra thick},
 ]
     
     \begin{scope}

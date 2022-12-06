@@ -5,7 +5,7 @@
 
 \begin{tikzpicture}[
         arr/.style = { -{Stealth[ ]} },
-        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        bluearrow/.style = {arr, draw=color-three-mid, fill=color-three-light, thick},
         blackarrow/.style = {arr, ultra thick},
     ]
     
@@ -15,34 +15,34 @@
     \node[] (rt) at (-0.5, 0.42 * \ndimageh) {$r(t)$};
     
     % peak
-    \node[anchor=west] (peaktxt) at (1.1 * \ndimagew, \ndimageh) {\bgcolorsmalltext{third-color}{black}{peak ($30$ mV)}};
+    \node[anchor=west] (peaktxt) at (1.1 * \ndimagew, \ndimageh) {\bgcolorsmalltext{color-three-light}{black}{peak ($30$ mV)}};
     \node[] (peak) at (0.4 * \ndimagew, \ndimageh) {};
     \path [bluearrow] (peaktxt) edge node {} (peak);
     
     % decay alpha 
-    \node[anchor=west] (decaytxt) at (1.1 * \ndimagew, 0.2 * \ndimageh) {\bgcolorsmalltext{third-color}{black}{decay with rate $\alpha$}};
+    \node[anchor=west] (decaytxt) at (1.1 * \ndimagew, 0.2 * \ndimageh) {\bgcolorsmalltext{color-three-light}{black}{decay with rate $\alpha$}};
     \node[] (decay) at (0.6 * \ndimagew, 0.2 * \ndimageh) {};
     \path [bluearrow] (decaytxt) edge node {} (decay);
     
     % sensitivity beta
-    \node[] (senstxt) at (0.6 * \ndimagew, -0.2 * \ndimageh) {\bgcolorsmalltext{third-color}{black}{sensitivity $\beta$}};
+    \node[] (senstxt) at (0.6 * \ndimagew, -0.2 * \ndimageh) {\bgcolorsmalltext{color-three-light}{black}{sensitivity $\beta$}};
     \node[] (sens) at (0.35 * \ndimagew, 0.07 * \ndimageh) {};
     \path [bluearrow] (senstxt) edge node {} (sens);
     
     % reset gamma
-    \node[anchor=west] (resetgtxt) at (1.1 * \ndimagew, 0.52 * \ndimageh) {\bgcolorsmalltext{third-color}{black}{reset $\gamma$}};
+    \node[anchor=west] (resetgtxt) at (1.1 * \ndimagew, 0.52 * \ndimageh) {\bgcolorsmalltext{color-three-light}{black}{reset $\gamma$}};
     \node[] (resetg) at (0.42 * \ndimagew, 0.52 * \ndimageh) {};
     \path [bluearrow] (resetgtxt) edge node {} (resetg);
     
     % reset zeta
-    \node[] (resetztxt) at (0.1 * \ndimagew, 0.2 * \ndimageh) {\bgcolorsmalltext{third-color}{black}{reset $\zeta$}};
+    \node[] (resetztxt) at (0.1 * \ndimagew, 0.2 * \ndimageh) {\bgcolorsmalltext{color-three-light}{black}{reset $\zeta$}};
     \node[] (resetz) at (0.39 * \ndimagew, 0.2 * \ndimageh) {};
     \path [bluearrow] (resetztxt) edge node {} (resetz);
         
     \end{scope}
     
     \begin{scope}
-        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\ndimagew]{src/assets/images/neural-dynamics.png}};
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\ndimagew]{src/assets/images/neural-dynamics.pdf}};
     \end{scope}
         
 \end{tikzpicture}

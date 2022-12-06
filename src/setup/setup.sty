@@ -1,6 +1,7 @@
 % ------------------------ TEXT
 
 \newcommand{\stimfig}{{\it figure}}
+\newcommand{\stimfigcap}{{\it Figure}}
 
 % ------------------------ MATH
 
@@ -159,23 +160,49 @@
 
 % ------------------------ COLORS
 
-\definecolor{main-color}{HTML}{FCEA88}
-\definecolor{sec-color}{HTML}{FFA3AF}
-\definecolor{third-color}{HTML}{ACDDE7}
+% \definecolor{main-color}{HTML}{FCEA88}
+% \definecolor{sec-color}{HTML}{FFA3AF}
+% \definecolor{third-color}{HTML}{ACDDE7}
+
+\definecolor{main-color}{HTML}{FF0000}
+\definecolor{sec-color}{HTML}{FF0000}
+\definecolor{third-color}{HTML}{FF0000}
+
+\definecolor{color-one}{HTML}{E64B35}
+\definecolor{color-one-light}{HTML}{F39B7F}
+
+\definecolor{color-two}{HTML}{00A087}
+\definecolor{color-two-light}{HTML}{91D1C2}
+
+\definecolor{color-three}{HTML}{3C5488}
+\definecolor{color-three-mid}{HTML}{788BBF}
+\definecolor{color-three-light}{HTML}{C8CFE4}
+
+
+\definecolor{table-color}{HTML}{FCEA88}%{D1DCD5}
 
 \definecolor{gray-color}{HTML}{D0D0D0}
 
-\DeclareRobustCommand{\dochl}[1]{{\sethlcolor{sec-color}\hl{#1}}}
+\DeclareRobustCommand{\dochl}[1]{{\sethlcolor{color-two-light}\hl{#1}}}
 
 % ------------------------ FONTS
 
-\setmainfont{AvenirNextCyr}[
-    Path=fonts/avenir/,
+% \setmainfont{AvenirNextCyr}[
+%     Path=fonts/avenir/,
+%     Extension = .ttf,
+%     UprightFont=*-Regular,
+%     BoldFont=*-Demi,
+%     ItalicFont=*-Italic,
+%     BoldItalicFont=*-DemiItalic
+% ]
+
+\setmainfont{OptimaLTPro}[
+    Path=fonts/optima/,
     Extension = .ttf,
-    UprightFont=*-Regular,
-    BoldFont=*-Demi,
+    UprightFont=*-Roman,
+    BoldFont=*-Bold,
     ItalicFont=*-Italic,
-    BoldItalicFont=*-DemiItalic
+    BoldItalicFont=*-BoldItalic
 ]
 
 \urlstyle{same}
@@ -215,7 +242,7 @@
 \renewcommand{\cftlottitlefont}{\LARGE\bfseries\emphfont}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \newcommand\mydot[1]{\scalebox{#1}{.}}
-\renewcommand\cftdot{{\color{main-color}\mydot{2}}}
+\renewcommand\cftdot{{\color{table-color}\mydot{2}}}
 
 %\renewcommand{\cftsecindent}{0em}
 %\renewcommand{\cftsubsecindent}{0em}
@@ -235,14 +262,14 @@
 % ------------------------ TABLES
 
 \setlength\arrayrulewidth{1pt}
-\arrayrulecolor{main-color}
+\arrayrulecolor{table-color}
 
 % ------------------------ FIELDS
 
 \newenvironment{paraphrase}{{\bf \Large TO PARAPHRASE::}}{}
 \surroundwithmdframed[
     hidealllines=true,
-    backgroundcolor=third-color,
+    backgroundcolor=color-three-mid,
     roundcorner=10pt,
     innerleftmargin=10pt,
     innerrightmargin=10pt,
@@ -255,7 +282,7 @@
 \newenvironment{notes}{{\bf \Large NOTES::}}{}
 \surroundwithmdframed[
     hidealllines=true,
-    backgroundcolor=third-color,
+    backgroundcolor=color-two-light,
     roundcorner=10pt,
     innerleftmargin=10pt,
     innerrightmargin=10pt,
@@ -268,7 +295,7 @@
 \newcommand{\todo}[1]{
     \begin{tikzpicture}
     \begin{scope}
-        \node[draw=sec-color, fill=sec-color, rounded corners=0.3cm] (1) {%
+        \node[draw=color-one-light, fill=color-one-light, rounded corners=0.3cm] (1) {%
         \begin{varwidth}{\textwidth}
             {\bf \large TODO::} {\normalsize #1}
         \end{varwidth}

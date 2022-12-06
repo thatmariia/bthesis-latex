@@ -1,0 +1,130 @@
+\newcommand{\patcheswidth}{2.4cm}
+\setlength\extrarowheight{5pt}  
+\newcommand{\raiseboxamounttwentyfive}{0} %{-.5
+% {\includegraphics[width=\patcheswidth]
+\newcommand{\rbtf}[1]{
+    %\raisebox{\patcheswidth*\real{-0.5}}{#1}
+    \raisebox{-.4\totalheight}{#1}
+}
+
+\newcommand{\patchcontent}[1]{
+\begin{tikzpicture}
+    \begin{scope}
+    %\draw[red,thick,dashed] (0,0) circle (1.28cm);
+    \node[anchor=center,inner sep=0] at (0,0) {\includegraphics[width=\patcheswidth]{src/assets/images/25patches/#1.png}};
+    
+    \end{scope}
+\end{tikzpicture}
+}
+\newcommand{\patchA}{
+    \patchcontent{dist-1.0000___contrast-0.0100}
+}
+\newcommand{\patchB}{
+    \patchcontent{dist-1.0000___contrast-0.2575}
+}
+\newcommand{\patchC}{
+    \patchcontent{dist-1.0000___contrast-0.5050}
+}
+\newcommand{\patchD}{
+    \patchcontent{dist-1.0000___contrast-0.7525}
+}
+\newcommand{\patchE}{
+    \patchcontent{dist-1.0000___contrast-1.0000}
+}
+\newcommand{\patchF}{
+    \patchcontent{dist-1.1250___contrast-0.0100}
+}
+\newcommand{\patchG}{
+    \patchcontent{dist-1.1250___contrast-0.2575}
+}
+\newcommand{\patchH}{
+    \patchcontent{dist-1.1250___contrast-0.5050}
+}
+\newcommand{\patchI}{
+    \patchcontent{dist-1.1250___contrast-0.7525}
+}
+\newcommand{\patchJ}{
+    \patchcontent{dist-1.1250___contrast-1.0000}
+}
+\newcommand{\patchK}{
+    \patchcontent{dist-1.2500___contrast-0.0100}
+}
+\newcommand{\patchL}{
+    \patchcontent{dist-1.2500___contrast-0.2575}
+}
+\newcommand{\patchM}{
+    \patchcontent{dist-1.2500___contrast-0.5050}
+}
+\newcommand{\patchN}{
+    \patchcontent{dist-1.2500___contrast-0.7525}
+}
+\newcommand{\patchO}{
+    \patchcontent{dist-1.2500___contrast-1.0000}
+}
+\newcommand{\patchP}{
+    \patchcontent{dist-1.3750___contrast-0.0100}
+}
+\newcommand{\patchQ}{
+    \patchcontent{dist-1.3750___contrast-0.2575}
+}
+\newcommand{\patchR}{
+    \patchcontent{dist-1.3750___contrast-0.5050}
+}
+\newcommand{\patchS}{
+    \patchcontent{dist-1.3750___contrast-0.7525}
+}
+\newcommand{\patchT}{
+    \patchcontent{dist-1.3750___contrast-1.0000}
+}
+\newcommand{\patchU}{
+    \patchcontent{dist-1.5000___contrast-0.0100}
+}
+\newcommand{\patchV}{
+    \patchcontent{dist-1.5000___contrast-0.2575}
+}
+\newcommand{\patchW}{
+    \patchcontent{dist-1.5000___contrast-0.5050}
+}
+\newcommand{\patchX}{
+    \patchcontent{dist-1.5000___contrast-0.7525}
+}
+\newcommand{\patchY}{
+    \patchcontent{dist-1.5000___contrast-1.0000}
+}
+%m{2.2cm}m{2.2cm}m{2.2cm}m{2.2cm}m{2.2cm}
+%m{2.4cm}m{2.4cm}m{2.4cm}m{2.4cm}m{2.4cm}
+\newcommand{\cwtw}{0.15\textwidth}
+
+\begin{tabular}{>{\columncolor{table-color}}m{0.4cm}>{\columncolor{table-color}}m{0.4cm}m{\cwtw}m{\cwtw}m{\cwtw}m{\cwtw}m{\cwtw}|}
+ \cellcolor{white} & \cellcolor{white} & 
+ \multicolumn{5}{c|}{
+    \cellcolor{table-color}
+    {\bf Contrast $\pmb{\contrange}$}
+ } \\
+ \cellcolor{white} & \cellcolor{white} & 
+ \cellcolor{table-color}\multicolumn{1}{c}{0.01} & 
+ \cellcolor{table-color}\multicolumn{1}{c}{0.2570} & 
+ \cellcolor{table-color}\multicolumn{1}{c}{0.5050} & 
+ \cellcolor{table-color}\multicolumn{1}{c}{0.7525} & 
+ \cellcolor{table-color}\multicolumn{1}{c}{1}\\
+ \hline
+ & & & & & & \\[-2ex]
+ & \rotatebox[origin=c]{90}{1}        
+ & \patchA & \patchB & \patchC & \patchD & \patchE \\
+ & & & & & & \\[-2ex]
+ & \rotatebox[origin=c]{90}{1.125}   
+ & \patchF & \patchG & \patchH & \patchI & \patchJ \\
+ & & & & & & \\[-2ex]
+ & \rotatebox[origin=c]{90}{1.250}  
+ & \patchK & \patchL & \patchM & \patchN & \patchO \\
+ & & & & & & \\[-2ex]
+ & \rotatebox[origin=c]{90}{1.375}
+ & \patchP & \patchQ & \patchR & \patchS & \patchT \\
+ & & & & & & \\[-2ex]
+ \multirow{-10}{*}[2.7cm]{ 
+    \rotatebox[origin=c]{90}{{\bf Distance scale $\pmb{k}$}}
+ }
+ & \rotatebox[origin=c]{90}{1.5}
+ & \patchU & \patchV & \patchW & \patchX & \patchY \\
+ \hline
+ \end{tabular}

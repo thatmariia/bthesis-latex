@@ -22,7 +22,36 @@ The Pyramidal Interneuron Network Gamma (PING) model is a computational model th
 The present thesis uses the PING model to investigate the role of gamma oscillations in \stimfig-ground segregation. We evaluate the extent to which synchrony of gamma oscillations, as modeled by the PING network, is predictive of human performance in experiments conducted by Karimian \cite{MaryamPLACEHOLDER}. 
 We imitate the behavior of neurons using the Izhikevich model, which has been shown to exhibit a wide range of computational properties, including the ability to generate gamma-band oscillations \cite{Izhikevich2003}. To use as an input to the model, we reconstruct the stimuli introduced by Karimian \cite{MaryamPLACEHOLDER}. We then present the results of neural synchronization in our own simulations. The results show that synchrony of gamma oscillations is predictive of human performance in \stimfig-ground segregation, consistent with previous research.
 
-\todo{write about thesis organization}
+\paragraph{Applications}
+
+Modeling \stimfig-ground segregation in the brain can provide insights into the underlying neural mechanisms and computational principles of this process. These insights can help us understand how the brain processes visual information and how it is affected by various factors.
+
+One of the potential applications of modeling \stimfig-ground segregation is in the development of Artificial Intelligence (AI) algorithms that can mimic human visual perception, such as image and video recognition, object detection, and scene understanding. Current state-of-the-art AI models often rely on deep learning techniques, which do not explicitly model figure-ground segregation and can struggle to identify and segment objects in complex or cluttered scenes accurately \cite{Chu2020}. In contrast, a \stimfig-ground segregation neural model explicitly takes into account the principles of visual perception, which can help it identify and segment objects AI might not. 
+Secondly, \stimfig-ground segregation models can be more data and computationally efficient than current state-of-the-art AI models, as they do not require large amounts of training data and can be applied to a wide range of visual scenes. This makes them more practical and scalable for real-world applications. 
+Finally, neural perception models can provide a more interpretable and explainable representation of visual information, as they explicitly model the underlying computational principles. This can help better understand and interpret how these models work and how they can be improved.
+
+Another conceivable application of figure-ground segregation models is in the study of visual disorders and dysfunctions. By understanding the neural mechanisms that regulate figure-ground segregation in the brain, researchers may be able to identify the underlying causes of visual disorders, such as amblyopia (lazy eye) or strabismus (crossed eyes), and develop more effective interventions and treatments for these conditions.
+
+\begin{comment}
+Additionally, visual perception models, such as \stimfig-ground segregation, could be applied to improve assistive technologies for individuals with visual impairments or disorders. For instance, it could be used in the development of new treatments for conditions that affect one's ability to focus and control their attention, such as dyslexia and ADHD. Potentially, these treatments could include visual exercises and therapies that are designed to improve \stimfig-ground segregation and, ultimately, the individual's ability to perceive and interpret visual information. Furthermore, \stimfig-ground segregation models could be used to design visual interfaces for everyday devices, such as phones, tablets, and computers, that are more intuitive and straightforward to use. For example, the design of buttons and menus could be optimized to make it easier for the visually impaired user to identify and select individual objects within the interface.
+
+Besides the treatments for improving attention, figure-ground segregation models can be used to develop more effective training programs for tasks that require attention, such as piloting. Pilots must navigate complex environments, make rapid decisions, and manage multiple tasks while ignoring distractions. By using these models, visual simulations can be created to teach pilots to focus on important objects, such as other aircraft or obstacles, and ignore distractions. These simulations can be integrated into pilot training programs to improve their attention and decision-making abilities.
+\end{comment}
 
 
+\paragraph{Thesis organization}
 
+The thesis is divided into several sections:
+\begin{itemize}
+    \item First, we provide an overview of the preliminary information helpful to understand the context of further sections. In particular, we provide the relevant background of visual processing in the brain, the neural action potential (spikes), and the theory of weakly coupled oscillators. This section is intended for readers who may not be familiar with the topics or with neuroscience in general.
+
+    \item Then, we define the architecture of the model used in this thesis. Additionally, we describe the dynamics of the neurons and the composition of the input they receive.
+
+    \item In the next section, we describe the process of constructing the texture stimuli used in the model and explain how these stimuli are translated into input for the neurons.
+
+    \item Having defined the model, its architecture, and the external stimuli, we describe the evaluation of the model's simulations in terms of synchrony in the gamma range.
+
+    \item Consequently, we present the results of our simulations and compare them to the results of behavioral experiments performed by Karimian \cite{MaryamPLACEHOLDER}. We use statistical analyses and basic machine learning to evaluate the potential of our model to predict human behavior accurately.
+
+    \item Finally, we summarize our findings and discuss the implications of our study.
+\end{itemize}

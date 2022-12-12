@@ -95,36 +95,48 @@
 %m{2.4cm}m{2.4cm}m{2.4cm}m{2.4cm}m{2.4cm}
 \newcommand{\cwtw}{0.15\textwidth}
 
-\begin{tabular}{>{\columncolor{table-color}}m{0.4cm}>{\columncolor{table-color}}m{0.4cm}m{\cwtw}m{\cwtw}m{\cwtw}m{\cwtw}m{\cwtw}|}
- \cellcolor{white} & \cellcolor{white} & 
- \multicolumn{5}{c|}{
-    \cellcolor{table-color}
+\begin{tabular}{|m{0.4cm}m{0.4cm}m{\cwtw}m{\cwtw}m{\cwtw}m{\cwtw}m{\cwtw}}
+ \cline{3-7}
+ \multicolumn{1}{c}{} & 
+ \multicolumn{1}{c}{} &  
+ \multicolumn{5}{c}{
     {\bf Contrast $\pmb{\contrange}$}
  } \\
- \cellcolor{white} & \cellcolor{white} & 
- \cellcolor{table-color}\multicolumn{1}{c}{0.01} & 
- \cellcolor{table-color}\multicolumn{1}{c}{0.2570} & 
- \cellcolor{table-color}\multicolumn{1}{c}{0.5050} & 
- \cellcolor{table-color}\multicolumn{1}{c}{0.7525} & 
- \cellcolor{table-color}\multicolumn{1}{c}{1}\\
- \hline
- & & & & & & \\[-2ex]
- & \rotatebox[origin=c]{90}{1}        
- & \patchA & \patchB & \patchC & \patchD & \patchE \\
- & & & & & & \\[-2ex]
- & \rotatebox[origin=c]{90}{1.125}   
- & \patchF & \patchG & \patchH & \patchI & \patchJ \\
- & & & & & & \\[-2ex]
- & \rotatebox[origin=c]{90}{1.250}  
- & \patchK & \patchL & \patchM & \patchN & \patchO \\
- & & & & & & \\[-2ex]
- & \rotatebox[origin=c]{90}{1.375}
- & \patchP & \patchQ & \patchR & \patchS & \patchT \\
- & & & & & & \\[-2ex]
+ \multicolumn{1}{c}{} & 
+ \multicolumn{1}{c}{} & 
+ \multicolumn{1}{c}{0.01} & 
+ \multicolumn{1}{c}{0.2570} & 
+ \multicolumn{1}{c}{0.5050} & 
+ \multicolumn{1}{c}{0.7525} & 
+ \multicolumn{1}{c}{1}
+ \\ \cline{3-7}
+ & \multicolumn{1}{c|}{} & & & & & 
+ \\[-2ex]
+ & \multicolumn{1}{c|}{\rotatebox[origin=c]{90}{1}}        
+ & \patchA & \patchB & \patchC & \patchD & \patchE 
+ \\
+ & \multicolumn{1}{c|}{} & & & & & 
+ \\[-2ex]
+ & \multicolumn{1}{c|}{\rotatebox[origin=c]{90}{1.125}}   
+ & \patchF & \patchG & \patchH & \patchI & \patchJ 
+ \\
+ & \multicolumn{1}{c|}{} & & & & & 
+ \\[-2ex]
+ & \multicolumn{1}{c|}{\rotatebox[origin=c]{90}{1.250}}  
+ & \patchK & \patchL & \patchM & \patchN & \patchO 
+ \\
+ & \multicolumn{1}{c|}{} & & & & & 
+ \\[-2ex]
+ & \multicolumn{1}{c|}{\rotatebox[origin=c]{90}{1.375}}
+ & \patchP & \patchQ & \patchR & \patchS & \patchT 
+ \\
+ & \multicolumn{1}{c|}{} & & & & & 
+ \\[-2ex]
  \multirow{-10}{*}[2.7cm]{ 
-    \rotatebox[origin=c]{90}{{\bf Distance scale $\pmb{k}$}}
+    \rotatebox[origin=c]{90}{{\bf Distance scale $\pmb{\anndistscale}$}}
  }
- & \rotatebox[origin=c]{90}{1.5}
- & \patchU & \patchV & \patchW & \patchX & \patchY \\
- \hline
+ & \multicolumn{1}{c|}{\rotatebox[origin=c]{90}{1.5}}
+ & \patchU & \patchV & \patchW & \patchX & \patchY 
+ \\
+
  \end{tabular}

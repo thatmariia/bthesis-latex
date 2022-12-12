@@ -1,6 +1,6 @@
 \subsubsection{From frequency to current}
 
-This section describes a method for determining the relationship between gamma frequencies and input currents. It involves simulating the network using the Izhikevich model with different currents and constructing a time-frequency representation (TFR) of the resulting spike trains using the Morlet wavelet transform. The dominant frequency of gamma oscillations in the signal can be determined from the TFR. The dominant frequency for each simulation is then plotted against the corresponding input current to find the relationship between current and frequency.
+This section describes a method for determining the relationship between gamma frequencies and input currents. It involves simulating the network using the Izhikevich model with different currents and constructing a time-frequency representation (TFR) of the resulting spike trains using the Morlet wavelet transform. The dominant frequency of gamma oscillations in the signal can be determined from the TFR. For each simulation, it is then plotted against the corresponding input current to find the relationship between current and frequency.
 
 \paragraph{Simulating with different currents}
 
@@ -32,7 +32,27 @@ where the function $s: \{V, \timesteps\} \to \{0, 1\}$ returns $1$ if neuron spi
 As mentioned in Section \ref{sec:grid-ping}, the simulation time has been chosen to be $1000$ ms.
 For the purposes regarding the Fast Fourier Transform (FFT) algorithm, as discussed in the next paragraph, let $\offset \in \mathbb{N}$ be equal to $296$.
 
-Let $\tfrsimulations$ be a set of the 26 simulations, each associated with a particular value of $\meancurrent_\ex$. Let $\tfrsimulation \in \tfrsimulations$ be one of these simulations. A time-dependent signal $\spikesignal \in \{0, 1\} ^ {|V| \ \times \ (|\timesteps| - \offset)}$ is created by discarding the first $\offset$ time steps from each neuron's spike train obtained during the simulation $\tfrsimulation$.
+Let $\tfrsimulations$ be a set of the 26 simulations, each associated with a particular value of $\meancurrent_\ex$. Let $\tfrsimulation \in \tfrsimulations$ be one of these simulations. A time-dependent signal $\spikesignal \in \{0, 1\} ^ {|V| \ \times \ (|\timesteps| - \offset)}$ is created by discarding the first $\offset$ time steps from each neuron's spike train obtained during the simulation $\tfrsimulation$. An example of a spike raster (a plotted collection of spike trains) prior to offsetting is shown in Figure \ref{fig:fc14raster}.
+
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \input{src/assets/tikz-images/14/raster14.tex}
+        \vspace{-\baselineskip}
+        \caption{The spike raster plot of excitatory neurons after a simulation with input $\meancurrent_\ex = 14$.}
+        \label{fig:fc14raster}
+    \end{subfigure}
+    \\ \vspace{\baselineskip}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \input{src/assets/tikz-images/14/tfr14.tex}
+        \caption{The spectrogram of the spike trains after a simulation with input $\meancurrent_\ex = 14$ (from Figure \ref{fig:fc14raster}).}
+        \label{fig:fc14tfr}
+    \end{subfigure}
+    \caption[Spike raster and spectrogram for constant current]{The excitatory spike raster and corresponding spectrogram after a simulation with a constant current input to excitatory neurons of $\meancurrent_\ex = 14$.}
+    \label{fig:fc14}
+\end{figure}
 
 
 \paragraph{Finding dominant frequencies from TFR}
@@ -147,18 +167,19 @@ To compute the TFR using the Morlet wavelet transform, the steps outlined below 
         }.
     \end{gathered}
     \end{equation}
+    An example of the TFR of a signal depicted in Figure \ref{fig:fc14raster} is demonstrated as a spectrogram in Figure \ref{fig:fc14tfr}. It is clear that the dominant frequency in the signal is 38, as seen by the same number of \say{columns} in Figure \ref{fig:fc14raster}.
 \end{enumerate}
 
 
 \paragraph{Discovering frequency-current relationship}
 
-For each current input strength to excitatory neurons, the most prominent frequency is now known. Thus, the relationship can be analyzed and extrapolated. By plotting frequencies against currents, it can be observed that they follow a linear relationship (see Figure ???). Thus, the Theil–Sen estimator can fit a predictive model for the observed data. This regression method has been chosen as it is robust against outliers and does not require the assumption of normally distributed errors. 
+For each current input strength to excitatory neurons, the most prominent frequency is now known. Thus, the relationship can be analyzed and extrapolated. By plotting frequencies against currents, it can be observed that they follow a linear relationship (see Figure \ref{fig:fc-relationship}). Thus, the Theil–Sen estimator can fit a predictive model for the observed data. This regression method has been chosen as it is robust against outliers and does not require the assumption of normally distributed errors. 
 
 \begin{figure}[!htp]
     \centering
     \input{src/assets/tikz-images/f-c-relationship-annot.tex}
-    \caption{Caption}
-    \label{fig:my_label}
+    \caption[Frequency-current relationship]{The dominant frequency for each constant input current and line fit using Theil-Sen estimator.}
+    \label{fig:fc-relationship}
 \end{figure}
 
 The Theil–Sen estimator defines the slope of the fitted line $\fcslope \in \mathbb{R}$ as the median of all possible slopes between pairs of points from the frequency-current graph:
@@ -189,6 +210,10 @@ Knowing the slope of the linear relationship between the frequency and current, 
 \begin{equation}
     I_{\stim, \pingnet} = \fcslope \cdot f_\pingnet + \fcintercept.
 \end{equation}
-The derived values for $\fcslope$ and $\fcintercept$ are shown in Table ???.
-
-\todo{include table ??? and figure ???}
+The derived values for $\fcslope$ and $\fcintercept$ are shown in Table \ref{tab:fc-relationship}.
+\begin{table}[!htp]
+    \centering
+    \input{src/assets/tables/fc-relationship.tex}
+    \caption[Frequency-current relationship parameters]{Slope and intercept for the linear relationship between frequency and current relationship.}
+    \label{tab:fc-relationship}
+\end{table}

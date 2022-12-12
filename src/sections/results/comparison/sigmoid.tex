@@ -1,0 +1,14 @@
+\subsubsection{Psychometric sigmoid-interpolated data}
+
+\paragraph{Statistical tests}
+
+We further analyze the relationship between our experimental and simulation data on the psychometric sigmoid-interpolated data $\expressigmoid$ and $\simressigmoid$. Similar to the original and spline-interpolated data, our initial observations showed that the relationship between the two datasets appeared to be monotonic and positive, as shown in Figure \ref{fig:relationship-sigmoid}. We used Pearson's correlation coefficient to test the linearity of this relationship, and the results indicated a very strong linear relationship with a statistic of 0.8441 and a p-value of 0.0. However, a Kolmogorov-Smirnov normality test revealed that the datasets were not normally distributed, so we were unable to draw conclusions about the significance of the linear relationship. The test's statistics revealed the values of 0.6950 for the experimental data and 0.7538 for the simulation data, both with a p-value of 0.0.
+Spearman's correlation demonstrated a very strong monotonic positive relationship between the experimental and simulation data with a statistic of 0.8620 and a p-value of 0.0. 
+
+\paragraph{Regression analyses}
+
+To further quantify this relationship, we performed regression analyses using linear, quadratic, and cubic polynomial fits. The resulting polynomials are shown in Table \ref{tab:results-summary} and visualized in Figure \ref{fig:relationship-fit-sigmoid}. 
+
+The R2 goodness-of-fit tests all turned out to be indicative of a strong fit with the values of 0.7122 for the first-degree polynomial, 0.7385 for the second-degree polynomial, and 0.7680 for the third-degree polynomial. The MSE CV scores also appear to be extremely small at 0.0006 (d1), 0.0005 (d2), and 0.0004 (d3). 
+
+The summary of the statistical tests and the regression analyses performed on the psychometric sigmoid data can be found in Table \ref{tab:results-summary}. Overall, even greater Spearman's correlation, greater R2 scores, and lower CV values suggest that the correlation between the data interpolated with psychometric sigmoid splines is stronger than between the original data as well as the data interpolated with bivariate splines.

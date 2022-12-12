@@ -1,0 +1,49 @@
+% ----- INPUT
+% 0.951 * height
+\newcommand{\relatphw}{0.8273775\textwidth}
+\newcommand{\relatphh}{0.87\textwidth}
+
+% to shift for ticks
+% \newcommand{\relatshiftx}{1.3em}
+% \newcommand{\relatshifty}{1em}
+\newcommand{\relatshiftx}{1em}
+\newcommand{\relatshifty}{0.7em}
+
+% to shift to the middle from kinda the middle
+\newcommand{\relatmidshiftx}{0.3em}
+\newcommand{\relatmidshifty}{0.7em}
+
+%
+\newcommand{\relathormid}{0.5 * \relatphw}
+\newcommand{\relatvermid}{0.5 * \relatphh}
+
+
+\newcommand{\relatplot}[3]{
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        blackarrow/.style = {arr, ultra thick},
+    ]
+    
+    \begin{scope}
+
+        \node[
+            shift={(\relatmidshiftx, -\relatshifty)}
+        ] at (\relathormid, 0) {{ \footnotesize #2}};
+        
+        \node[
+            shift={(-\relatshiftx, \relatmidshifty)},
+            rotate=90
+        ] at (0, \relatvermid) {{\footnotesize #3}};
+
+        
+        % \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \appeakh) {peak};
+        
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[height=\relatphh]{#1}};
+    \end{scope}
+        
+\end{tikzpicture}
+}

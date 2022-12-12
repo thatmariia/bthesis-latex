@@ -16,10 +16,10 @@
 \newcommand{\slopeRF}{a_\mathsf{RF}}
 \newcommand{\interceptRF}{b_\mathsf{RF}}
 \newcommand{\diamRF}{{d_\mathsf{RF}}}
-\newcommand{\fwhm}{\mathsf{fwhm}}
+\newcommand{\fwhm}{{\mathsf{fwhm}}}
 \newcommand{\pix}{\mathsf{pixels}}
 \newcommand{\annulus}{\mathsf{annulus}}
-\newcommand{\stdrf}{\sigma_\mathsf{RF}}
+\newcommand{\stdrf}{{\sigma_\mathsf{RF}}}
 
 \newcommand{\meancurrent}{I}
 \newcommand{\fcslope}{a_\mathsf{fc}}
@@ -47,10 +47,10 @@
 \newcommand{\slope}{\mathsf{slope}}
 
 \newcommand{\eccangle}{\Phi}
-\newcommand{\cortk}{k}
-\newcommand{\corta}{a}
-\newcommand{\cortb}{b}
-\newcommand{\cortalpha}{\alpha}
+\newcommand{\cortk}{\kappa}
+\newcommand{\corta}{\mathsf{mp}_a}
+\newcommand{\cortb}{\mathsf{mp}_b}
+\newcommand{\cortalpha}{\psi}
 
 % neural dynamics
 
@@ -69,6 +69,9 @@
 \newcommand{\izhi}{\mathrm{Izhikevich}}
 \newcommand{\timesteps}{T}
 \newcommand{\simulationtime}{\tau}
+\newcommand{\synapticgate}{\mathsf{gate}}
+\newcommand{\synapticrise}{\mathsf{rise}}
+\newcommand{\synapticdecay}{\mathsf{decay}}
 
 % stimulus parameters
 
@@ -144,6 +147,23 @@
 \newcommand{\spikerate}{\mathsf{rate}}
 \newcommand{\phaselockingmatrix}{\mathsf{PLM}}
 
+% results
+\newcommand{\simres}{\mathsf{simres}}
+\newcommand{\simresspline}{\mathsf{simres\_spline}}
+\newcommand{\simressigmoid}{\mathsf{simres\_sig}}
+
+\newcommand{\expres}{\mathsf{expres}}
+\newcommand{\expresspline}{\mathsf{expres\_spline}}
+\newcommand{\expressigmoid}{\mathsf{expres\_sig}}
+
+\newcommand{\sigmoidparams}{\mu}
+\newcommand{\lossfunc}{\mathsf{loss}}
+\newcommand{\learningrate}{\lambda}
+
+
+\newcommand{\sigmoidint}{\mathsf{sig}}
+\newcommand{\sigmoidrandomchance}{g}
+
 % general stuff
 
 \DeclareMathOperator*{\median}{median}
@@ -179,7 +199,7 @@
 \definecolor{color-three-light}{HTML}{C8CFE4}
 
 
-\definecolor{table-color}{HTML}{FCEA88}%{D1DCD5}
+\definecolor{table-color}{HTML}{788BBF}%{D1DCD5}
 
 \definecolor{gray-color}{HTML}{D0D0D0}
 
@@ -213,6 +233,15 @@
     UprightFont=*-Regular,
     BoldFont=*-Bold,
     ItalicFont=*-RegularItalic,
+    BoldItalicFont=*-BoldItalic
+]
+
+\newfontfamily{\codefont}{SourceCodePro}[
+    Path=fonts/sourcecodepro/,
+    Extension = .ttf,
+    UprightFont=*-Regular,
+    BoldFont=*-Bold,
+    ItalicFont=*-Italic,
     BoldItalicFont=*-BoldItalic
 ]
 
@@ -367,6 +396,10 @@
 }
 
 % ------------------------ OTHER
+
+\newcommand{\startbulletsnospace}{\vspace{-1em}}
+\newcommand{\reducebulletsseparation}{
+\setlength\itemsep{5em}}
 
 \pgfplotsset{compat=1.18} 
 

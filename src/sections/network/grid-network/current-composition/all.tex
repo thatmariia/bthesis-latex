@@ -1,14 +1,15 @@
 \subsection{Current composition}
 \label{sec:current-composition}
 
-The excitatory neurons are subjected to the effects of external stimuli, which contribute to the current ($I_v$) in Equation (\ref{eq:Izhikevich-model-dp-dt}). Additionally, in the network, neurons are not isolated, and the current involves the accumulated effect of interactions with other neurons. Finally, the network is subjected to noise. 
-Hence, the equation for the current $I_v$ includes the input current from the external stimulus $I_{\stim}$ as well as the coupling weights $K$ between the neurons, the effects of synaptic potentials GABA (inhibitory) and AMPA (excitatory) $s$, and noise $I_\noise$:
+The excitatory neurons are subjected to the effects of external stimuli, which contribute to the current ($I_v$) in Equation (\ref{eq:Izhikevich-model-dp-dt}). Additionally, in the network, neurons are not isolated, and the current involves the accumulated effect of interactions with other neurons as well as noise. 
+Hence, the equation for the current $I_v$ includes the input current from the external stimulus $I_{\stim}$ as well as the coupling weights $K$ between the neurons, the effects of synaptic potentials GABA (inhibitory) and AMPA (excitatory) $\synapticgate_v$, and noise $I_\noise$:
 \begin{gather}
     I_v = 
     \sum_{w \in V} \cost_{(v \to w)} + I_{\noise, v} + I_{\stim, v} \mathbb{1} \{ \type(v) = \ex \},  \label{eq:current-components} \\
-    \cost_{(v \to w)} = K_{(v \to w)} \cdot s_v. 
+    \cost_{(v \to w)} = K_{(v \to w)} \cdot \synapticgate_v. 
     \label{eq:cost-function}
 \end{gather}
+The components involved in Equations (\ref{eq:current-components}) and (\ref{eq:cost-function}) are defined below.
 
 \begin{comment}
 

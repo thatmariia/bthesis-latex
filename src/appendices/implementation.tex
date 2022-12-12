@@ -1,0 +1,103 @@
+\section{Implementation details}
+
+The code for the simulations was written in the Python 3.9 programming language and run using Google CoLab PRO+ (a Unix cloud-based platform for running and sharing Jupyter notebooks). The available resources of the Colab PRO+ include eight CPUs and 54 GB of RAM.
+
+The code for the simulations can be found in the GitHub repository at the link \url{https://github.com/thatmariia/grid-ping} \cite{github:grid-ping}. The code is well-documented. The documentation for the code includes
+\begin{itemize}
+    \item instructions on how to use it,
+    \item a class diagram - a visual representation of the classes and their relationships in the code,
+    \item a sequence diagram - a visual representation of the interactions between objects in the code,
+    \item an API reference - a detailed description of the classes, methods, and other elements of the code's application programming interface (API).
+\end{itemize}
+The documentation is available in the README file of the mentioned repository or at the link \url{git.mariia.me/grid-ping/docs/build/html}.
+
+\vfill
+
+\begin{center} 
+{ \it
+    This space has intentionally been left blank. \\
+    The content continues on the next page.
+}
+\end{center}
+
+\vfill
+
+\newcommand{\thickhline}{\textcolor{color-three-mid}{\noindent\rule[0.5ex]{\linewidth}{1pt}}}
+\newcommand{\normalhline}{\textcolor{color-three-light}{\noindent\rule[0.5ex]{\linewidth}{1pt}}}
+
+
+\newpage
+The following is the script used to run the simulations in Google CoLab:
+
+\vspace{\baselineskip}
+\thickhline
+\\Importing required packages
+\normalhline
+\vspace{\baselineskip}
+{ \codefont \scriptsize \raggedright
+    {\color{color-three}import} sys \\
+    {\color{color-three}import} os \\
+    {\color{color-three}import} shutil \\
+}
+\vspace{\baselineskip}
+\normalhline
+\\Mounting the CoLab notebook to an existing Google Drive folder
+\normalhline
+\vspace{\baselineskip}
+{ \codefont \scriptsize \raggedright
+    {\color{color-three}from} google.colab {\color{color-three}import} drive \\
+    your\_gdrive\_foldername = {\color{color-one}'<your\_gdrive\_foldername>'} \\
+    dir\_gdrive = os.path.abspath({\color{color-two}f}{\color{color-one}'/content/drive/MyDrive/}\{your\_gdrive\_foldername\}{\color{color-one}'}) \\
+    drive.mount({\color{color-one}'/content/drive'}) \\
+}
+\vspace{\baselineskip}
+\normalhline
+\\Retrieving the contents of the repository
+\normalhline
+\vspace{\baselineskip}
+{ \codefont \scriptsize \raggedright
+    git\_dir = os.path.join(dir\_gdrive, {\color{color-one}'grid-ping'}) \\
+    git\_branch = {\color{color-one}'main'} \\
+    \vspace{\baselineskip}
+    {\color{color-two}!} git config core.filemode false \\
+    \vspace{\baselineskip}
+    {\color{color-three}if} {\color{color-two}not} os.path.exists(git\_dir): \\
+      \qquad {\color{color-two}\%cd} \$dir\_gdrive \\
+      \qquad url = {\color{color-one}'https://github.com/thatmariia/grid-ping.git'} \\
+      \qquad ! git clone \$url \\
+      \qquad {\color{color-two}\%cd} \$git\_dir \\
+    {\color{color-three}else}: \\
+      \qquad {\color{color-two}\%cd} \$git\_dir \\
+      \qquad ! git pull origin main \\
+    \vspace{\baselineskip}
+    {\color{color-two}!} git config core.filemode false \\
+    {\color{color-two}!} git checkout \$git\_branch \\
+}
+\vspace{\baselineskip}
+\normalhline
+\\Installing Python 3.9 and required packages
+\normalhline
+\vspace{\baselineskip}
+{ \codefont \scriptsize \raggedright
+    {\color{color-two}!}sudo apt-get install python3.9 \\
+    \vspace{\baselineskip}
+    git\_dir = os.path.join(dir\_gdrive, {\color{color-one}'grid-ping'}) \\
+    req\_file = os.path.join(git\_dir, {\color{color-one}'requirements.txt'}) \\
+    {\color{color-two}!} (sudo apt-get install python3.9-distutils) \\
+    {\color{color-two}!} (sudo apt-get install python3.9-apt) \\
+    {\color{color-two}!} (wget https://bootstrap.pypa.io/get-pip.py \&\& python3.9 get-pip.py --isolated) \\
+    {\color{color-two}!} (python3.9 -m ensurepip --upgrade) \\
+    {\color{color-two}!} (python3.9 -m pip install -r \$req\_file) \\
+    {\color{color-two}!} (python3.9 -m pip install ipykernel) \\
+}
+\vspace{\baselineskip}
+\normalhline
+\\Running the simulation
+\normalhline
+\vspace{\baselineskip}
+{ \codefont \scriptsize \raggedright
+    {\color{color-two}\%cd} \$git\_dir \\
+    {\color{color-two}!} (python3.9 -msrc.main --root) \\
+}
+\vspace{\baselineskip}
+\thickhline

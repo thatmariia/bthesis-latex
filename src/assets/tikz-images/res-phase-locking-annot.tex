@@ -1,0 +1,47 @@
+% ----- INPUT
+\newcommand{\resphw}{0.45\textwidth}
+% 0.79084 * width
+\newcommand{\resphh}{0.355876\textwidth}
+
+% to shift for ticks
+\newcommand{\resshiftx}{1.3em}
+\newcommand{\resshifty}{1em}
+
+% to shift to the middle from kinda the middle
+\newcommand{\resmidshiftx}{-0.5em}
+\newcommand{\resmidshifty}{0.4em}
+
+%
+\newcommand{\reshormid}{0.5 * \resphw}
+\newcommand{\resvermid}{0.5 * \resphh}
+
+
+\newcommand{\resplot}[1]{
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        blackarrow/.style = {arr, ultra thick},
+    ]
+    
+    \begin{scope}
+
+        \node[
+            shift={(\resmidshiftx, -\resshifty)}
+        ] at (\reshormid, 0) {{ \small Contrast}};
+        
+        \node[
+            shift={(-\resshiftx, \resmidshifty)},
+            rotate=90
+        ] at (0, \resvermid) {{\small Coarseness}};
+
+        
+        % \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \appeakh) {peak};
+        
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[height=\resphh]{#1}};
+    \end{scope}
+        
+\end{tikzpicture}
+}

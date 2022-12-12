@@ -1,7 +1,7 @@
 \subsection{Neural dynamics}
 \label{sec:neural-dynamics}
 
-A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. There, every neuron represents a dynamical system that can be described with a two-dimensional system of ordinary differential equations (ODEs): for all $v \in V$,
+A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. The Izhikevich model represents every neuron as dynamical system that can be described with a two-dimensional system of ordinary differential equations (ODEs): for all $v \in V$,
 \begin{align}
     \frac{dp_v}{dt} =\ & 0.04 p_v^2 + 5p_v + 140 - r_v + I_v,
     \label{eq:Izhikevich-model-dp-dt} \\
@@ -31,25 +31,26 @@ where
     
     \item $I$ describes the current.
 \end{itemize}
+It is essential to note that the condition in Equation \ref{eq:Izhikevich-model-p30} involves the peak potential and not the threshold as the latter is dynamic.
 The numeric constants in Equation (\ref{eq:Izhikevich-model-dp-dt}) have been obtained by fitting the spike initiation of neural dynamics in such a way that $p$ has a scale of mV, and $t$ - a scale of ms.
-The effects the parameters $\alpha, \beta, \gamma, \zeta$ have on membrane potential and recovery are visualized in Figure \ref{fig:neural-dynamics}. It is essential to note that the condition in Equation \ref{eq:Izhikevich-model-p30} involves the peak potential and not the threshold as the latter is dynamic. 
 
-The parameters $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS), and inhibitory - fast spiking (FS). 
+
+The model includes several parameters $\alpha, \beta, \gamma, \zeta$ that control the behavior of the neurons. 
+The effects these parameters have on membrane potential and recovery are visualized in Figure \ref{fig:neural-dynamics}. 
+The values of $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS), and inhibitory - fast spiking (FS). 
 The parameters' values for these types of neurons  are displayed in Table \ref{tab:params-izhikevich-model}.
-
-
 
 \begin{figure}[!htp]
     \centering
     \input{src/assets/tikz-images/neural-dynamics-annot}
-    \caption[Effects of parameters on neural dynamics, Izhikevich model]{Effects of parameters on neural dynamics in the Izhikevich model. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
+    \caption[Effects of Izhikevich parameters on neural dynamics]{Effects of parameters on neural dynamics in the Izhikevich model. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
     \label{fig:neural-dynamics}
 \end{figure}
 
 \begin{table}[!htp] 
     \centering
     \input{assets/tables/params-izhikevich-model}
-    \caption[Parameters for RS and FS neurons, Izhikevich model]{Parameters of the Izhikevich model for RS and FS neurons \cite{Izhikevich2003}.}
+    \caption[Izhikevich parameters: RS and FS neurons]{Parameters of the Izhikevich model for RS and FS neurons \cite{Izhikevich2003}.}
 \label{tab:params-izhikevich-model}
 \end{table}
 
@@ -70,7 +71,7 @@ The parameters' values for these types of neurons  are displayed in Table \ref{t
         \caption{Fast spiking (FS).}
         \label{fig:neuron-types-fs}
     \end{subfigure}
-    \caption[RS and FS neurons, Izhikevich model]{Spiking behavior of RS and FS neurons in the Izhikevich model. Each horizontal bar represents 20 ms of simulation. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
+    \caption[Spiking behavior of RS and FS neurons]{Spiking behavior of RS and FS neurons in the Izhikevich model. Each horizontal bar represents 20 ms of simulation. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
     \label{fig:neuron-types}
 \end{figure}
 

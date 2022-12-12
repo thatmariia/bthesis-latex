@@ -1,0 +1,47 @@
+% ----- INPUT
+\newcommand{\fullrasterimagew}{0.95\textwidth}
+% 0.280455 * width
+\newcommand{\fullrasterimageh}{0.266432\textwidth}
+
+% to shift for ticks
+\newcommand{\fullrastershiftx}{1.3em}
+\newcommand{\fullrastershifty}{1em}
+
+% to shift to the middle from kinda the middle
+\newcommand{\fullrastermidshiftx}{0.5em}
+\newcommand{\fullrastermidshifty}{0.4em}
+
+%
+\newcommand{\fullrasterhormid}{0.5 * \fullrasterimagew}
+\newcommand{\fullrastervermid}{0.5 * \fullrasterimageh}
+
+
+\newcommand{\fullraster}[1]{
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        blackarrow/.style = {arr, ultra thick},
+    ]
+    
+    \begin{scope}
+
+        \node[
+            shift={(\fullrastermidshiftx, -\fullrastershifty)}
+        ] at (\fullrasterhormid, 0) {{ \small Time}};
+        
+        \node[
+            shift={(-\fullrastershiftx, \fullrastermidshifty)},
+            rotate=90
+        ] at (0, \fullrastervermid) {{\small Neuron ID}};
+
+        
+        % \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \appeakh) {peak};
+        
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[height=\fullrasterimageh]{#1}};
+    \end{scope}
+        
+\end{tikzpicture}
+}

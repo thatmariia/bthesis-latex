@@ -2,13 +2,13 @@
 
 Let $v, w \in V$ be the pre- and postsynaptic neurons, respectively, and let $(v \to w) \in E$ be the electrically conductive link (synapse) between them. When a spike arrives at the synapse, it triggers the release of a neurotransmitter: AMPA when $\type(v) = \ex$, and GABA when $\type(v) = \inh$ \cite{Lowet2015}.
 
-A synaptic gate can be thought of as a transistor that influences the synaptic transmission, it can amplify and switch electrical signals. It is located on the postsynaptic neuron $w$ and modifies the conductance of electrical signals by changing its state. The gating value includes the rise $\rho$ and decay $\tau$ times and the transmission concentration term to mediate the interneural signal transmission \cite{Destexhe1994}.
+A synaptic gate can be thought of as a transistor that influences the synaptic transmission, it can amplify and switch electrical signals. It is located on the postsynaptic neuron $w$ and modifies the conductance of electrical signals by changing its state. The gating value includes the rise $\synapticrise$ and decay $\synapticdecay$ times and the transmission concentration term to mediate the interneural signal transmission \cite{Destexhe1994}.
 
-For a given neuron, it is assumed that the dynamics of all its synapses are synchronized. Therefore, although a synaptic gate is located on the postsynaptic neuron $w$, it follows the potential and gating parameters of the presynaptic neuron $v$ \cite{Lowet2015}. Hence, $s_{(v \to w)} \to s_v$, and then the gating value can be obtained from the following differential equation:
+For a given neuron, it is assumed that the dynamics of all its synapses are synchronized. Therefore, although a synaptic gate is located on the postsynaptic neuron $w$, it follows the potential and gating parameters of the presynaptic neuron $v$ \cite{Lowet2015}. Hence, $s_{(v \to w)} \to \synapticgate_v$, and then the gating value can be obtained from the following differential equation:
 \begin{gather}
-    \frac{ds_v}{dt} = \rho_{\type(v)} \underbrace{\left( 1 + \tanh \left( \frac{p_{v}}{4} \right) \right)}_{T_v: \text{trans. conc.}} (1 - s_v) - \frac{s_v}{\tau_{\type(v)}}, \\
+    \frac{d\synapticgate_v}{dt} = \synapticrise_{\type(v)} \underbrace{\left( 1 + \tanh \left( \frac{p_{v}}{4} \right) \right)}_{T_v: \text{trans. conc.}} (1 - \synapticgate_v) - \frac{\synapticgate_v}{\synapticdecay_{\type(v)}}, \\
     \label{eq:synaptic-gates}
-    s_v(0) = 0.
+    \synapticgate_v(0) = 0.
 \end{gather}
 The values for the synaptic parameters are presented in Table \ref{tab:synaptic-current-params}.
 Since all terms are positive, and the initial values are zeros, we can see that the RHS changes its sign at zero and one. So, we can conclude the solutions to this differential equation are bounded below by zero and above by one.
@@ -16,7 +16,7 @@ Since all terms are positive, and the initial values are zeros, we can see that 
 \begin{table}[!htp] 
     \centering
     \input{assets/tables/synaptic-current-params}
-    \caption[Synaptic parameter values]{Synaptic parameter values for AMPA and GABA neurotransmitters \cite{Lowet2015}.}
+    \caption[Synaptic parameters]{Synaptic parameter values for AMPA and GABA neurotransmitters \cite{Lowet2015}.}
     \label{tab:synaptic-current-params}
 \end{table}
 
@@ -25,7 +25,7 @@ As mentioned in Section \ref{sec:action-potential}, the spike initiating thresho
 \begin{gather}
 \begin{split}
     & T_v = 1 + \tanh \left( \frac{p_{v}}{4} \right) \approx 0 \\
-    \Rightarrow \ & \frac{ds_v}{dt} \approx - \frac{s_v}{\tau_{\type(v)}}.
+    \Rightarrow \ & \frac{d\synapticgate_v}{dt} \approx - \frac{\synapticgate_v}{\synapticdecay_{\type(v)}}.
 \end{split}
 \end{gather}
 This implies that the gating decays exponentially.
@@ -35,7 +35,7 @@ During an action potential, the membrane potential reaches $p_v > 10$. Thus, the
 \begin{gather}
 \begin{split}
     & T_v = 1 + \tanh \left( \frac{p_{v}}{4} \right) \approx 2 \\
-    \Rightarrow \ & \frac{ds_v}{dt} \approx 2 \cdot \rho_{\type(v)} (1 - s_v) - \frac{s_v}{\tau_{\type(v)}},
+    \Rightarrow \ & \frac{d\synapticgate_v}{dt} \approx 2 \cdot \synapticrise_{\type(v)} (1 - \synapticgate_v) - \frac{\synapticgate_v}{\synapticdecay_{\type(v)}},
 \end{split}
 \end{gather}
 which indicates that the gating rises during the action potential and falls once it is over. 

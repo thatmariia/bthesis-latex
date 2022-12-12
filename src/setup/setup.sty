@@ -1,6 +1,7 @@
 % ------------------------ TEXT
 
 \newcommand{\stimfig}{{\it figure}}
+\newcommand{\stimfigs}{{\it figures}}
 \newcommand{\stimfigcap}{{\it Figure}}
 
 % ------------------------ MATH
@@ -364,6 +365,8 @@
 % ------------------------ FIGURES
 
 \captionsetup[subfigure]{justification=centering}
+
+\let\includesquaregraphics\includegraphics
 
 % save the meaning of \includegraphics
 \LetLtxMacro\latexincludegraphics\includegraphics

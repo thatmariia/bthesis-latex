@@ -1,9 +1,6 @@
 \subsubsection{From luminance to contrast}
 
-To transform the stimulus patch $\patchmatrix$ to the patch of PING networks in V1, we apply the lattice of size $n \times n$, such that each oscillatory network contains a field of $m \times m$ pixels. An example of the resulting lattice is displayed in Figure \ref{fig:llc-lattice-example}.
-
-
-\begin{figure}[!htp]
+\begin{figure}[t]
     \centering
     \begin{subfigure}[t]{0.4\textwidth}
         \centering
@@ -23,6 +20,7 @@ To transform the stimulus patch $\patchmatrix$ to the patch of PING networks in 
     \label{fig:lattice-local-contrast-example}
 \end{figure}
 
+To transform the stimulus patch $\patchmatrix$ to the patch of PING networks in V1, we apply the lattice of size $n \times n$, such that each oscillatory network contains a field of $m \times m$ pixels. An example of the resulting lattice is displayed in Figure \ref{fig:llc-lattice-example}.
 
 Let $\pingnets$ be the set containing the PING networks. Let $\pix: \pingnets \to (\mathbb{Z}_+)^{2 \times m^2}$ be a function mapping a network to the set of all $m^2$ pixel coordinates it contains.
 For each network $\pingnet \in \pingnets$, a local contrast $\LC: V \to \mathbb{R}$ is the weighted root-mean-squared (RMS) contrast defined as follows \cite{Frazor2006}:

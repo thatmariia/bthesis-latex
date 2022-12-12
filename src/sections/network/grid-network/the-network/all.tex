@@ -7,7 +7,7 @@ In this oscillatory network, a group of oscillators is arranged in a $n \times n
 \begin{figure}[!htp]
     \centering
     \input{assets/tikz-images/grid-network}
-    \caption[Grid oscillatory network]{An example of a 3 $\times$ 3 oscillatory network arranged in a grid. The arrows represent pairwise connections between all neurons (only shown for neighbouring cells, exist for all neurons). All connections in the network represent a bidirectional interaction.}
+    \caption[Grid oscillatory network]{An example of a 3 $\times$ 3 oscillatory network arranged in a grid. The arrows represent pairwise connections between all neurons (only shown for neighboring cells, exist for all neurons). All connections in the network represent a bidirectional interaction.}
     \label{fig:oscillatory-grid-graph}
 \end{figure}
 
@@ -21,21 +21,7 @@ Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mappi
 An example of a mentioned subgraph is visualized in Figure \ref{fig:single-ping-graph}. 
 The cost function $\cost: E \to \mathbb{R}$ for the graph $D$ that reflects the interactions between neurons is defined later in Equation (\ref{eq:cost-function}).
 
-\begin{figure}[!htp]
-    \centering
-    \input{assets/tikz-images/single-ping}
-    \caption[PING network as a graph]{An example of a PING network represented as graph with three excitatory and two inhibitory neurons. Each edge has a cost function but only two are displayed for aesthetic reasons.}
-    \label{fig:single-ping-graph}
-\end{figure}
-
 It has been experimentally found before that the ratio of the number of excitatory neurons ($|V_{\ex}|$) and the number of inhibitory neurons ($|V_{\inh}|$) in a cortical population is four to one \cite{Pastore2018}. While the relationship has been utilized in the present thesis, the realistic number of neurons has not as it is computationally infeasible. The chosen values for the number of neurons of each type and the number of PING networks are displayed in Table \ref{tab:params-network}.
-
-\begin{table}[!htp]
-    \centering
-    \input{src/assets/tables/params-network}
-    \caption{Network parameters.}
-    \label{tab:params-network}
-\end{table}
 
 In conclusion, we consider a large oscillatory network that consists of
 \startbulletsnospace
@@ -52,3 +38,17 @@ In conclusion, we consider a large oscillatory network that consists of
 \end{itemize}
 \startbulletsnospace
 Every single neuron is connected to and interacts with every other through synapses. 
+
+\begin{figure}[H]
+    \centering
+    \input{assets/tikz-images/single-ping}
+    \caption[PING network as a graph]{An example of a PING network represented as a graph with three excitatory and two inhibitory neurons. Each edge has a cost function, but only two are displayed for aesthetic reasons.}
+    \label{fig:single-ping-graph}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \input{src/assets/tables/params-network}
+    \caption{Network parameters.}
+    \label{tab:params-network}
+\end{table}

@@ -175,13 +175,6 @@ To compute the TFR using the Morlet wavelet transform, the steps outlined below 
 
 For each current input strength to excitatory neurons, the most prominent frequency is now known. Thus, the relationship can be analyzed and extrapolated. By plotting frequencies against currents, it can be observed that they follow a linear relationship (see Figure \ref{fig:fc-relationship}). Thus, the Theil–Sen estimator can fit a predictive model for the observed data. This regression method has been chosen as it is robust against outliers and does not require the assumption of normally distributed errors. 
 
-\begin{figure}[!htp]
-    \centering
-    \input{src/assets/tikz-images/f-c-relationship-annot.tex}
-    \caption[Frequency-current relationship]{The dominant frequency for each constant input current and line fit using Theil-Sen estimator.}
-    \label{fig:fc-relationship}
-\end{figure}
-
 The Theil–Sen estimator defines the slope of the fitted line $\fcslope \in \mathbb{R}$ as the median of all possible slopes between pairs of points from the frequency-current graph:
 \begin{equation}
     \fcslope = \median_{
@@ -211,6 +204,15 @@ Knowing the slope of the linear relationship between the frequency and current, 
     I_{\stim, \pingnet} = \fcslope \cdot f_\pingnet + \fcintercept.
 \end{equation}
 The derived values for $\fcslope$ and $\fcintercept$ are shown in Table \ref{tab:fc-relationship}.
+
+\begin{figure}[!htp]
+    \centering
+    \vspace{\baselineskip}
+    \input{src/assets/tikz-images/f-c-relationship-annot.tex}
+    \caption[Frequency-current relationship]{The dominant frequency for each constant input current and line fit using Theil-Sen estimator.}
+    \label{fig:fc-relationship}
+\end{figure}
+
 \begin{table}[!htp]
     \centering
     \input{src/assets/tables/fc-relationship.tex}

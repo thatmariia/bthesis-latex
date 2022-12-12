@@ -37,7 +37,7 @@ The numeric constants in Equation (\ref{eq:Izhikevich-model-dp-dt}) have been ob
 
 The model includes several parameters $\alpha, \beta, \gamma, \zeta$ that control the behavior of the neurons. 
 The effects these parameters have on membrane potential and recovery are visualized in Figure \ref{fig:neural-dynamics}. 
-The values of $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS), and inhibitory - fast spiking (FS). 
+The values of $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS) and inhibitory - fast spiking (FS). 
 The parameters' values for these types of neurons  are displayed in Table \ref{tab:params-izhikevich-model}.
 
 \begin{figure}[!htp]
@@ -46,14 +46,6 @@ The parameters' values for these types of neurons  are displayed in Table \ref{t
     \caption[Effects of Izhikevich parameters on neural dynamics]{Effects of parameters on neural dynamics in the Izhikevich model. {\it This figure is reproduced with permission from \url{www.izhikevich.com}. (Electronic version of the figure and reproduction permissions are freely available at \url{www.izhikevich.com.})}}
     \label{fig:neural-dynamics}
 \end{figure}
-
-\begin{table}[!htp] 
-    \centering
-    \input{assets/tables/params-izhikevich-model}
-    \caption[Izhikevich parameters: RS and FS neurons]{Parameters of the Izhikevich model for RS and FS neurons \cite{Izhikevich2003}.}
-\label{tab:params-izhikevich-model}
-\end{table}
-
 
 \begin{figure}[!htp]
     \hspace*{-1.5cm} 
@@ -75,19 +67,12 @@ The parameters' values for these types of neurons  are displayed in Table \ref{t
     \label{fig:neuron-types}
 \end{figure}
 
-\begin{figure}[!htp]
+\begin{table}[!htp] 
     \centering
-    \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-rs.pdf}
-    \caption[Dynamics of an RS neuron]{$p-r$ phase plane: dynamics of an RS neuron depending on current $I_v$.}
-    \label{fig:neural-dynamics-rs}
-\end{figure}
-
-\begin{figure}[!htp]
-    \centering
-    \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-fs.pdf}
-    \caption[Dynamics of an FS neuron]{$p-r$ phase plane: dynamics of an FS neuron depending on current $I_v$.}
-    \label{fig:neural-dynamics-fs}
-\end{figure}
+    \input{assets/tables/params-izhikevich-model}
+    \caption[Izhikevich parameters: RS and FS neurons]{Parameters of the Izhikevich model for RS and FS neurons \cite{Izhikevich2003}.}
+\label{tab:params-izhikevich-model}
+\end{table}
 
 
 In the present thesis, the network of Izhikevich neurons is simulated by solving the ODEs in Equations (\ref{eq:Izhikevich-model-dp-dt})-(\ref{eq:Izhikevich-model-p30}) using the forward Euler method. The overall simulation time is $\simulationtime = 1000$ ms with the discretization $dt$ of $1$ ms. So, the sequence of time steps $\timesteps \in \mathbb{R}^{\simulationtime \cdot dt}$ is the following:
@@ -104,6 +89,20 @@ For a neuron $v \in V$, the initial value of the membrane potential is chosen un
     r_v(0) = \beta \cdot p_v(0).
 \end{gathered}
 \end{equation}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-rs.pdf}
+    \caption[Dynamics of an RS neuron]{$p-r$ phase plane: dynamics of an RS neuron depending on current $I_v$.}
+    \label{fig:neural-dynamics-rs}
+\end{figure}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-fs.pdf}
+    \caption[Dynamics of an FS neuron]{$p-r$ phase plane: dynamics of an FS neuron depending on current $I_v$.}
+    \label{fig:neural-dynamics-fs}
+\end{figure}
 
 \paragraph{Regular spiking neurons}
 

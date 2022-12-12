@@ -1,6 +1,13 @@
 \subsubsection{Patch selection}
 \label{sec:patch-selection}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{src/assets/images/stimulus-patch.png}
+    \caption[Stimulus patch]{The stimulus patch obtained from Figure \ref{fig:full-stimulus-example}.}
+    \label{fig:stim-patch-example}
+\end{figure}
+
 A square patch $\patchmatrix \in [0, 1]^{\patchsize \times \patchsize}$ concentric to the \stimfig{} with the side length $\patchsize \in (0, \min(\fullwidth, \fullheight)]$,  such that $n | \patchsize$, is selected. It can be defined as
 \begin{equation}
     \patchmatrix =
@@ -12,13 +19,6 @@ A square patch $\patchmatrix \in [0, 1]^{\patchsize \times \patchsize}$ concentr
     \patchstart = \left( \ceil{ \figcenter - \frac{\patchsize}{2}}, \ceil{  \figcenter - \frac{\patchsize}{2} } \right).
 \end{equation}
 An example of the resulting binary heat map of the texture stimulus patch is visualized in Figure \ref{fig:stim-patch-example}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{src/assets/images/stimulus-patch.png}
-    \caption[Stimulus patch]{The stimulus patch obtained from Figure \ref{fig:full-stimulus-example}.}
-    \label{fig:stim-patch-example}
-\end{figure}
 
 
 

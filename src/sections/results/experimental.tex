@@ -11,6 +11,18 @@ Eight participants with normal vision took part in this experiment. They were se
 Trials in which the participant's gaze fell outside the screen were terminated and repeated at random times during the experiment. If a participant performed the task correctly, the value of one was recorded. Otherwise, a zero was recorded.
 The results averaged for each set of stimulus parameters $\expres \in [0, 1]^{5 \times 5}$ are presented in Figure \ref{fig:exp-res}. 
 
+Similar to the simulation data, 
+the behavioral results are interpolated with the bivariate spline $\expresspline \in [0, 1]^{1000 \times 1000}$ and with the sigmoid function $\expressigmoid \in [0, 1]^{1000 \times 1000}$. The interpolations are shown in Figure \ref{fig:exp-res-spline} and Figure \ref{fig:exp-res-sigmoid}, respectively. The obtained sigmoid parameters $\sigmoidparams$ for the experimental results are given in Table \ref{tab:sigmoid-params-exp}.
+
+\begin{table}[!htp]
+    \centering
+    \input{src/assets/tables/sigmoid-params/exp.tex}
+    \caption[Sigmoid parameters for experimental results]{Sigmoid parameters for experimental results.}
+    \label{tab:sigmoid-params-exp}
+\end{table}
+
+\newpage
+
 \begin{multicols}{2}
 
 \begin{figure}[H]
@@ -75,6 +87,8 @@ The results averaged for each set of stimulus parameters $\expres \in [0, 1]^{5 
 
 \end{multicols}
 
+\newpage
+
 \begin{multicols}{2}
 
 \begin{figure}[H]
@@ -138,13 +152,3 @@ The results averaged for each set of stimulus parameters $\expres \in [0, 1]^{5 
 \end{figure}
 
 \end{multicols}
-
-Similar to the simulation data, 
-the behavioral results are interpolated with the bivariate spline $\expresspline \in [0, 1]^{1000 \times 1000}$ and with the sigmoid function $\expressigmoid \in [0, 1]^{1000 \times 1000}$. The interpolations are shown in Figure \ref{fig:exp-res-spline} and Figure \ref{fig:exp-res-sigmoid}, respectively. The obtained sigmoid parameters $\sigmoidparams$ for the experimental results are given in Table \ref{tab:sigmoid-params-exp}.
-
-\begin{table}[!htp]
-    \centering
-    \input{src/assets/tables/sigmoid-params/exp.tex}
-    \caption[Sigmoid parameters for experimental results]{Sigmoid parameters for experimental results.}
-    \label{tab:sigmoid-params-exp}
-\end{table}

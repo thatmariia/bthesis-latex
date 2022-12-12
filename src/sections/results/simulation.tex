@@ -69,7 +69,14 @@ The curve fitting is performed using the least squares method with gradient desc
         \simres(\anndistscale, \contrange) - \hat{\sigmoidint}(\anndistscale, \contrange, \sigmoidparams_i)
     \right)^2,
 \end{equation}
-where $\arg (\simres)$ is the set of all arguments of the matrix $\simres$, and $\hat{\sigmoidint}$ is the predicted value of the sigmoid with the a particular set of parameters.
+where $\arg (\simres)$ is the set of all arguments of the matrix $\simres$, and $\hat{\sigmoidint}$ is the predicted value of the sigmoid with a particular set of parameters.
+
+\begin{table}[b]
+    \centering
+    \input{src/assets/tables/sigmoid-params/sim.tex}
+    \caption[Sigmoid parameters for simulation results]{Sigmoid parameters for simulation results.}
+    \label{tab:sigmoid-params-sim}
+\end{table}
 
 At each iteration, the algorithm uses the gradient of the loss function to determine the direction in which the parameters should be updated:
 \begin{align}
@@ -100,10 +107,3 @@ where $\learningrate$ is the learning rate, defined at each iteration by the Tru
 
 The values of $\sigmoidparams$ for the simulation result are shown in Table \ref{tab:sigmoid-params-sim}.
 The simulation results interpolated with the 2D sigmoid psychometric function ($\simressigmoid \in [0, 1]^{1000 \times 1000}$) are shown in Figure \ref{fig:sim-res-sigmoid}.
-
-\begin{table}[!htp]
-    \centering
-    \input{src/assets/tables/sigmoid-params/sim.tex}
-    \caption[Sigmoid parameters for simulation results]{Sigmoid parameters for simulation results.}
-    \label{tab:sigmoid-params-sim}
-\end{table}

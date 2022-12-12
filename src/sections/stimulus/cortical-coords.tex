@@ -24,16 +24,16 @@ The parameter $\cortk$ is a scaling factor that determines the overall size of t
 The values of these parameters are determined through empirical studies (see Table \ref{tab:cortical-coords-params}).
 An example of the transformation is visualized in Figure \ref{fig:coords-transformation}.
 
+\begin{figure}[t]
+    \centering
+    \includesquaregraphics[width=0.7\textwidth]{src/assets/images/coords.pdf}
+    \caption[Coordinates tranformation]{Transformation from visual to cortical coordinates for the 20 $\times$ 20 network.}
+    \label{fig:coords-transformation}
+\end{figure}
+
 \begin{table}[!htp]
     \centering
     \input{src/assets/tables/cortical-coords-params}
     \caption[Coordinates conversion parameters]{Parameters for coordinates conversion \cite{Polimeni2005}.}
     \label{tab:cortical-coords-params}
 \end{table}
-
-\begin{figure}[!htp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{src/assets/images/coords.pdf}
-    \caption[Coordinates tranformation]{Transformation from visual to cortical coordinates for the 20 $\times$ 20 network.}
-    \label{fig:coords-transformation}
-\end{figure}

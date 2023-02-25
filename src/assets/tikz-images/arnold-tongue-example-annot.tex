@@ -1,0 +1,46 @@
+% ----- INPUT
+% 0.58267 * width
+\newcommand{\arnoldexh}{0.2622\textwidth}
+\newcommand{\arnoldexw}{0.45\textwidth}
+
+% to shift for ticks
+\newcommand{\arnoldexshiftx}{1.3em}
+\newcommand{\arnoldexshifty}{1.3em}
+
+% to shift to the middle from kinda the middle
+\newcommand{\arnoldexmidshiftx}{0em}
+\newcommand{\arnoldexmidshifty}{0em}
+
+%
+\newcommand{\arnoldexhormid}{0.5 * \arnoldexw}
+\newcommand{\arnoldexvermid}{0.5 * \arnoldexh}
+
+
+
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        blackarrow/.style = {arr, ultra thick},
+    ]
+    
+    \begin{scope}
+
+        \node[
+            shift={(\arnoldexmidshiftx, -\arnoldexshifty)}
+        ] at (\arnoldexhormid, 0) {{ \small Detuning} $\longrightarrow$ };
+        
+        \node[
+            shift={(-\arnoldexshiftx, \arnoldexmidshifty)},
+            rotate=90
+        ] at (0, \arnoldexvermid) {{\small Coupling strength} $\longrightarrow$ };
+
+        
+        % \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \appeakh) {peak};
+        
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includesquaregraphics[height=\arnoldexh]{src/assets/images/arnold-tongue-example.pdf}};
+    \end{scope}
+        
+\end{tikzpicture}

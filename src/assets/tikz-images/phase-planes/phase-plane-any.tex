@@ -1,0 +1,52 @@
+\newcommand{\phaseplanegraph}[1]{
+
+    % ----- INPUT
+% 0.58267 * 0.648423
+\newcommand{\phaseplaneh}{0.583581\textwidth}
+\newcommand{\phaseplanew}{0.9\textwidth}
+
+% to shift for ticks
+\newcommand{\phaseplaneshiftx}{1.3em}
+\newcommand{\phaseplaneshifty}{1.3em}
+
+% to shift to the middle from kinda the middle
+\newcommand{\phaseplanemidshiftx}{0em}
+\newcommand{\phaseplanemidshifty}{0em}
+
+%
+\newcommand{\phaseplanehormid}{0.5 * \phaseplanew}
+\newcommand{\phaseplanevermid}{0.5 * \phaseplaneh}
+
+
+
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        bluearrow/.style = {arr, draw=third-color, fill=third-color, thick},
+        blackarrow/.style = {arr, ultra thick},
+    ]
+    
+    \begin{scope}
+
+        \node[
+            shift={(\phaseplanemidshiftx, -\phaseplaneshifty)}
+        ] at (\phaseplanehormid, 0) {{ \small Membrane potential $p_v$}};
+        
+        \node[
+            shift={(-\phaseplaneshiftx, \phaseplanemidshifty)},
+            rotate=90
+        ] at (0, \phaseplanevermid) {{\small Recovery $r_v$}};
+
+        
+        % \node[shift={(\apwest, \apshifth)}, anchor=west] at (0, \appeakh) {peak};
+        
+    \end{scope}
+    
+    \begin{scope}
+        \node[anchor=south west,inner sep=0] at (0,0) {\includesquaregraphics[height=\phaseplaneh]{#1}};
+    \end{scope}
+        
+\end{tikzpicture}
+
+
+
+}

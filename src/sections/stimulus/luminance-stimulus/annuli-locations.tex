@@ -24,7 +24,7 @@ Let $\annuliset$ be the set containing the top left coordinates of all stimulus'
 \end{gathered}
 \end{equation}
 
-As we position the annuli in the middle of the allocated space, for each stimulus, there exist values of $\anndistscale$, such that the last annulus in a row or column starts outside of the bounds of the figure. Such annuli need to be removed from the set $\annuliset$:
+As we position the annuli in the middle of the allocated space, for each stimulus, there exist values of $\anndistscale$, such that the last annulus in a row or column starts outside of the bounds of the stimulus. Such annuli need to be removed from the set $\annuliset$:
 \begin{equation}
-    \annuliset \leftarrow \annuliset \setminus \{ \annstart \in \annuliset \ | \ \annstart > (\fullwidth, \fullheight) \}.
+    \annuliset \leftarrow \annuliset \setminus \{ (\annstart_x, \annstart_y) \in \annuliset \ | \ (\annstart_x > \fullwidth) \land (\annstart_y > \fullheight) \}.
 \end{equation}

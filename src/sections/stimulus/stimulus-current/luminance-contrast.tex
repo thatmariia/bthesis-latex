@@ -23,7 +23,7 @@
 To transform the stimulus patch $\patchmatrix$ to the patch of PING networks in V1, we apply the lattice of size $n \times n$, such that each oscillatory network contains a field of $m \times m$ pixels. An example of the resulting lattice is displayed in Figure \ref{fig:llc-lattice-example}.
 
 Let $\pingnets$ be the set containing the PING networks. Let $\pix: \pingnets \to (\mathbb{Z}_+)^{2 \times m^2}$ be a function mapping a network to the set of all $m^2$ pixel coordinates it contains.
-For each network $\pingnet \in \pingnets$, a local contrast $\LC: V \to \mathbb{R}$ is the weighted root-mean-squared (RMS) contrast defined as follows \cite{Frazor2006}:
+For each network $\pingnet \in \pingnets$, a local contrast $\LC_\pingnet: V \to [0, 1]$ is the weighted root-mean-squared (RMS) contrast defined as follows \cite{Frazor2006}:
 \begin{equation}
     \LC_\pingnet = \sqrt{
         \frac{
@@ -44,38 +44,33 @@ For each network $\pingnet \in \pingnets$, a local contrast $\LC: V \to \mathbb{
     },
 \end{equation}
 \end{comment}
-where $\overline{\fullmatrix}$ is the mean over all luminance values in $\fullmatrix$, and $\weight: \pingnets, \mathbb{N}^2 \to \mathbb{R}$ is the weight of a pixel with respect to a network, as shown in Equation (\ref{eq:weight-pixel-network}). An example of a local contrast matrix can be seen in Figure \ref{fig:llc-local-contrast-example}.
+where $\overline{\fullmatrix}$ is the mean over all luminance values in $\fullmatrix$, and $\weight: \pingnets, \mathbb{N}^2 \to \mathbb{R}$ is the weight of a pixel with respect to a PING network. An example of a local contrast matrix can be seen in Figure \ref{fig:llc-local-contrast-example}.
 
-To define that weight, one first needs to complete a number of steps.
-Let $\centr : \pingnets \to \mathbb{R}_+^2$ be the function mapping a particular PING network in the patch to the location of its center. As the center of the gaze (fovea) coincides with the center of the stimulus, the eccentricity $\ecc: \pingnets \to \mathbb{R}_+$ in degrees for a network $v \in \pingnets$ is
-\begin{equation}
-\begin{gathered}
-    \ecc_{\pingnet} = \frac{1}{\atopix} \cdot \left\| \stimcenter, \ \patchstart + \centr(\pingnet) \right\|, \\
-    \stimcenter = \left( \frac{\fullwidth}{2}, \frac{\fullheight}{2}   \right).
-\end{gathered}
-\end{equation}
-
-Let $\slopeRF \in \mathbb{R}$ be the slope, the ratio of receptive field diameter to eccentricity, and $\interceptRF \in \mathbb{R}$ - the intercept \cite{Freeman2011, MaryamPLACEHOLDER}.
-Let $\diamRF_{\min} \in \mathbb{R}_+$ be smallest allowed diameter of the receptive field.
-Then, the diameter of the receptive field $\diamRF \in \mathbb{R}$ of $\pingnet$ is 
-\begin{equation}
-    \diamRF_\pingnet = \max{( \slopeRF \cdot \ecc_\pingnet + \interceptRF, \ \diamRF_{\min} )}.
-\end{equation}
-
-Let $\stdrf: \pingnets \to \mathbb{R}$ be the standard deviation of the receptive field diameter of a Gaussian beam \cite{MaryamPLACEHOLDER}. It can be obtained by utilizing the full width at half maximum $\fwhm: \pingnets \to \mathbb{R}$ in the following way:
-\begin{equation}
-    \begin{cases}
-        \fwhm_\pingnet = \sqrt{\frac{\ln(2)}{2}} \cdot \diamRF_\pingnet \\
-        \fwhm_\pingnet = 2 \sqrt{2 \ln(2)} \cdot \stdrf_\pingnet
-    \end{cases}
-    \Rightarrow 
-    \stdrf_\pingnet = \frac{1}{4} \diamRF_\pingnet.
-\end{equation}
-
-Having derived the standard deviation, the weight of the pixel $i, j \in \{ 0, 1, \cdots, \patchsize - 1 \}$ with respect to a PING network $\pingnet$ can be defined at last. This value is specific to each network as it reflects its unique receptive field modeled with an isotropic 2D Gaussian function \cite{MaryamPLACEHOLDER}:
+The value of weight is specific to each network as it reflects its unique receptive field \cite{MaryamPLACEHOLDER}. Let $\centr : \pingnets \to \mathbb{R}_+^2$ be the function mapping a particular PING network in the patch to the location of its center. For the pixel $i, j \in \{ 0, 1, \cdots, \patchsize - 1 \}$, the weight with respect to a PING network $\pingnet$ is then defined as
 \begin{equation}
     \weight_{\pingnet, (i, j)} = \exp \left(
-        -\frac{\left( \frac{1}{\atopix} \cdot \| (i, j), \ \centr(\pingnet) \|\right)^2}{ 2 \stdrf_\pingnet^2 }
-    \right).
+        -\frac{\left( \frac{1}{\atopix} \cdot \| (i, j) - \centr(\pingnet) \|\right)^2}{ 2 \stdrf_\pingnet^2 }
+    \right),
     \label{eq:weight-pixel-network}
+\end{equation}
+where $\stdrf_\pingnet: \pingnets \to \mathbb{R}$ is 
+the standard deviation of the network's receptive field diameter. It has been found to be defined as follows \cite{Freeman2011, MaryamPLACEHOLDER}:  
+\begin{equation}
+    \stdrf_\pingnet = \frac{1}{4} \max{( \slopeRF \cdot \ecc_\pingnet + \interceptRF, \ \diamRF_{\min} )},
+\end{equation}
+where $\slopeRF \in \mathbb{R}$ is the slope of the receptive field, or the ratio of receptive field diameter to eccentricity, $\interceptRF \in \mathbb{R}$ is the intercept, and $\diamRF_{\min} \in \mathbb{R}_+$ is the diameter of the smallest receptive field. The values for these parameters are presented in Table \ref{tab:params-rf}.
+
+\begin{table}[!htp]
+    \centering
+    \input{src/assets/tables/params-rf}
+    \caption{The values of the parameters used to determine the standard deviation of the receptive field diameter \cite{MaryamPLACEHOLDER}.}
+    \label{tab:params-rf}
+\end{table}
+
+As the center of the gaze (fovea) coincides with the center of the stimulus, the eccentricity $\ecc: \pingnets \to \mathbb{R}_+$ in degrees for a network $v \in \pingnets$ is
+\begin{equation}
+\begin{gathered}
+    \ecc_{\pingnet} = \frac{1}{\atopix} \cdot \left\| \stimcenter - (\patchstart + \centr(\pingnet)) \right\|, \\
+    \stimcenter = \left( \frac{\fullwidth}{2}, \frac{\fullheight}{2} \right).
+\end{gathered}
 \end{equation}

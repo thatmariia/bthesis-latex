@@ -1,7 +1,7 @@
 \subsection{Neural dynamics}
 \label{sec:neural-dynamics}
 
-A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is computationally more efficient for large-scale simulations than more biophysically accurate models. The Izhikevich model represents every neuron as dynamical system that can be described with a two-dimensional system of ordinary differential equations (ODEs): for all $v \in V$,
+A common approach to systematically simulate a PING network involves the definition of neural dynamics through the Izhikevich type neuron model  \cite{Izhikevich2003}. This model is plausible enough biologically to mimic genuine neural behavior, yet it is simple enough to be computationally more efficient for large-scale simulations than more biophysically accurate models. The Izhikevich model represents every neuron as dynamical system that can be described with a two-dimensional system of ordinary differential equations (ODEs): for all $v \in V$,
 \begin{align}
     \frac{dp_v}{dt} =\ & 0.04 p_v^2 + 5p_v + 140 - r_v + I_v,
     \label{eq:Izhikevich-model-dp-dt} \\
@@ -15,30 +15,30 @@ A common approach to systematically simulate a PING network involves the definit
 \end{align}
 where
 \begin{itemize}
-    \item $p_\peak$ is the peak membrane potential ($= 30$ mV);
+    \item $p_\peak \in \mathbb{R}$ is the peak membrane potential ($= 30$ mV);
     
-    \item $p$ represents the membrane potential of the neuron; 
+    \item $p_v \in \mathbb{R}$ represents the membrane potential of the neuron; 
     
-    \item $r$ represents a membrane recovery variable, which dramatically increases after spikes; it provides negative feedback that suppresses the increase of $p$ and reduces the fluctuations in the output;
+    \item $r_v \in \mathbb{R}$ represents a membrane recovery variable, which dramatically increases after spikes; it provides negative feedback that suppresses the increase of $p_v$ and reduces the fluctuations in the output;
     
-    \item $\alpha$ describes the timescale of $r$, it is proportional to the recovery speed;
+    \item $\alpha_v \in \mathbb{R}$ describes the timescale of $r_v$, it is proportional to the recovery speed;
     
-    \item $\beta$ describes the sensitivity of $r$ to the subthreshold fluctuations of the membrane potential $p$: greater values of $\beta$ lead to stronger coupling between $p$ and $r$, resulting in more possible subthreshold oscillations;
+    \item $\beta_v \in \mathbb{R}$ describes the sensitivity of $r_v$ to the subthreshold fluctuations of the membrane potential $p_v$: greater values of $\beta_v$ lead to stronger coupling between $p_v$ and $r_v$, resulting in more possible subthreshold oscillations;
     
-    \item $\gamma$ describes the after-spike reset value of $p$;
+    \item $\gamma_v \in \mathbb{R}$ describes the after-spike reset value of $p_v$;
     
-    \item $\zeta$ describes the after-spike reset value of $r$;
+    \item $\zeta_v \in \mathbb{R}$ describes the after-spike reset value of $r_v$;
     
-    \item $I$ describes the current.
+    \item $I_v$ describes the current.
 \end{itemize}
 It is essential to note that the condition in Equation \ref{eq:Izhikevich-model-p30} involves the peak potential and not the threshold as the latter is dynamic.
-The numeric constants in Equation (\ref{eq:Izhikevich-model-dp-dt}) have been obtained by fitting the spike initiation of neural dynamics in such a way that $p$ has a scale of mV, and $t$ - a scale of ms.
+The numeric constants in Equation (\ref{eq:Izhikevich-model-dp-dt}) have been obtained by fitting the spike initiation of neural dynamics in such a way that $p$ has a scale of mV, and $t$ - a scale of ms \cite{Izhikevich2003}.
 
 
 The model includes several parameters $\alpha, \beta, \gamma, \zeta$ that control the behavior of the neurons. 
 The effects these parameters have on membrane potential and recovery are visualized in Figure \ref{fig:neural-dynamics}. 
-The values of $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS) and inhibitory - fast spiking (FS). 
-The parameters' values for these types of neurons  are displayed in Table \ref{tab:params-izhikevich-model}.
+The values of $\alpha, \beta, \gamma, \zeta$ correspond to known types of neurons. In this thesis, all excitatory neurons are assumed to be regular spiking (RS) and inhibitory are assumed to be fast spiking (FS). 
+The parameter values for these types of neurons are displayed in Table \ref{tab:params-izhikevich-model}.
 
 \begin{figure}[!htp]
     \centering
@@ -75,7 +75,7 @@ The parameters' values for these types of neurons  are displayed in Table \ref{t
 \end{table}
 
 
-In the present thesis, the network of Izhikevich neurons is simulated by solving the ODEs in Equations (\ref{eq:Izhikevich-model-dp-dt})-(\ref{eq:Izhikevich-model-p30}) using the forward Euler method. The overall simulation time is $\simulationtime = 1000$ ms with the discretization $dt$ of $1$ ms. So, the sequence of time steps $\timesteps \in \mathbb{R}^{\simulationtime \cdot dt}$ is the following:
+In the present thesis, the network of Izhikevich neurons is simulated by solving the ODEs in Equations (\ref{eq:Izhikevich-model-dp-dt})-(\ref{eq:Izhikevich-model-p30}) using the forward Euler method. The overall simulation time is $\simulationtime = 1000$ ms with the discretization $dt$ of $1$ ms. So, the sequence of time steps $\timesteps \in \mathbb{R}^{\simulationtime / dt}$ is the following:
 \begin{equation}
     \timesteps = \left<
         0, 1 \cdot dt, 2 \cdot dt, \cdots, (\simulationtime-1) \cdot dt
@@ -86,27 +86,29 @@ For a neuron $v \in V$, the initial value of the membrane potential is chosen un
 \begin{equation}
 \begin{gathered}
     p_v(0) \sim U(-65, p_\peak), \\
-    r_v(0) = \beta \cdot p_v(0).
+    r_v(0) = \beta_v \cdot p_v(0).
 \end{gathered}
 \end{equation}
 
 \begin{figure}[!htp]
     \centering
-    \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-rs.pdf}
-    \caption[Dynamics of an RS neuron]{$p-r$ phase plane: dynamics of an RS neuron depending on current $I_v$.}
+    % \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-rs.pdf}
+    \input{src/assets/tikz-images/phase-planes/phase-plane-rs-annot}
+    \caption[Dynamics of an RS neuron]{$p-r$ phase plane: dynamics of an RS neuron depending on current $I_v$. The filled areas represent stable manifolds.}
     \label{fig:neural-dynamics-rs}
 \end{figure}
 
 \begin{figure}[!htp]
     \centering
-    \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-fs.pdf}
-    \caption[Dynamics of an FS neuron]{$p-r$ phase plane: dynamics of an FS neuron depending on current $I_v$.}
+    % \includegraphics[width=\textwidth]{src/assets/images/neural-dynamics/nd-fs.pdf}
+    \input{src/assets/tikz-images/phase-planes/phase-plane-fs-annot}
+    \caption[Dynamics of an FS neuron]{$p-r$ phase plane: dynamics of an FS neuron depending on current $I_v$. The filled areas represent stable manifolds.}
     \label{fig:neural-dynamics-fs}
 \end{figure}
 
 \paragraph{Regular spiking neurons}
 
-Regular spiking neurons generate spikes with arbitrarily low frequencies that depend on the intensity of applied current, which allows them to encode the input strength \cite{IzhikevichBook2004:10}.
+Regular spiking neurons generate spikes with arbitrarily low frequencies that depend on the intensity of the applied current, which allows them to encode the input strength \cite{IzhikevichBook2004:10}.
 When a stimulus is applied, RS neurons typically first fire with a short interspike period, which later increases (see Figure \ref{fig:neuron-types-rs}).    Thus, this neuron type corresponds to the large value of $\zeta$, which causes an after-spike jump in recovery $r$ \cite{Izhikevich2003}.
 
 The spiking dynamics of an RS neuron can be divided into three categories depending on the strength of the input current:
@@ -116,7 +118,7 @@ The spiking dynamics of an RS neuron can be divided into three categories depend
     \item having no stationary points.
 \end{itemize}
 
-When a small depolarizing current, such as in Figure \ref{fig:neural-dynamics-rs}a, is applied, the nullclines (dashed lines) on the $p-r$ phase plane intersect twice, resulting in two stationary points: a stable node $\circletfill$ corresponding to the resting state and a saddle $\circlet$. The attraction basin on the former (the shaded area) is bounded by the stable manifold of the latter. When the initial pair of values, $p_v$ and $r_v$, lies outside the basin, the neuron produces a finite number of spikes. The recovery value resets closer to the stable manifold with each spike and eventually emerges in the attraction basin. Then, the neuron undergoes hyperpolarization before returning to its resting state. As the current grows, the attraction domain of the stable node shrinks, as illustrated in Figure \ref{fig:neural-dynamics-rs}b, and the trajectories starting there lead to dumped subthreshold oscillations. With further increase of the current, the basin closes and forms a homoclinic orbit (that originates and terminates at the saddle), as shown in Figure \ref{fig:neural-dynamics-rs}c. The event prompts the appearance of the limit cycle attractor. All trajectories starting outside the orbit converge to the limit cycle, where they fire indefinitely. As the current increases further, the system undergoes a saddle-node bifurcation: the homoclinic orbit collapses on itself, and the equilibria annihilate each other, labeled as $\circletfillhl$ in Figure \ref{fig:neural-dynamics-rs}d. Currents causing the mentioned bifurcation and larger lead to unconditional infinite firing (Figure \ref{fig:neural-dynamics-rs}e) as no stationary points exist.
+When a small depolarizing current, such as in Figure \ref{fig:neural-dynamics-rs}a, is applied, the nullclines (dashed lines) on the $p-r$ phase plane intersect twice, resulting in two stationary points: a stable node $\circletfill$ corresponding to the resting state and a saddle $\circlet$. The attraction basin on the former (the filled area) is bounded by the stable manifold of the latter. When the initial pair of values, $p_v$ and $r_v$, lies outside the basin, the neuron eventually reaches the peak potential $p_\peak$ thus producing a spike. The recovery value resets closer to the stable manifold with each spike and eventually emerges in the attraction basin. So, the neuron produced a finite number of spikes. Then, the neuron undergoes hyperpolarization before returning to its resting state. As the current grows, the attraction domain of the stable node shrinks, as illustrated in Figure \ref{fig:neural-dynamics-rs}b, and the trajectories starting there lead to dumped subthreshold oscillations. With further increase of the current, the basin closes and forms a homoclinic orbit (that originates and terminates at the saddle), as shown in Figure \ref{fig:neural-dynamics-rs}c. The event prompts the appearance of the limit cycle attractor (the enclosed filled area in Figure \ref{fig:neural-dynamics-rs}c). All trajectories starting outside the orbit come close to the limit cycle and then fire indefinitely: they reach the peak potential and again reset outside the orbit. As the current increases further, the system undergoes a saddle-node bifurcation: the homoclinic orbit collapses on itself, and the equilibria annihilate each other, labeled as $\circletfillhl$ in Figure \ref{fig:neural-dynamics-rs}d. Currents causing the mentioned bifurcation and larger lead to unconditional infinite firing (Figure \ref{fig:neural-dynamics-rs}e) as no stationary points exist.
 
 
 \paragraph{Fast spiking neurons}

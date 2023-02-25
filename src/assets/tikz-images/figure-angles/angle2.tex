@@ -1,0 +1,102 @@
+% ----- INPUT
+\newcommand{\angtwoimagew}{3.7}
+\newcommand{\angtwoimageh}{6}
+% \newcommand{\angtwoimagew}{\textwidth}
+% \newcommand{\angtwoimageh}{0.8 * \angtwoimagew}
+
+% figure dimensions
+\newcommand{\angtwofigw}{0.5 * \angtwoimagew}
+\newcommand{\angtwofigh}{0.85 * \angtwoimagew}
+
+% shifts
+\newcommand{\angtwoshiftw}{0.1 * \angtwoimagew}
+\newcommand{\angtwoshifth}{0.06 * \angtwoimageh}
+
+% ----- misc
+\newcommand{\angtwocenterx}{0}
+\newcommand{\angtwocentery}{0}
+% \newcommand{\angtwocenterx}{0.5 * \angtwoimagew}
+% \newcommand{\angtwocentery}{0.5 * \angtwoimageh}
+
+% figure center
+\newcommand{\angtwofigcenterx}{\angtwoimagew - 0.5 * \angtwofigw}
+\newcommand{\angtwofigcentery}{-\angtwocentery - 0.5 * \angtwofigh}
+
+% figure coords
+\newcommand{\angtwofigleftx}{\angtwofigcenterx - 0.5 * \angtwofigw}
+\newcommand{\angtwofigrightx}{\angtwofigcenterx + 0.5 * \angtwofigw}
+\newcommand{\angtwofigtopy}{\angtwofigcentery + 0.5 * \angtwofigh}
+\newcommand{\angtwofigbottomy}{\angtwofigcentery - 0.5 * \angtwofigh}
+
+\begin{tikzpicture}[
+        arr/.style = { -{Stealth[ ]} },
+        whitedoublearrow/.style = {>=stealth, draw=color-three, fill=color-three, very thick, <->},
+        pinkarrow/.style = {arr, draw=color-three-light, fill=color-three-light, very thick},
+        yellowframe/.style = {rounded corners=0.2cm, very thick, color-one, fill=color-one, fill opacity=0.1},
+        blueframe/.style = {rounded corners=0.2cm, very thick, color-two-light, fill=color-two-light, fill opacity=0.1},
+        anglearrow/.style = {draw, >=stealth, color-three, very thick, ->, angle eccentricity=2.3},
+        cnode/.style = {circle,thick,fill=color-one},
+    ]
+    
+    \begin{scope}
+
+        % space line
+        \draw[color=white] (\angtwocenterx - 2 * \angtwoshiftw, --\angtwocentery) -- (\angtwoimagew + 2 * \angtwoshiftw, -\angtwoimageh);
+
+        % quadrant
+        \draw[yellowframe] (\angtwocenterx, -\angtwocentery) rectangle (\angtwoimagew, -\angtwoimageh) {};
+        
+        % quadrant width
+        \node[shift={(0, -1 * \angtwoshifth)}] (startquadw) at (\angtwocenterx, -\angtwoimageh) {};
+        \node[shift={(0, -1 * \angtwoshifth)}] (endquadw) at (\angtwoimagew, -\angtwoimageh) {};
+
+        \path[whitedoublearrow] (startquadw) edge node {\bgcolorsmalltext{white}{black}{$\fullwidth / 2$}} (endquadw);
+
+        \draw[very thick, color-three] (\angtwocenterx, -\angtwoimageh) -- (\angtwocenterx, -\angtwoimageh - 2 * \angtwoshifth);
+        \draw[very thick, color-three] (\angtwoimagew, -\angtwoimageh) -- (\angtwoimagew, -\angtwoimageh - 2 * \angtwoshifth);
+
+        % quadrant height
+        \node[shift={(-1 * \angtwoshiftw, 0)}] (startquadh) at (\angtwocenterx, -\angtwocentery) {};
+        \node[shift={(-1 * \angtwoshiftw, 0)}] (endquadh) at (\angtwocenterx, -\angtwoimageh) {};
+
+        \path[whitedoublearrow] (startquadh) edge node[rotate=90] {\bgcolorsmalltext{white}{black}{$\fullheight / 2$}} (endquadh);
+
+        \draw[very thick, color-three] (\angtwocenterx, -\angtwoimageh) -- (\angtwocenterx - 2 * \angtwoshiftw, -\angtwoimageh);
+        \draw[very thick, color-three] (\angtwocenterx - 2 * \angtwoshiftw, -\angtwocentery) -- (\angtwocenterx, -\angtwocentery);
+        
+        % stimulsus center
+        \node[style=cnode] (cent) at (\angtwocenterx, \angtwocentery) {};
+        
+        % figure
+        \draw[blueframe] (\angtwofigleftx, -\angtwofigtopy) rectangle (\angtwofigrightx, -\angtwofigbottomy) {};
+        
+        % figure width
+        \node[shift={(0, -1 * \angtwoshifth)}] (startfigw) at (\angtwofigleftx, -\angtwofigbottomy) {};
+        \node[shift={(0, -1 * \angtwoshifth)}] (endfigw) at (\angtwofigrightx, -\angtwofigbottomy) {};
+        
+        \path[whitedoublearrow] (startfigw) edge node {\bgcolorsmalltext{white}{black}{$\figwidth$}} (endfigw);
+        
+        \draw[very thick, color-three] (\angtwofigleftx, -\angtwofigbottomy) -- (\angtwofigleftx, -\angtwofigbottomy - 2 * \angtwoshifth);
+        \draw[very thick, color-three] (\angtwofigrightx, -\angtwofigbottomy) -- (\angtwofigrightx, -\angtwofigbottomy - 2 * \angtwoshifth);
+        
+        % figure height
+        \node[shift={(\angtwoshiftw, 0)}] (startfigh) at (\angtwofigrightx, -\angtwofigtopy) {};
+        \node[shift={(\angtwoshiftw, 0)}] (endfigh) at (\angtwofigrightx, -\angtwofigbottomy) {};
+        
+        \path[whitedoublearrow] (startfigh) edge node[rotate=90] {\bgcolorsmalltext{white}{black}{$\figheight$}} (endfigh);
+        
+        \draw[very thick, color-three] (\angtwofigrightx, -\angtwofigtopy) -- (\angtwofigrightx + 2 * \angtwoshiftw, -\angtwofigtopy);
+        \draw[very thick, color-three] (\angtwofigrightx, -\angtwofigbottomy) -- (\angtwofigrightx + 2 * \angtwoshiftw, -\angtwofigbottomy);
+        
+        % center of figure
+        \node[style=cnode] (cent2) at (\angtwofigcenterx, -\angtwofigcentery) {};
+        
+        % eccentricity
+        \path[whitedoublearrow] (cent) edge node[sloped] {\bgcolorsmalltext{white}{black}{$\figecc$}} (cent2);
+        
+        % angle
+        \pic[anglearrow, "\bgcolorsmalltext{white}{black}{$\; \figanglemin \;$}"] {angle = cent2--cent--xright};
+        
+        
+    \end{scope}
+\end{tikzpicture}

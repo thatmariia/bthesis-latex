@@ -7,7 +7,7 @@ The composition of the stimulus is a rather involved process, which can be separ
     First, the distance from the annulus center at every pixel is computed. The pixels where this distance is smaller than the given radius of the annulus are assigned the Gabor grating luminance; others are assigned the designated void value. For more details, see Section \ref{sec:annulus-composition}.
     
     \item determining the position and coordinates of the \stimfig{} in the stimulus; \\
-    We start by selecting a random position of the \stimfig{} within the stimulus given the \stimfig{} size and its distance from the center of the stimulus. From there, the center of the \stimfig{} and its pixel coordinates. For more details, see Section \ref{sec:figure-composition}.
+    We start by selecting a random position of the \stimfig{} within the stimulus given the \stimfig{} size and its distance from the center of the stimulus. From there, the center of the \stimfig{} and its pixel coordinates are computed. For more details, see Section \ref{sec:figure-composition}.
     
     \item positioning of the copies of the Gabor annulus in the stimulus; \\
     At this step, we first determine the distance between the neighboring annuli in the grid, which is equal to the number of pixels allocated to each annulus and void around it. Then, the number of annuli in each grid row and column is determined. Finally, the set of all annuli's left top corners (starting points) is computed. For more details, see Section \ref{sec:annuli-locations}.

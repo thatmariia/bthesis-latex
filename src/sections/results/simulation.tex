@@ -8,7 +8,7 @@ For the input to the neural network, 25 Gabor texture stimuli have been construc
     \label{tab:25patches}
 \end{table}
 
-The network with the parameters introduced in previous sections was simulated using input currents from each stimulus, and the resulting phase-locking values were calculated. This process has been repeated five times, and the average phase-locking values for each set of stimulus parameters were then calculated. Let final result be the matrix $\simres \in [0, 1]^{5 \times 5}$.
+The network with the parameters introduced in previous sections was simulated using input currents from each stimulus, and the resulting phase-locking values were calculated. This process has been repeated five times, and the average phase-locking values for each set of stimulus parameters were then calculated. Let $\simres \in [0, 1]^{5 \times 5}$ be the resulting matrix of average phase-locking values.
 The values of $\simres$ are shown in Figure \ref{fig:sim-res}. The results of individual trials can be found in Appendix \ref{app:all-sim-results}.
 
 We have plotted the spike rasters for three simulations with three different stimuli to display the level of phase-locking for a characteristic neural activity. The first simulation is expected to have the highest level of synchronization, the second - a medium level of synchronization, and the third - the least synchronization. The first plot (Figure \ref{fig:raster-best}) shows a high level of synchronization with an average phase-locking value of 0.8627, the second plot (Figure \ref{fig:raster-mid}) has a medium level of synchronization with a value of 0.7684, and the third plot (Figure \ref{fig:raster-worst}) has the lowest level of synchronization with a value of 0.5745.
@@ -42,34 +42,25 @@ We have plotted the spike rasters for three simulations with three different sti
     \label{fig:three-rasters}
 \end{figure}
 
-
-\paragraph{Cubic bivariate spline interpolation}
-
-The matrix of 25 values contains too little data to make accurate predictions or draw reliable conclusions. To estimate the values of points that are in between the known data points, we can use interpolation with a bivariate (two-dimensional) spline. A spline is a type of mathematical function that is made up of several polynomial sections combined to form a fitting smooth curve. This type of interpolation can produce a curve that better represents the underlying pattern in the data, and it is flexible enough to capture local variations. 
-
-We interpolate the matrix of results using the function $\mathsf{RectBivariateSpline}$ from the $\mathsf{SciPy.interpolate}$ Python package \cite{SciPy:RectBivariateSpline}. This function computes a bivariate spline using a technique called tensor product spline interpolation. 
-The matrix of results interpolated into the matrix $\simresspline \in [0, 1]^{1000 \times 1000}$ using this method is shown in Figure \ref{fig:sim-res-spline}.
-
 \paragraph{2D psychometric interpolation}
 
 Psychometric functions are equations that show how someone's performance on a task relates to the difficulty of the stimulus or response. A sigmoid function is a common choice for this because it can model how a person's performance changes as the stimulus becomes more complex. The sigmoid we used to interpolate the data is the following:
 \begin{equation}
-    \sigmoidint(\anndistscale, \contrange, \sigmoidparams) = (1 - \sigmoidrandomchance) \cdot \frac{1}{
+    \sigmoidint(\anndistscale, \contrange, \sigmoidparams) = 0.5 \cdot \frac{1}{
     \exp(\sigmoidparams_0 \cdot \anndistscale + \sigmoidparams_1 \cdot \contrange + \sigmoidparams_2)
-    } + \sigmoidrandomchance.
+    } + 0.5.
 \end{equation}
 
-The value of $\sigmoidrandomchance$ represents the minimum performance accuracy, which is the one achieved by segregating a \stimfig{} from background by random chance. Therefore, $\sigmoidrandomchance = 0.5$.
-The parameter $\sigmoidparams \in \mathbb{R}^3$ define the shape of the sigmoid, and it is determined by fitting the psychometric function to the set of observed data. 
+The parameter $\sigmoidparams = (\sigmoidparams_0, \sigmoidparams_1, \sigmoidparams_2) \in \mathbb{R}^3$ defines the shape of the sigmoid, and it is determined by fitting the psychometric function to the set of observed data. 
 
 The curve fitting is performed using the least squares method with gradient descent (LSGD). It involves iteratively finding the values of the parameters in the vector $\sigmoidparams$ that minimize the sum of squares of residuals, or the loss function:
 \begin{equation}
-    \lossfunc(\simres, \sigmoidint) = \sum_{\anndistscale, \contrange \in \arg (\simres)} 
+    \lossfunc(\simres, \sigmoidint, \sigmoidparams) = \sum_{\anndistscale, \contrange \in \arg (\simres)} 
     \left(
-        \simres(\anndistscale, \contrange) - \hat{\sigmoidint}(\anndistscale, \contrange, \sigmoidparams_i)
+        \simres(\anndistscale, \contrange) - \sigmoidint(\anndistscale, \contrange, \sigmoidparams)
     \right)^2,
 \end{equation}
-where $\arg (\simres)$ is the set of all arguments of the matrix $\simres$, and $\hat{\sigmoidint}$ is the predicted value of the sigmoid with a particular set of parameters.
+where $\arg (\simres)$ is the set of all arguments of the matrix $\simres$.
 
 \begin{table}[b]
     \centering
@@ -78,32 +69,18 @@ where $\arg (\simres)$ is the set of all arguments of the matrix $\simres$, and 
     \label{tab:sigmoid-params-sim}
 \end{table}
 
-At each iteration, the algorithm uses the gradient of the loss function to determine the direction in which the parameters should be updated:
-\begin{align}
-\begin{split}
-    \sigmoidparams_{0, i+1} &= \sigmoidparams_{0, i} - \learningrate_{0, i+1}
+At each iteration $i$, the algorithm uses the gradient of the loss function to determine the direction in which the parameters should be updated:
+\begin{equation}
+    \sigmoidparams(i) = \sigmoidparams(i-1) - \learningrate(i)
     \frac{
-        \partial \lossfunc(\simres, \sigmoidint)
+        \partial \lossfunc(\simres, \sigmoidint, \sigmoidparams(i-1))
     }{
-        \partial {\sigmoidparams_0}
-    }, 
-    \\
-    \sigmoidparams_{1, i+1} &= \sigmoidparams_{1, i} - \learningrate_{1, i+1}
-    \frac{
-        \partial \lossfunc(\simres, \sigmoidint)
-    }{
-        \partial {\sigmoidparams_1}
-    }, 
-    \\
-    \sigmoidparams_{2, i+1} &= \sigmoidparams_{2, i} - \learningrate_{2, i+1}
-    \frac{
-        \partial \lossfunc(\simres, \sigmoidint)
-    }{
-        \partial {\sigmoidparams_2}
-    }, 
-\end{split}
-\end{align}
-where $\learningrate$ is the learning rate, defined at each iteration by the Trust Region Reflective (TRF) method \cite{Branch1999}. It is determined by solving a trust-region subproblem, which involves finding the optimal step size that minimizes the loss function while staying within a specified trust region. The method is implemented in the $\mathsf{least\_squares}$ function from the $\mathsf{SciPy.optimize}$ package \cite{SciPy:least_squares}. The iterative process of adjusting the parameters continues until the optimal solution is achieved. The solution is considered optimal when at least one of the following criteria is met: the change in the loss function, the change in the parameters, or the norm of the gradient is less than 1e-8.
+        \partial {\sigmoidparams}
+    },
+\end{equation}
+where $\learningrate = (\learningrate_0, \learningrate_1, \learningrate_2) \in \mathbb{R}^3$ is the learning rate, defined at each iteration by the Trust Region Reflective (TRF) method \cite{Branch1999}. It is determined by solving a trust-region subproblem, which involves finding the optimal step size that minimizes the loss function while staying within a specified trust region. The method is implemented in the $\mathsf{least\_squares}$ function from the $\mathsf{SciPy.optimize}$ package \cite{SciPy:least_squares}. 
+
+The iterative process of adjusting the parameters continues until the optimal solution is achieved. The solution is considered optimal when at least one of the following criteria is met: the change in the loss function, the change in the parameters, or the norm of the gradient is less than 1e-8.
 
 The values of $\sigmoidparams$ for the simulation result are shown in Table \ref{tab:sigmoid-params-sim}.
 The simulation results interpolated with the 2D sigmoid psychometric function ($\simressigmoid \in [0, 1]^{1000 \times 1000}$) are shown in Figure \ref{fig:sim-res-sigmoid}.

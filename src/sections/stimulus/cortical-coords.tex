@@ -5,16 +5,16 @@ The receptive field is the region of the visual field to which a given neuron in
 
 To account for this distortion, the dipole map model is used \cite{Schwartz1980, Polimeni2006}. It is based on the idea that the visual field is represented by a set of dipoles, which are pairs of opposite poles on the surface of the visual field. The dipoles are mapped to the visual cortex using a complex-logarithm transformation, which accounts for the distortion caused by the varying size and shape of the receptive fields.
 
-Let $\cmap: \mathbb{R}^2 \to \mathbb{R}^2$ be the function that maps the coordinates of a grid element (the PING network) from the visual field to the visual cortex. Let $\eccangle: V \to \left[ 0, \frac{\pi}{2} \right]$ be the angle between the horizontal axis and the line passing through points $\stimcenter$ and $(\patchstart + \centr(v))$. The function $\cmap$ is then defined using the complex-logarithm transformation as follows:
+Let $\cmap: \mathbb{R}^2 \to \mathbb{R}^2$ be the function that maps the coordinates of a grid element (the PING network) from the visual field to the visual cortex. Let $\eccangle: \pingnets \to \left[ 0, \frac{\pi}{2} \right]$ be the angle between the horizontal axis and the line passing through the center of the stimulus $\stimcenter$ and the center of the PING network in the stimulus patch $(\patchstart + \centr(v)), v \in \pingnets$. The function $\cmap$ is then defined using the complex-logarithm transformation as follows:
 \begin{equation}
 \begin{gathered}
-    Z_v = \ecc_v \cdot \exp(\complexi \cdot \cortalpha \cdot \eccangle_v). 
+    Z_v = \ecc_v \cdot \exp(\complexi \cdot \cortalpha \cdot \eccangle_v),
     \\
     W_v = \cortk \cdot \log \left( 
         \frac{Z_v + \corta}{Z_v + \cortb}
     \right) - \cortk \cdot \log \left( 
         \frac{\corta}{\cortb}
-    \right).
+    \right),
     \\
     \cmap(v) = (\Re(W_v), \Im(W_v)).
 \end{gathered}

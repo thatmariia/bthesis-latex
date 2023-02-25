@@ -2,33 +2,71 @@
 \label{sec:figure-composition}
 
 Let $\fullmatrix \in [0, 1]^{\fullwidth \times \fullheight}$ be the matrix allocated for the stimulus' luminance values, where $\fullwidth, \fullheight \in [\diam, \infty)$ represent the stimulus width and height, respectively.
-Let $\figwidth \in (0, \frac{1}{2} \fullwidthdg]$ be the \stimfig{} width, and $\figheight \in (0, \frac{1}{2} \fullheightdg]$ - its height. The \stimfig{} comprises a submatrix of the full stimulus $\fullmatrix$. The \stimfig{} is located at the pixel distance $\figecc$ from the stimulus center, as defined in Equation (\ref{eq:figdiag}), at an angle $\figangle \sim U(\figanglemin, \figanglemax)$ to the horizontal axis. Since the \stimfig{} is located in the bottom right quadrant,
-\begin{equation}
-    \begin{aligned}
+Let $\figwidth \in (0, \frac{1}{2} \fullwidth]$ be the \stimfig{} width, and $\figheight \in (0, \frac{1}{2} \fullheight]$ - its height. The \stimfig{} comprises a submatrix of the full stimulus $\fullmatrix$. The center of the \stimfig{} is located at the pixel distance $\figecc$ from the stimulus center, as defined in Equation (\ref{eq:figdiag}), at an angle $-\figangle$ to the horizontal axis, where $\figangle \sim U(\figanglemin, \figanglemax)$. Since the \stimfig{} is located in the bottom right quadrant,
+\begin{align}
+    %\begin{aligned}
+        \label{eq:figangle-min}
         \figanglemin &=
         \begin{cases}
             \cos^{-1} \left(
                 \frac{\fullwidth - \figwidth}{2 \cdot \figecc}
             \right)
-            &\text{ if } \figecc > \frac{\fullwidth - \figwidth}{2} \\
+            &\text{ if } \figecc > \sqrt{ \left( \frac{\fullwidth - \figwidth}{2} \right)^2 + \left( \frac{\figheight}{2} \right)^2 } \\
             \sin^{-1} \left( 
                 \frac{\figheight}{2 \cdot \figecc}
             \right)
             &\text{ otherwise}
         \end{cases}, \\
+        \label{eq:figangle-max}
         \figanglemax &= \frac{\pi}{2} - 
         \begin{cases}
             \cos^{-1} \left(
                 \frac{\fullheight - \figheight}{2 \cdot \figecc}
             \right)
-            &\text{ if } \figecc > \frac{\fullheight - \figheight}{2} \\
+            &\text{ if } \figecc > \sqrt{ \left( \frac{\fullwidth - \figwidth}{2} \right)^2 + \left( \frac{\figheight}{2} \right)^2 } \\
             \sin^{-1} \left( 
                 \frac{\figwidth}{2 \cdot \figecc}
             \right)
             &\text{ otherwise}
         \end{cases}.
-    \end{aligned}
-\end{equation}
+    %\end{aligned}
+\end{align}
+
+In Equations (\ref{eq:figangle-min})-(\ref{eq:figangle-max}), the angles depend on the eccentricity $\figecc$. The visualization of the minimum angles $\figanglemin$ for various eccentricities can be seen in Figure \ref{fig:figangles-min}. 
+In Figure \ref{fig:figangles-min1}, the eccentricity is too large for the figure to be adjacent to the horizontal axis (first case in Equation (\ref{eq:figangle-min})); 
+in Figure \ref{fig:figangles-min2}, it is small enough to touch the horizontal axis and large enough to reach the right edge of the stimulus (edge case); 
+in Figure \ref{fig:figangles-min3}, the eccentricity is too small to reach the edge (second case).
+The maximum angle varies with eccentricity similar to the minimum angle.
+
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \input{src/assets/tikz-images/figure-angles/angle1}
+        \vspace{-1em}
+        \caption{$\figecc > \sqrt{ \left( \frac{\fullwidth - \figwidth}{2} \right)^2 + \left( \frac{\figheight}{2} \right)^2 }$.}
+        \label{fig:figangles-min1}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \input{src/assets/tikz-images/figure-angles/angle2}
+        \vspace{-1em}
+        \caption{$\figecc = \sqrt{ \left( \frac{\fullwidth - \figwidth}{2} \right)^2 + \left( \frac{\figheight}{2} \right)^2 }$.}
+        \label{fig:figangles-min2}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \input{src/assets/tikz-images/figure-angles/angle3}
+        \vspace{-1em}
+        \caption{$\figecc < \sqrt{ \left( \frac{\fullwidth - \figwidth}{2} \right)^2 + \left( \frac{\figheight}{2} \right)^2 }$.}
+        \label{fig:figangles-min3}
+    \end{subfigure}
+    \caption[Figure angle and eccentricity]{Minimum angle $\figanglemin$ between the horizontal axis and the center of the \stimfig{} for different values of eccentricity $\figecc$. The red area represents the lower bottom quadrant of the stimulus, the green area represents the \stimfig.}
+    \label{fig:figangles-min}
+\end{figure}
+
 Now, we can locate the center of the \stimfig{} $\figcenter \in \mathbb{R}_+^2$:
 \begin{equation}
     \figcenter = \left(

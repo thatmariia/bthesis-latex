@@ -1,83 +1,93 @@
 \section{Synchrony evaluation}
 \label{sec:sync-evaluation}
 
-After simulating the PING network with a particular stimulus and set of parameters, the network synchronization is evaluated based on spike trains.
+After simulating the PING network with a particular stimulus and set of parameters, the network synchronization is evaluated based on spike trains by computing the average phase-locking value.
 
-To counteract the effects of noise, the Gaussian filter with the standard deviation of $\stdgaussfilter \in \mathbb{R}_+$ is applied to the spike trains in order to \say{blur} them before performing further computations:
+Let $\crosscorr: \{\{0, 1\}^\mathbb{N}, \{0, 1\}^\mathbb{N}, \mathbb{N}\} \to \mathbb{R}$ be the function computing the cross-correlation between two signals with a particular signal displacement, or lag, $\lag \in \mathbb{N}$ applied to one of the signals:
+\begin{equation}
+    \crosscorr (x, y) (\lag) = 
+    \sum_{t \in \timesteps} 
+    x_t \cdot y_{t-\lag}.
+\end{equation}
+The edge cases are handled by padding the spike trains with zeros.
+
+Then the normalized cross-correlations $\hat{\crosscorr}: \{\{0, 1\}^\mathbb{N}, \{0, 1\}^\mathbb{N}, \mathbb{N}\} \to [0, 1]^{2 \cdot \maxlag + 1}$ between the signals is defined as follows:
+\begin{equation}
+    \hat{\crosscorr}(x, y)(\maxlag) = 
+    \frac{
+        \left<
+            \crosscorr(x, y)(-\maxlag),
+            \crosscorr(x, y)(-\maxlag + 1),
+            \cdots,
+            \crosscorr(x, y)(\maxlag)
+        \right>
+    }{
+        \sqrt{\crosscorr(x, x)(0) \cdot \crosscorr(y, y)(0)}
+    },
+\end{equation}
+where $\maxlag: \left\{\{0, 1\}^\mathbb{N}\right\}^\mathbb{N} \to \mathbb{N}$ is the maximum signal lag. It is defined as the rounded half of the mean spike rate \cite{Lowet2015}, or the average signal rate among the set of signals consisting of $x \in \{0, 1\}^\mathbb{N}, x \in X \subset \left\{\{0, 1\}^\mathbb{N}\right\}^\mathbb{N}$. The rate of a signal $\spikerate_x$ can be approximated by diving its length by the number of spikes. Thus, the lag can be approximated with the following equation:
+\begin{equation}
+    \maxlag(X) = \floor{
+        \frac{
+            \sum_{x \in X} \spikerate_x
+        }{
+            2 \cdot |X|
+        }
+        + 0.5
+    }, 
+    \;
+    \spikerate_x = \frac{
+        |x|
+    }{
+        \sum_{x_i \in x} x_i
+    }.
+\end{equation}
+
+As described in Section \ref{sec:grid-ping}, the gamma band oscillations occur due to the interplay between excitatory and inhibitory neurons: the former synchronize the latter and vice versa. Therefore, it is sufficient to analyze the dynamics of a single type. As the number of inhibitory neurons in the network is significantly smaller, the synchronization evaluation is performed based on their spike trains only. 
+
+To counteract the effects of noise, the Gaussian filter with the standard deviation of $\stdgaussfilter \in \mathbb{R}_+$ is applied to the spike trains of inhibitory neurons. The filtered spike train $\smoothspiketrain_v \in \{0, 1\}^{|\timesteps|}$ is then defined as
 \begin{equation}
     \smoothspiketrain_v = \frac{1}{\sqrt{2 \pi} \cdot \stdgaussfilter} \exp \left( 
         \frac{-\spiketrain_v}{2 \stdgaussfilter^2}
     \right).
 \end{equation}
 
-As mentioned in Section \ref{sec:neural-dynamics}, the initial values for membrane potentials are randomized. Therefore, it is reasonable to assume that it takes time for neural spikes to synchronize. Hence, the spike trains need to be trimmed to avoid taking the time it takes for neurons to synchronize into consideration. Let the time window $\spiketimewindow \in \timesteps^2$ be
+As mentioned in Section \ref{sec:neural-dynamics}, the initial values for membrane potentials are randomized. Therefore, it is reasonable to assume that it takes time for neural spikes to synchronize. Hence, the spike trains need to be trimmed to avoid taking the time it takes for neurons to synchronize into consideration. Let the time window $\spiketimewindow \in |\timesteps|^2$ be
 \begin{equation}
     \spiketimewindow = (\spiketimewindow_\spiketimewindowstart, \spiketimewindow_\spiketimewindowend).
 \end{equation}
-Then the spike trains within the defined time window are
+Then the spike trains within the defined time window $\spiketimewindow\spiketrain_{v}$ are
 \begin{equation}
     \spiketimewindow\spiketrain_{v} = 
     \left<
-        \smoothspiketrain_{v, \timesteps_i}
+        \smoothspiketrain_{v, x}
         \ \mid \
         \spiketimewindow_\spiketimewindowstart 
         \leq 
-        \timesteps_i
+        x
         <
         \spiketimewindow_\spiketimewindowend
     \right>
 \end{equation}
 
-The level of synchronization between two neurons is measured by computing a phase-locking value \cite{Lowet2015}. 
+Now, the level of synchronization between two neurons is measured by computing a phase-locking value \cite{Lowet2015}. 
 It is based on the phase difference between the spikes of the two neurons and can range from zero (no synchronization) to one (perfect synchronization).
-For two neurons $v, w \in V$, the phase-locking 
-is defined as the maximum value from normalized cross-correlations $\hat{\crosscorr} \in [0, 1]^{2 \cdot \maxlag + 1}$ between their spike trains with the maximum signal displacement, or lag, $\maxlag \in \mathbb{N}$ applied to one of the signals (defined later in the section). 
 The resulting cross-correlation will have a peak at the time-lag where the two signals are most similar.
-The normalization is defined so that in the case of autocorrelation ($v = w$), the phase-locking between their spike trains equals one. Hence,
+So, for two neurons $v, w \in V$, the phase-locking 
+is defined as the maximum value from normalized cross-correlations:
 \begin{equation}
+\begin{gathered}
     \phaselocking_{v, w} = 
-    \max(\hat{\crosscorr}_{v, w}),
-\end{equation}
-and
-\begin{equation}
-    \hat{\crosscorr}_{v, w}(\maxlag) = 
-    \frac{
-        \left<
-            \crosscorr_{v, w}(-\maxlag),
-            \crosscorr_{v, w}(-\maxlag + 1),
-            \cdots,
-            \crosscorr_{v, w}(\maxlag)
-        \right>
-    }{
-        \sqrt{\crosscorr_{v, v}(0) \cdot \crosscorr_{w, w}(0)}
-    },
-\end{equation}
-where $\crosscorr \in \mathbb{R}$ is the cross-correlations with a particular signal displacement. The value of the cross-correlation is defined as follows:
-\begin{equation}
-    \crosscorr_{v, w}(\lag) = 
-    \sum_{\timesteps_i \in \timesteps} 
-    \spiketimewindow\spiketrain_{v, \timesteps_i} \cdot \spiketimewindow\spiketrain_{w, \timesteps_i-\lag}.
-\end{equation}
-The edge cases are handled by padding the spike trains with zeros. 
-
-As described in Section \ref{sec:grid-ping}, the gamma band oscillations occur due to the interplay between excitatory and inhibitory neurons: the former synchronize the latter and vice versa. Therefore, it is sufficient to analyze the dynamics of a single type. As the number of inhibitory neurons in the network is significantly smaller, the synchronization evaluation is performed based on their spike trains only. 
-
-The maximum lag $\maxlag \in \mathbb{N}$ is defined as the rounded half of the mean spike rate \cite{Lowet2015}. For the aforementioned reason, one only needs to consider the spike rates of inhibitory neurons. Thus, the lag can be approximated with the following equation:
-\begin{equation}
-    \maxlag = \floor{
-        \frac{
-            \sum_{v \in V_\inh} \spikerate_v
-        }{
-            2 \cdot |V_\inh|
-        }
-        + 0.5
-    }, 
-    \;
-    \spikerate_v = \frac{
-        |\spiketrain_v|
-    }{
-        \sum_{\timesteps_i \in \timesteps} \spiketrain_{v, \timesteps_i}
-    }
+    \max \left(
+        \hat{\crosscorr} \left(
+            \spiketimewindow\spiketrain_{v}, \spiketimewindow\spiketrain_{w}
+        \right)\left(
+            \maxlag_\inh
+        \right)
+    \right),
+    \\
+    \maxlag_\inh = \maxlag \left (\bigcup_{u \in V_\inh} \spiketimewindow\spiketrain_{u} \right).
+\end{gathered}
 \end{equation}
 
 Having defined the phase-locking value for any two spike trains, one can construct a phase-locking matrix where columns and rows represent neurons, and the values represent phase-locking between their spike trains. However, evaluating cross-correlations is computationally expensive. Therefore, it is computed for a subset of inhibitory neurons $V'_\inh \subset V_\inh$. The subset $V'_\inh$ is chosen such that it includes an equal number of neurons $|V'_\inh|_\pingnet$ belonging to each PING network. Now, the symmetrical phase-locking matrix $\phaselockingmatrix \in [0, 1]^{|V'_\inh| \times |V'_\inh|}$ can be defined as follows:
@@ -98,6 +108,105 @@ The parameters chosen for the synchrony evaluation are shown in Table \ref{tab:p
     \caption{Synchronization evaluation parameters.}
     \label{tab:params-sync}
 \end{table}
+
+
+%-----------
+
+% To counteract the effects of noise, the Gaussian filter with the standard deviation of $\stdgaussfilter \in \mathbb{R}_+$ is applied to the spike trains of inhibitory neurons. The filtered spike train $\smoothspiketrain_v \in \{0, 1\}^{|\timesteps|}$ is then defined as
+% \begin{equation}
+%     \smoothspiketrain_v = \frac{1}{\sqrt{2 \pi} \cdot \stdgaussfilter} \exp \left( 
+%         \frac{-\spiketrain_v}{2 \stdgaussfilter^2}
+%     \right).
+% \end{equation}
+
+% As mentioned in Section \ref{sec:neural-dynamics}, the initial values for membrane potentials are randomized. Therefore, it is reasonable to assume that it takes time for neural spikes to synchronize. Hence, the spike trains need to be trimmed to avoid taking the time it takes for neurons to synchronize into consideration. Let the time window $\spiketimewindow \in |\timesteps|^2$ be
+% \begin{equation}
+%     \spiketimewindow = (\spiketimewindow_\spiketimewindowstart, \spiketimewindow_\spiketimewindowend).
+% \end{equation}
+% Then the spike trains within the defined time window $\spiketimewindow\spiketrain_{v}$ are
+% \begin{equation}
+%     \spiketimewindow\spiketrain_{v} = 
+%     \left<
+%         \smoothspiketrain_{v, x}
+%         \ \mid \
+%         \spiketimewindow_\spiketimewindowstart 
+%         \leq 
+%         x
+%         <
+%         \spiketimewindow_\spiketimewindowend
+%     \right>
+% \end{equation}
+
+% The level of synchronization between two neurons is measured by computing a phase-locking value \cite{Lowet2015}. 
+% It is based on the phase difference between the spikes of the two neurons and can range from zero (no synchronization) to one (perfect synchronization).
+% For two neurons $v, w \in V$, the phase-locking 
+% is defined as the maximum value from normalized cross-correlations $\hat{\crosscorr} \in [0, 1]^{2 \cdot \maxlag + 1}$ between their spike trains with the maximum signal displacement, or lag, $\maxlag \in \mathbb{N}$ applied to one of the signals (defined later in the section). 
+% The resulting cross-correlation will have a peak at the time-lag where the two signals are most similar.
+% The normalization is defined so that in the case of autocorrelation ($v = w$), the phase-locking between their spike trains equals one. Hence,
+% \begin{equation}
+%     \phaselocking_{v, w} = 
+%     \max(\hat{\crosscorr}_{v, w}),
+% \end{equation}
+% and
+% \begin{equation}
+%     \hat{\crosscorr}_{v, w}(\maxlag) = 
+%     \frac{
+%         \left<
+%             \crosscorr_{v, w}(-\maxlag),
+%             \crosscorr_{v, w}(-\maxlag + 1),
+%             \cdots,
+%             \crosscorr_{v, w}(\maxlag)
+%         \right>
+%     }{
+%         \sqrt{\crosscorr_{v, v}(0) \cdot \crosscorr_{w, w}(0)}
+%     },
+% \end{equation}
+% where $\crosscorr \in \mathbb{R}$ is the cross-correlations with a particular signal displacement. The value of the cross-correlation is defined as follows:
+% \begin{equation}
+%     \crosscorr_{v, w}(\lag) = 
+%     \sum_{\timesteps_i \in \timesteps} 
+%     \spiketimewindow\spiketrain_{v, \timesteps_i} \cdot \spiketimewindow\spiketrain_{w, \timesteps_i-\lag}.
+% \end{equation}
+% The edge cases are handled by padding the spike trains with zeros. 
+
+% As described in Section \ref{sec:grid-ping}, the gamma band oscillations occur due to the interplay between excitatory and inhibitory neurons: the former synchronize the latter and vice versa. Therefore, it is sufficient to analyze the dynamics of a single type. As the number of inhibitory neurons in the network is significantly smaller, the synchronization evaluation is performed based on their spike trains only. 
+
+% The maximum lag $\maxlag \in \mathbb{N}$ is defined as the rounded half of the mean spike rate \cite{Lowet2015}. For the aforementioned reason, one only needs to consider the spike rates of inhibitory neurons. Thus, the lag can be approximated with the following equation:
+% \begin{equation}
+%     \maxlag = \floor{
+%         \frac{
+%             \sum_{v \in V_\inh} \spikerate_v
+%         }{
+%             2 \cdot |V_\inh|
+%         }
+%         + 0.5
+%     }, 
+%     \;
+%     \spikerate_v = \frac{
+%         |\spiketrain_v|
+%     }{
+%         \sum_{\timesteps_i \in \timesteps} \spiketrain_{v, \timesteps_i}
+%     }
+% \end{equation}
+
+% Having defined the phase-locking value for any two spike trains, one can construct a phase-locking matrix where columns and rows represent neurons, and the values represent phase-locking between their spike trains. However, evaluating cross-correlations is computationally expensive. Therefore, it is computed for a subset of inhibitory neurons $V'_\inh \subset V_\inh$. The subset $V'_\inh$ is chosen such that it includes an equal number of neurons $|V'_\inh|_\pingnet$ belonging to each PING network. Now, the symmetrical phase-locking matrix $\phaselockingmatrix \in [0, 1]^{|V'_\inh| \times |V'_\inh|}$ can be defined as follows:
+% \begin{equation}
+%     \phaselockingmatrix = \begin{pmatrix}
+%         \phaselocking_{V'_{\inh, 0}, V'_{\inh, 0}} & \cdots  & \phaselocking_{V'_{\inh, 0}, V'_{\inh, |V'_\inh|-1}}  \\
+%         \vdots & \ddots & \vdots  \\
+%         \phaselocking_{V'_{\inh, |V'_\inh|-1}, V'_{\inh, 0}} & \cdots  &  \phaselocking_{V'_{\inh, |V'_\inh|-1}, V'_{\inh, |V'_\inh|-1}}
+%     \end{pmatrix}.
+% \end{equation}
+
+% Finally, the network synchronization $\overline{\phaselockingmatrix} \in [0, 1]$ after a simulation is determined by the mean of the phase-locking matrix.
+% The parameters chosen for the synchrony evaluation are shown in Table \ref{tab:params-sync}.
+
+% \begin{table}[H]
+%     \centering
+%     \input{src/assets/tables/params-sync.tex}
+%     \caption{Synchronization evaluation parameters.}
+%     \label{tab:params-sync}
+% \end{table}
 
 
 

@@ -32,7 +32,7 @@ The parameters relevant for the full stimulus are
     
     \item $\fullheightdg \in [\diam, \infty)$ - the height of the stimulus in visual degrees; in pixels, the height is
     $
-        \fullheight = \ceil{\atopix \cdot \fullheightdg};
+        \fullheight = \ceil{\atopix \cdot \fullheightdg}.
     $
 \end{itemize}
 
@@ -69,6 +69,9 @@ The parameters relevant for the figure are
 
 Finally, the parameter for the stimulus patch is
 \begin{itemize}
+
+    \item $n \in \mathbb{N}$ - the number of PING networks in each dimension of the oscillatory network, as shown in Section \ref{sec:grid-network};
+    
     \item $\patchsizedg \in (0, \min(\figwidthdg, \figheightdg)]$ - the side length of the stimulus patch in visual degrees; in pixels, the length is
     $
         \patchsize = \ceil{\atopix \cdot \patchsizedg}.

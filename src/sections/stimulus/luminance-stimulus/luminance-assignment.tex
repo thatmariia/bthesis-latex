@@ -1,7 +1,9 @@
 \subsubsection{Luminance assignment}
 \label{sec:luminance-assignment}
 
-First, all values of the stimulus $\fullmatrix$ are initialized with the void luminance value $\vlum$. Then, the annuli with relevant contrasts are added to the matrix. Let $\view: \annuliset \to \{ \fig, \ground \}$ be the function mapping an annulus to its view. Let $\annstart \in \annuliset$, then
+The stimulus $\fullmatrix$ contains pixels that are either covered or uncovered by the annuli (void). Those pixels that are uncovered by the annuli are assigned the value of $\vlum$, while the pixels within the annuli are adjusted with relevant contrasts according to their location.
+
+Let $\view: \annuliset \to \{ \fig, \ground \}$ be the function mapping an annulus to its view. Let $\annstart \in \annuliset$, then
 \begin{equation}
     \view(\annstart) = 
     \begin{cases}
@@ -21,7 +23,7 @@ So, an annulus is said to be located in the \stimfig{} if it is (partially) cont
 
 Let $\unirand: \annuliset \to U(0, 1)$ be a random value that varies per annulus. The values are independent and identically distributed (i.i.d.). Then, for all $\annstart \in \annuliset$ and $i, j \in \{ 0, 1, \cdots, \diam - 1\}$,
 \begin{equation}
-    \fullmatrix_{\ \annstart + (i, j)} \leftarrow \vlum +
+    \fullmatrix_{\ \annstart + (i, j)} = \vlum +
     \begin{cases}
         (\annmatrix_{i, j} - \vlum) \cdot \left( \unirand(\annstart) \cdot \contrange + \vlum \cdot (1 - \contrange) \right) 
         &\text{ if } \view(\annstart) = \fig  \\
@@ -31,4 +33,4 @@ Let $\unirand: \annuliset \to U(0, 1)$ be a random value that varies per annulus
 \end{equation}
 where $\contrange \in (0, 1]$ is the range of annuli contrast in the \stimfig.
 Now, the stimulus luminance matrix is complete.
-Thus, the luminance of the void, similar to annuli's edges as demonstrated in Equation (\ref{eq:grating}), are still assigned the luminance of $\vlum$; the mean of all pixels' luminance values is also equal to $\vlum$. An example of the resulting luminance matrix' binary heat map is visualized in Figure \ref{fig:full-stimulus-example}.
+Thus, the luminance of the void, similar to annuli's edges as demonstrated in Equation (\ref{eq:grating}), are still assigned the luminance of $\vlum$; the mean of all pixels' luminance values is also equal to $\vlum$. An example of the resulting luminance matrix' greyscale heat map is visualized in Figure \ref{fig:full-stimulus-example}.

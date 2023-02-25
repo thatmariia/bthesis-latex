@@ -12,7 +12,7 @@ Trials in which the participant's gaze fell outside the screen were terminated a
 The results averaged for each set of stimulus parameters $\expres \in [0, 1]^{5 \times 5}$ are presented in Figure \ref{fig:exp-res}. 
 
 Similar to the simulation data, 
-the behavioral results are interpolated with the bivariate spline $\expresspline \in [0, 1]^{1000 \times 1000}$ and with the sigmoid function $\expressigmoid \in [0, 1]^{1000 \times 1000}$. The interpolations are shown in Figure \ref{fig:exp-res-spline} and Figure \ref{fig:exp-res-sigmoid}, respectively. The obtained sigmoid parameters $\sigmoidparams$ for the experimental results are given in Table \ref{tab:sigmoid-params-exp}.
+the behavioral results are interpolated with the sigmoid function $\expressigmoid \in [0, 1]^{1000 \times 1000}$. The interpolation result is shown in Figure \ref{fig:exp-res-sigmoid}. The obtained sigmoid parameters $\sigmoidparams$ for the experimental results are given in Table \ref{tab:sigmoid-params-exp}.
 
 \begin{table}[!htp]
     \centering
@@ -37,14 +37,6 @@ the behavioral results are interpolated with the bivariate spline $\expresspline
     \\ \vspace{\baselineskip}
     \begin{subfigure}[t]{0.41\textwidth}
         \centering
-        \input{src/assets/tikz-images/results/sim-res-spline-annot.tex}
-        \vspace{-\baselineskip}
-        \caption{Average simulation results interpolated with a bivariate spline.}
-        \label{fig:sim-res-spline}
-    \end{subfigure}
-    \\ \vspace{\baselineskip}
-    \begin{subfigure}[t]{0.41\textwidth}
-        \centering
         \input{src/assets/tikz-images/results/sim-res-sigmoid-annot.tex}
         \vspace{-\baselineskip}
         \caption{Average simulation results interpolated with a psychometric sigmoid.}
@@ -64,14 +56,6 @@ the behavioral results are interpolated with the bivariate spline $\expresspline
         \vspace{-\baselineskip}
         \caption{Average results from experiments \cite{MaryamPLACEHOLDER}.}
         \label{fig:exp-res}
-    \end{subfigure}
-    \\ \vspace{\baselineskip}
-    \begin{subfigure}[t]{0.41\textwidth}
-        \centering
-        \input{src/assets/tikz-images/results/exp-res-spline-annot.tex}
-        \vspace{-\baselineskip}
-        \caption{Average experimental results interpolated with a bivariate spline.}
-        \label{fig:exp-res-spline}
     \end{subfigure}
     \\ \vspace{\baselineskip}
     \begin{subfigure}[t]{0.41\textwidth}
@@ -103,20 +87,12 @@ the behavioral results are interpolated with the bivariate spline $\expresspline
     \\ \vspace{\baselineskip}
     \begin{subfigure}[t]{0.41\textwidth}
         \centering
-        \input{src/assets/tikz-images/relationships/spline-annot.tex}
-        %\vspace{-\baselineskip}
-        \caption{Relationship between bivariate spline-interpolated data.}
-        \label{fig:relationship-spline}
-    \end{subfigure}
-    \\ \vspace{\baselineskip}
-    \begin{subfigure}[t]{0.41\textwidth}
-        \centering
         \input{src/assets/tikz-images/relationships/sigmoid-annot.tex}
         %\vspace{-\baselineskip}
         \caption{Relationship between psychometric sigmoid-interpolated data.}
         \label{fig:relationship-sigmoid}
     \end{subfigure}
-    \caption[Simulations-experiments relationships]{Relationship between original and interpolated data from experiments and simulations.}
+    \caption[Simulations-experiments relationships]{Relationship between original phase-locking (PL) and interpolated data from experiments and simulations.}
     \label{fig:all-relationships}
 \end{figure}
 
@@ -134,20 +110,12 @@ the behavioral results are interpolated with the bivariate spline $\expresspline
     \\ \vspace{\baselineskip}
     \begin{subfigure}[t]{0.41\textwidth}
         \centering
-        \input{src/assets/tikz-images/relationships/fit-spline-annot.tex}
-        %\vspace{-\baselineskip}
-        \caption{Fitted curves between bivariate spline-interpolated data.}
-        \label{fig:relationship-fit-spline}
-    \end{subfigure}
-    \\ \vspace{\baselineskip}
-    \begin{subfigure}[t]{0.41\textwidth}
-        \centering
         \input{src/assets/tikz-images/relationships/fit-sigmoid-annot.tex}
         %\vspace{-\baselineskip}
         \caption{Fitted curves between psychometric sigmoid-interpolated data.}
         \label{fig:relationship-fit-sigmoid}
     \end{subfigure}
-    \caption[Simulations-experiments relationships with fitted curves]{Fitted curves between original and interpolated data from experiments and simulations.}
+    \caption[Simulations-experiments relationships with fitted curves]{Fitted curves between original phase-locking (PL) and interpolated data from experiments and simulations.}
     \label{fig:all-fit-relationships}
 \end{figure}
 

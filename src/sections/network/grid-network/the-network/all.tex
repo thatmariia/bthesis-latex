@@ -7,7 +7,7 @@ In this oscillatory network, a group of oscillators is arranged in a $n \times n
 \begin{figure}[!htp]
     \centering
     \input{assets/tikz-images/grid-network}
-    \caption[Grid oscillatory network]{An example of a 3 $\times$ 3 oscillatory network arranged in a grid. The arrows represent pairwise connections between all neurons (only shown for neighboring cells, exist for all neurons). All connections in the network represent a bidirectional interaction.}
+    \caption[Grid oscillatory network]{An example of a 3 $\times$ 3 oscillatory network of nine PING networks arranged in a grid. The neurons within each PING network interact, and so do neurons from different networks. Although the arrows in this Figure only show pairwise connections between neighboring PING networks, they exist for all pairs.}
     \label{fig:oscillatory-grid-graph}
 \end{figure}
 
@@ -21,7 +21,7 @@ Therefore, we can define $\type: V \to \{ \ex, \ \inh \}$ to be a function mappi
 An example of a mentioned subgraph is visualized in Figure \ref{fig:single-ping-graph}. 
 The cost function $\cost: E \to \mathbb{R}$ for the graph $D$ that reflects the interactions between neurons is defined later in Equation (\ref{eq:cost-function}).
 
-It has been experimentally found before that the ratio of the number of excitatory neurons ($|V_{\ex}|$) and the number of inhibitory neurons ($|V_{\inh}|$) in a cortical population is four to one \cite{Pastore2018}. While the relationship has been utilized in the present thesis, the realistic number of neurons has not as it is computationally infeasible. The chosen values for the number of neurons of each type and the number of PING networks are displayed in Table \ref{tab:params-network}.
+It has been experimentally found before that the ratio of the number of excitatory neurons ($|V_{\ex}|$) and the number of inhibitory neurons ($|V_{\inh}|$) in a cortical population is approximately four to one \cite{Pastore2018}. While the ratio has been utilized in the present thesis, the realistic number of neurons has not as it is computationally infeasible. The chosen values for the number of neurons of each type and the number of PING networks are displayed in Table \ref{tab:params-network}.
 
 In conclusion, we consider a large oscillatory network that consists of
 \startbulletsnospace

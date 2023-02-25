@@ -11,9 +11,9 @@ To collect the required data for a given input current, we simulate the Izhikevi
         \meancurrent_\inh & \text{ if } \type(v) = \inh
     \end{cases}.
 \end{equation}
-The input current to inhibitory neurons $\meancurrent_\inh$ is fixed for all simulations at $4.0$, while the input to excitatory neurons $\meancurrent_\ex$ is modulated per simulation. The 26 simulations are performed for the values $\meancurrent_\ex = \{ 0, 2, 4, \cdots, 50 \}$.
+The input current to inhibitory neurons $\meancurrent_\inh$ is fixed for all simulations at 4.0 pA, while the input to excitatory neurons $\meancurrent_\ex$ is modulated per simulation. The 26 simulations are performed for the values $\meancurrent_\ex = \{ 0, 2, 4, \cdots, 50 \}$.
 
-Equation (\ref{eq:Izhikevich-model-p30}) allows for the detection of spikes and, thus, the construction of spike trains, i.e., the sequence of neuronal firing times. For a neuron $v \in V$, the spike train $\spiketrain \in \{0, 1\}^{|\timesteps|}$ can be defined as follows:
+Equation (\ref{eq:Izhikevich-model-p30}) allows for the detection of spikes and, thus, the construction of spike trains, i.e., the sequence of neuronal firing times. For a neuron $v \in V$, the spike train $\spiketrain_v \in \{0, 1\}^{|\timesteps|}$ can be defined as follows:
 \begin{equation}
     \spiketrain_v = 
     \left( 
@@ -28,11 +28,7 @@ where the function $s: \{V, \timesteps\} \to \{0, 1\}$ returns $1$ if neuron spi
         0 &\text{ otherwise}.
     \end{cases}
 \end{equation}
-
-As mentioned in Section \ref{sec:grid-ping}, the simulation time has been chosen to be $1000$ ms.
-For the purposes regarding the Fast Fourier Transform (FFT) algorithm, as discussed in the next paragraph, let $\offset \in \mathbb{N}$ be equal to $296$.
-
-Let $\tfrsimulations$ be a set of the 26 simulations, each associated with a particular value of $\meancurrent_\ex$. Let $\tfrsimulation \in \tfrsimulations$ be one of these simulations. A time-dependent signal $\spikesignal \in \{0, 1\} ^ {|V| \ \times \ (|\timesteps| - \offset)}$ is created by discarding the first $\offset$ time steps from each neuron's spike train obtained during the simulation $\tfrsimulation$. An example of a spike raster (a plotted collection of spike trains) prior to offsetting is shown in Figure \ref{fig:fc14raster}.
+An example of a spike raster (a plotted collection of spike trains) is shown in Figure \ref{fig:fc14raster}. As mentioned in Section \ref{sec:grid-ping}, the simulation time has been chosen to be $1000$ ms.
 
 \begin{figure}[!htp]
     \centering
@@ -63,25 +59,35 @@ This thesis is concerned with gamma oscillations ($25 - 80$ Hz). Let $\gammafreq
     25, 26, \cdots, 80
     \right>.
 \end{equation}
-For a signal with a given input current, the corresponding frequency that said signal triggers is the most prominent within the gamma band. To analyze the frequency behavior of a signal, one needs to construct its time-frequency representation (TFR). 
+For a signal with a given input current, the corresponding frequency that said signal triggers is the most prominent within the gamma band. To analyze the frequency behavior of a signal, we need to construct its time-frequency representation (TFR) \cite{Lowet2015}. 
 The TFR encodes the energy of the signal as a function of time and frequency and is used to determine the dominant frequency of gamma oscillations in the signal.
-To compute the TFR using the Morlet wavelet transform, the steps outlined below are to be performed.
+
+Here, we compute the TFR using the Morlet wavelet transform.
+The process starts with transforming the neuron spike train signal into the frequency domain using the Fast Fourier Transform (FFT) algorithm.
+
+Next, for each gamma frequency, a Morlet wavelet is constructed as a complex sinusoid modulated by a Gaussian window, and the normalized Discrete Fourier Transform (DFT) of each Morlet wavelet is computed. The DFT of each Morlet wavelet is then multiplied element-wise by the DFT of the spike train signal, and the product is inverse-transformed back into the time domain using the Inverse Fast Fourier Transform (IFFT) algorithm.
+
+The resulting time-domain signal is used to construct the TFR of the signal. The TFR is then analyzed to establish the dominant frequency of gamma oscillations. 
+
+The steps are outlined below in greater detail.
 
 \begin{enumerate}
-    \item The time axis for the Morlet wavelet $\morlettime \in [-1, 1]^{2001}$ is defined as a sequence of values spaced $0.001$ seconds apart, from -1 to 1:
+    \item The time axis for the Morlet wavelet $\morlettime \in [-1, 1]^{2001}$ is defined as a sequence of values spaced 0.001 seconds apart, from -1 to 1:
     \begin{equation}
         \morlettime = \left<
         -1, -0.999, \cdots, 1
         \right>.
     \end{equation}
 
-    \item The discrete Fourier transform (DFT) of the spike train signal $\ft\spikesignal_\tfrsimulation \in \mathbb{C}^{\nconv}$ is computed using the Fast Fourier Transform (FFT) algorithm. The length of the signal is increased by zero-padding to $\nconv \in \mathbb{N}$:
+    \item Let $\tfrsimulations$ be a set of the 26 simulations, each associated with a particular value of $\meancurrent_\ex$. Let $\tfrsimulation \in \tfrsimulations$ be one of these simulations. A time-dependent signal $\spikesignal_\tfrsimulation \in \{0, 1\} ^ {|V| \ \times \ (|\timesteps| - \offset)}$ is created by discarding the first $\offset$ time steps from each neuron's spike train obtained during the simulation $\tfrsimulation$. 
+
+    \item 
+    The DFT of the spike train signal $\ft\spikesignal_\tfrsimulation \in \mathbb{C}^{\nconv}$ is computed using the FFT algorithm. The length of the signal is increased by zero-padding to $\nconv \in \mathbb{N}$:
     \begin{equation}
-        \nconv \leftarrow \nconv_\tfrsimulation = |\spikesignal_\tfrsimulation| + |\morlettime| - 1.
+        \nconv = (|\timesteps| - \offset) + |\morlettime| - 1,
     \end{equation}
-    Computing $\nconv$ in such a way ensures that the resulting length is a power of two and, therefore, is suitable for use in the FFT.
-    In the present case, $\nconv = 2704 = 52^2$ due to the value of $\offset$ defined earlier.
-    The values of $\nconv$ do not need to be computed for each simulation as $|\spikesignal_\tfrsimulation|$ does not change.
+    where $\offset$ is chosen so that $\nconv$ is a power of two and, therefore, is suitable for use in the FFT. 
+    In the present case, $\nconv = 2704 = 52^2$, while $\offset$ equals to 296.
 
     \item The edge indices later used to remove the zero-padding $\halfwave \in \mathbb{N}^2$ are computed:
     \begin{equation}
@@ -103,7 +109,7 @@ To compute the TFR using the Morlet wavelet transform, the steps outlined below 
         \right).
     \end{equation}
 
-    \item For each gamma frequency $\onegammafreq \in \gammafreq$, a Morlet wavelet $\morlet \in \mathbb{C}^{|\morlettime|}$ is constructed as a complex sinusoid modulated by a Gaussian window. The width $\gausswidth \in \mathbb{R}$ of the Gaussian can be adjusted to change the shape of the wavelet. The wavelet is thus defined as follows:
+    \item For each gamma frequency $\onegammafreq \in \gammafreq$, a Morlet wavelet $\morlet_\onegammafreq \in \mathbb{C}^{|\morlettime|}$ is constructed as a complex sinusoid modulated by a Gaussian window. The width $\gausswidth \in \mathbb{R}$ of the Gaussian can be adjusted to change the shape of the wavelet. The wavelet is thus defined as follows:
     \begin{equation}
         \morlet_{\onegammafreq, j} = 
         \underbrace{
@@ -136,38 +142,42 @@ To compute the TFR using the Morlet wavelet transform, the steps outlined below 
         }.
     \end{equation}
 
-    \item For each simulation, the DFT of each Morlet wavelet is multiplied element-wise by the DFT of the spike train signal ($\ft{\morlet_{\onegammafreq}}$ multiplied by $\ft\spikesignal_\tfrsimulation$). This produces a new frequency-domain representation of the signal that encodes its frequency content at each point in time.
+    \item For each simulation, the DFT of every Morlet wavelet is multiplied element-wise by the DFT of the spike train signal ($\ft{\morlet_{\onegammafreq}}$ multiplied by $\ft\spikesignal_\tfrsimulation$). This produces a new frequency-domain representation of the signal that encodes its frequency content at each point in time.
 
-    \item The product of the DFTs is inverse-transformed back into the time domain using the Inverse Fast Fourier Transform (IFFT) algorithm. Let the result be $\tmp \in \mathbb{C}^\nconv$.
+    \item The product of the DFTs is inverse-transformed back into the time domain using the IFFT algorithm. Let the result be $\tmp \in \mathbb{C}^\nconv$.
     
-    \item The resulting time-domain signal is trimmed to remove the parts that were added by zero-padding with $\halfwave$ and is used to construct the TFR of the signal. Then the TFR $\left( \tfr \in \mathbb{C}^{ |\gammafreq| \ \times \ |\spikesignal_\tfrsimulation|} \right)$ for the simulation $\tfrsimulation$ is
+    \item The resulting time-domain signal is trimmed to remove the parts that were added by zero-padding with $\halfwave$ and is used to construct the TFR of the signal. Then the TFR for the simulation $\tfrsimulation$ is $\left( \tfr_\tfrsimulation \in \mathbb{C}^{ |\gammafreq| \ \times \ |\spikesignal_\tfrsimulation|} \right)$. For the gamma frequency $\onegammafreq$, the signal $\tfr_{\tfrsimulation, \onegammafreq} \in \mathbb{C}^{|\spikesignal_\tfrsimulation|}$ is
     \begin{equation}
         \tfr_{\tfrsimulation, \onegammafreq} 
         = 
         \left< 
-            \tmp_{\tfrsimulation, \onegammafreq, \halfwave_i} 
+            \tmp_{\tfrsimulation, \onegammafreq, x} 
             \ \mid \ 
-            \halfwave_\substart \leq \halfwave_i < \halfwave_\subend
+            \halfwave_\substart \leq x < \halfwave_\subend
         \right>.
     \end{equation}
     
-    \item The TFR is analyzed to establish the dominant frequency of gamma oscillations in the signal. In particular, the signal's most prominent frequency $\domgammafreq \in \gammafreq$ is determined by computing the mean of the TFR magnitudes (absolute values) along the frequency dimension and finding the frequency at which the resulting number is the largest:
+    \item The TFR is analyzed to establish the dominant frequency of gamma oscillations $\domgammafreq \in \gammafreq$ in the signal. An example of the TFR of a signal depicted in Figure \ref{fig:fc14raster} is demonstrated as a spectrogram in Figure \ref{fig:fc14tfr}.
+
+    First, we need to compute the mean of the TFR magnitudes (absolute values) along the frequency dimension. Let $\meanabsval: \mathbb{C}^{|\spikesignal_\tfrsimulation|} \to \mathbb{R_+}$ be a function mapping the TFR of a simulation at a particular frequency ($x = \tfr_{\tfrsimulation, \onegammafreq}$) to the its mean magnitude across the entire signal length. It is then defined as
     \begin{equation}
-    \begin{gathered}
-        \domgammafreq_\tfrsimulation = \arg \max_\onegammafreq \left(
-            \meanabsval\_\tfr_{\tfrsimulation}
-        \right),
-        \\
-        \meanabsval\_\tfr_{\tfrsimulation, \onegammafreq} = 
+        \meanabsval(x) = 
         \frac{
             \sum_{i=0}^{|\spikesignal_\tfrsimulation| - 1} 
-            |\tfr_{\tfrsimulation, \onegammafreq, i}|
+            |x_i|
         }{
            |\spikesignal_\tfrsimulation|
         }.
-    \end{gathered}
     \end{equation}
-    An example of the TFR of a signal depicted in Figure \ref{fig:fc14raster} is demonstrated as a spectrogram in Figure \ref{fig:fc14tfr}. It is clear that the dominant frequency in the signal is 38, as seen by the same number of \say{columns} in Figure \ref{fig:fc14raster}.
+    The numerator of the equation calculates the sum of the absolute TFR magnitudes across all time points, while the denominator normalizes this sum by dividing it by the signal length.
+
+    Now, the signal's most prominent frequency $\domgammafreq$ is the frequency at which the mean of the TFR magnitudes $\meanabsval\_\tfr_{\tfrsimulation, \onegammafreq}$ is the largest: 
+    \begin{equation}
+        \domgammafreq_\tfrsimulation = \arg \max_\onegammafreq \left<
+            \meanabsval(\tfr_{\tfrsimulation, \onegammafreq})
+        \right>_{\onegammafreq \in \gammafreq}.
+    \end{equation}
+    From Figure \ref{fig:fc14tfr}, it is clear that the dominant frequency in the signal is 38, as seen by the same number of \say{columns} in Figure \ref{fig:fc14raster}.
 \end{enumerate}
 
 

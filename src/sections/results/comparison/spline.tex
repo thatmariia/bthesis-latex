@@ -1,14 +1,14 @@
-\subsubsection{Bivariate spline-interpolated data}
+% \subsubsection{Bivariate spline-interpolated data}
 
-\paragraph{Statistical tests}
+% \paragraph{Statistical tests}
 
-Similar to the original data, we have plotted the data (see Figure \ref{fig:relationship-spline}) and observed that the relationship between the two datasets $\simresspline$ and $\expresspline$ seems to be monotonic with positive coefficients. We then used Pearson's correlation coefficient to test the linearity of the relationship between the two variables. We found that it had a statistic of 0.6820 and a p-value of 0.0, indicating a strong linear relationship. We also performed a Kolmogorov-Smirnov normality test on the datasets and found that they had statistics of 0.6707 and 0.7395 with p-values of 0.0 for experimental and simulation data, respectively. Thus, neither dataset was normally distributed, and we are unable to draw conclusions about the significance of the linear relationship.
-We then used Spearman's correlation and found that the relationship between the experimental and simulation results data was strongly monotonic and positive, with a statistic of 0.7496 and a p-value of 0.0. 
+% Similar to the original data, we have plotted the data (see Figure \ref{fig:relationship-spline}) and observed that the relationship between the two datasets $\simresspline$ and $\expresspline$ seems to be monotonic with positive coefficients. We then used Pearson's correlation coefficient to test the linearity of the relationship between the two variables. We found that it had a statistic of 0.6820 and a p-value of 0.0, indicating a strong linear relationship. We also performed a Kolmogorov-Smirnov normality test on the datasets and found that they had statistics of 0.6707 and 0.7395 with p-values of 0.0 for experimental and simulation data, respectively. Thus, neither dataset was normally distributed, and we are unable to draw conclusions about the significance of the linear relationship.
+% We then used Spearman's correlation and found that the relationship between the experimental and simulation results data was strongly monotonic and positive, with a statistic of 0.7496 and a p-value of 0.0. 
 
-\paragraph{Regression analyses}
+% \paragraph{Regression analyses}
 
-We further quantified the relationship between the bivariate splines of experimental and simulation data by fitting the linear, quadratic, and cubic polynomials. The resulting polynomials are shown in Table \ref{tab:results-summary} and visualized in Figure \ref{fig:relationship-fit-spline}.
+% We further quantified the relationship between the bivariate splines of experimental and simulation data by fitting the linear, quadratic, and cubic polynomials. The resulting polynomials are shown in Table \ref{tab:results-summary} and visualized in Figure \ref{fig:relationship-fit-spline}.
 
-The R2 goodness-of-fit scores for the resulting curves are 0.4648 (d1), 0.5007 (d2), and 0.5128 (d3), all of which are considered to be indicative of a moderate fit. The MSE CV scores in the same respective order are the following: 0.0012, 0.0011, and 0.0011. 
+% The R2 goodness-of-fit scores for the resulting curves are 0.4648 (d1), 0.5007 (d2), and 0.5128 (d3), all of which are considered to be indicative of a moderate fit. The MSE CV scores in the same respective order are the following: 0.0012, 0.0011, and 0.0011. 
 
-The summary of the statistical tests and the regression analyses performed on the bivariate spline data can be found in Table \ref{tab:results-summary}. Overall, greater Spearman's correlation, greater R2 scores, and lower CV values suggest that the correlation between the data interpolated with bivariate splines is stronger than between original data.
+% The summary of the statistical tests and the regression analyses performed on the bivariate spline data can be found in Table \ref{tab:results-summary}. Overall, greater Spearman's correlation, greater R2 scores, and lower CV values suggest that the correlation between the data interpolated with bivariate splines is stronger than between original data.

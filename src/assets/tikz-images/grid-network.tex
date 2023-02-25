@@ -119,147 +119,147 @@
         % vertical 
         
         % 1 to 4
-        \draw[->] (2.1, 2.5) to[bend right] (2.1, 3.7);
-        \draw[->] (1.9, 3.7) to[bend right] (1.9, 2.5);
+        %\draw[<->] (2.1, 2.5) to (2.1, 3.7);
+        \draw[<->] (1.9, 3.7) to (1.9, 2.5);
         
         % 4 to 7
-        \draw[->] (2.1, 5.5) to[bend right] (2.1, 6.7);
-        \draw[->] (1.9, 6.7) to[bend right] (1.9, 5.5);
+        %\draw[<->] (2.1, 5.5) to (2.1, 6.7);
+        \draw[<->] (1.9, 6.7) to (1.9, 5.5);
         
         % 2 to 5
-        \draw[->] (6.1, 2.5) to[bend right] (6.1, 3.7);
-        \draw[->] (5.9, 3.7) to[bend right] (5.9, 2.5);
+        %\draw[<->] (6.1, 2.5) to (6.1, 3.7);
+        \draw[<->] (5.9, 3.7) to (5.9, 2.5);
         
         % 5 to 8
-        \draw[->] (6.1, 5.5) to[bend right] (6.1, 6.7);
-        \draw[->] (5.9, 6.7) to[bend right] (5.9, 5.5);
+        %\draw[<->] (6.1, 5.5) to (6.1, 6.7);
+        \draw[<->] (5.9, 6.7) to (5.9, 5.5);
         
         % 3 to 6
-        \draw[->] (10.1, 2.5) to[bend right] (10.1, 3.7);
-        \draw[->] (9.9, 3.7) to[bend right] (9.9, 2.5);
+        %\draw[<->] (10.1, 2.5) to (10.1, 3.7);
+        \draw[<->] (9.9, 3.7) to (9.9, 2.5);
         
         % 6 to 9
-        \draw[->] (10.1, 5.5) to[bend right] (10.1, 6.7);
-        \draw[->] (9.9, 6.7) to[bend right] (9.9, 5.5);
+        %\draw[<->] (10.1, 5.5) to (10.1, 6.7);
+        \draw[<->] (9.9, 6.7) to (9.9, 5.5);
         
         % horizontal
         
         % 1 to 2
-        \draw[->] (3.5, 1.7) to[bend left] (4.5, 1.7);
-        \draw[->] (4.5, 1.5) to[bend left] (3.5, 1.5);
+        %\draw[<->] (3.5, 1.7) to (4.5, 1.7);
+        \draw[<->] (4.5, 1.5) to (3.5, 1.5);
         
         % 2 to 3
-        \draw[->] (7.5, 1.7) to[bend left] (8.5, 1.7);
-        \draw[->] (8.5, 1.5) to[bend left] (7.5, 1.5);
+        %\draw[<->] (7.5, 1.7) to (8.5, 1.7);
+        \draw[<->] (8.5, 1.5) to (7.5, 1.5);
         
         % 4 to 5
-        \draw[->] (3.5, 4.7) to[bend left] (4.5, 4.7);
-        \draw[->] (4.5, 4.5) to[bend left] (3.5, 4.5);
+        %\draw[<->] (3.5, 4.7) to (4.5, 4.7);
+        \draw[<->] (4.5, 4.5) to (3.5, 4.5);
         
         % 5 to 6
-        \draw[->] (7.5, 4.7) to[bend left] (8.5, 4.7);
-        \draw[->] (8.5, 4.5) to[bend left] (7.5, 4.5);
+        %\draw[<->] (7.5, 4.7) to (8.5, 4.7);
+        \draw[<->] (8.5, 4.5) to (7.5, 4.5);
         
         % 7 to 8
-        \draw[->] (3.5, 7.7) to[bend left] (4.5, 7.7);
-        \draw[->] (4.5, 7.5) to[bend left] (3.5, 7.5);
+        %\draw[<->] (3.5, 7.7) to (4.5, 7.7);
+        \draw[<->] (4.5, 7.5) to (3.5, 7.5);
         
         % 8 to 9
-        \draw[->] (7.5, 7.7) to[bend left] (8.5, 7.7);
-        \draw[->] (8.5, 7.5) to[bend left] (7.5, 7.5);
+        %\draw[<->] (7.5, 7.7) to (8.5, 7.7);
+        \draw[<->] (8.5, 7.5) to (7.5, 7.5);
     \end{scope}
     
     % edges 
-    \begin{scope}
-        \path (Vex0) edge node {} (Vex1);
-        \path (Vex0) edge[bend left=25] node {} (Vex2);
-        \path (Vex0) edge node {} (Vin3);
-        \path (Vex0) edge node {} (Vin4);
-        \path (Vex1) edge node {} (Vex2);
-        \path (Vex1) edge node {} (Vin3);
-        \path (Vex1) edge node {} (Vin4);
-        \path (Vex2) edge node {} (Vin3);
-        \path (Vex2) edge node {} (Vin4);
-        \path (Vin3) edge node {} (Vin4);
-        \path (Vex5) edge node {} (Vex6);
-        \path (Vex5) edge[bend left=25] node {} (Vex7);
-        \path (Vex5) edge node {} (Vin8);
-        \path (Vex5) edge node {} (Vin9);
-        \path (Vex6) edge node {} (Vex7);
-        \path (Vex6) edge node {} (Vin8);
-        \path (Vex6) edge node {} (Vin9);
-        \path (Vex7) edge node {} (Vin8);
-        \path (Vex7) edge node {} (Vin9);
-        \path (Vin8) edge node {} (Vin9);
-        \path (Vex10) edge node {} (Vex11);
-        \path (Vex10) edge[bend left=25] node {} (Vex12);
-        \path (Vex10) edge node {} (Vin13);
-        \path (Vex10) edge node {} (Vin14);
-        \path (Vex11) edge node {} (Vex12);
-        \path (Vex11) edge node {} (Vin13);
-        \path (Vex11) edge node {} (Vin14);
-        \path (Vex12) edge node {} (Vin13);
-        \path (Vex12) edge node {} (Vin14);
-        \path (Vin13) edge node {} (Vin14);
-        \path (Vex15) edge node {} (Vex16);
-        \path (Vex15) edge[bend left=25] node {} (Vex17);
-        \path (Vex15) edge node {} (Vin18);
-        \path (Vex15) edge node {} (Vin19);
-        \path (Vex16) edge node {} (Vex17);
-        \path (Vex16) edge node {} (Vin18);
-        \path (Vex16) edge node {} (Vin19);
-        \path (Vex17) edge node {} (Vin18);
-        \path (Vex17) edge node {} (Vin19);
-        \path (Vin18) edge node {} (Vin19);
-        \path (Vex20) edge node {} (Vex21);
-        \path (Vex20) edge[bend left=25] node {} (Vex22);
-        \path (Vex20) edge node {} (Vin23);
-        \path (Vex20) edge node {} (Vin24);
-        \path (Vex21) edge node {} (Vex22);
-        \path (Vex21) edge node {} (Vin23);
-        \path (Vex21) edge node {} (Vin24);
-        \path (Vex22) edge node {} (Vin23);
-        \path (Vex22) edge node {} (Vin24);
-        \path (Vin23) edge node {} (Vin24);
-        \path (Vex25) edge node {} (Vex26);
-        \path (Vex25) edge[bend left=25] node {} (Vex27);
-        \path (Vex25) edge node {} (Vin28);
-        \path (Vex25) edge node {} (Vin29);
-        \path (Vex26) edge node {} (Vex27);
-        \path (Vex26) edge node {} (Vin28);
-        \path (Vex26) edge node {} (Vin29);
-        \path (Vex27) edge node {} (Vin28);
-        \path (Vex27) edge node {} (Vin29);
-        \path (Vin28) edge node {} (Vin29);
-        \path (Vex30) edge node {} (Vex31);
-        \path (Vex30) edge[bend left=25] node {} (Vex32);
-        \path (Vex30) edge node {} (Vin33);
-        \path (Vex30) edge node {} (Vin34);
-        \path (Vex31) edge node {} (Vex32);
-        \path (Vex31) edge node {} (Vin33);
-        \path (Vex31) edge node {} (Vin34);
-        \path (Vex32) edge node {} (Vin33);
-        \path (Vex32) edge node {} (Vin34);
-        \path (Vin33) edge node {} (Vin34);
-        \path (Vex35) edge node {} (Vex36);
-        \path (Vex35) edge[bend left=25] node {} (Vex37);
-        \path (Vex35) edge node {} (Vin38);
-        \path (Vex35) edge node {} (Vin39);
-        \path (Vex36) edge node {} (Vex37);
-        \path (Vex36) edge node {} (Vin38);
-        \path (Vex36) edge node {} (Vin39);
-        \path (Vex37) edge node {} (Vin38);
-        \path (Vex37) edge node {} (Vin39);
-        \path (Vin38) edge node {} (Vin39);
-        \path (Vex40) edge node {} (Vex41);
-        \path (Vex40) edge[bend left=25] node {} (Vex42);
-        \path (Vex40) edge node {} (Vin43);
-        \path (Vex40) edge node {} (Vin44);
-        \path (Vex41) edge node {} (Vex42);
-        \path (Vex41) edge node {} (Vin43);
-        \path (Vex41) edge node {} (Vin44);
-        \path (Vex42) edge node {} (Vin43);
-        \path (Vex42) edge node {} (Vin44);
-        \path (Vin43) edge node {} (Vin44);
+    \begin{scope}[>={Stealth[black]}]
+        \draw[<->] (Vex0) edge node {} (Vex1);
+        \draw[<->] (Vex0) edge[bend left=25] node {} (Vex2);
+        \draw[<->] (Vex0) edge node {} (Vin3);
+        \draw[<->] (Vex0) edge node {} (Vin4);
+        \draw[<->] (Vex1) edge node {} (Vex2);
+        \draw[<->] (Vex1) edge node {} (Vin3);
+        \draw[<->] (Vex1) edge node {} (Vin4);
+        \draw[<->] (Vex2) edge node {} (Vin3);
+        \draw[<->] (Vex2) edge node {} (Vin4);
+        \draw[<->] (Vin3) edge node {} (Vin4);
+        \draw[<->] (Vex5) edge node {} (Vex6);
+        \draw[<->] (Vex5) edge[bend left=25] node {} (Vex7);
+        \draw[<->] (Vex5) edge node {} (Vin8);
+        \draw[<->] (Vex5) edge node {} (Vin9);
+        \draw[<->] (Vex6) edge node {} (Vex7);
+        \draw[<->] (Vex6) edge node {} (Vin8);
+        \draw[<->] (Vex6) edge node {} (Vin9);
+        \draw[<->] (Vex7) edge node {} (Vin8);
+        \draw[<->] (Vex7) edge node {} (Vin9);
+        \draw[<->] (Vin8) edge node {} (Vin9);
+        \draw[<->] (Vex10) edge node {} (Vex11);
+        \draw[<->] (Vex10) edge[bend left=25] node {} (Vex12);
+        \draw[<->] (Vex10) edge node {} (Vin13);
+        \draw[<->] (Vex10) edge node {} (Vin14);
+        \draw[<->] (Vex11) edge node {} (Vex12);
+        \draw[<->] (Vex11) edge node {} (Vin13);
+        \draw[<->] (Vex11) edge node {} (Vin14);
+        \draw[<->] (Vex12) edge node {} (Vin13);
+        \draw[<->] (Vex12) edge node {} (Vin14);
+        \draw[<->] (Vin13) edge node {} (Vin14);
+        \draw[<->] (Vex15) edge node {} (Vex16);
+        \draw[<->] (Vex15) edge[bend left=25] node {} (Vex17);
+        \draw[<->] (Vex15) edge node {} (Vin18);
+        \draw[<->] (Vex15) edge node {} (Vin19);
+        \draw[<->] (Vex16) edge node {} (Vex17);
+        \draw[<->] (Vex16) edge node {} (Vin18);
+        \draw[<->] (Vex16) edge node {} (Vin19);
+        \draw[<->] (Vex17) edge node {} (Vin18);
+        \draw[<->] (Vex17) edge node {} (Vin19);
+        \draw[<->] (Vin18) edge node {} (Vin19);
+        \draw[<->] (Vex20) edge node {} (Vex21);
+        \draw[<->] (Vex20) edge[bend left=25] node {} (Vex22);
+        \draw[<->] (Vex20) edge node {} (Vin23);
+        \draw[<->] (Vex20) edge node {} (Vin24);
+        \draw[<->] (Vex21) edge node {} (Vex22);
+        \draw[<->] (Vex21) edge node {} (Vin23);
+        \draw[<->] (Vex21) edge node {} (Vin24);
+        \draw[<->] (Vex22) edge node {} (Vin23);
+        \draw[<->] (Vex22) edge node {} (Vin24);
+        \draw[<->] (Vin23) edge node {} (Vin24);
+        \draw[<->] (Vex25) edge node {} (Vex26);
+        \draw[<->] (Vex25) edge[bend left=25] node {} (Vex27);
+        \draw[<->] (Vex25) edge node {} (Vin28);
+        \draw[<->] (Vex25) edge node {} (Vin29);
+        \draw[<->] (Vex26) edge node {} (Vex27);
+        \draw[<->] (Vex26) edge node {} (Vin28);
+        \draw[<->] (Vex26) edge node {} (Vin29);
+        \draw[<->] (Vex27) edge node {} (Vin28);
+        \draw[<->] (Vex27) edge node {} (Vin29);
+        \draw[<->] (Vin28) edge node {} (Vin29);
+        \draw[<->] (Vex30) edge node {} (Vex31);
+        \draw[<->] (Vex30) edge[bend left=25] node {} (Vex32);
+        \draw[<->] (Vex30) edge node {} (Vin33);
+        \draw[<->] (Vex30) edge node {} (Vin34);
+        \draw[<->] (Vex31) edge node {} (Vex32);
+        \draw[<->] (Vex31) edge node {} (Vin33);
+        \draw[<->] (Vex31) edge node {} (Vin34);
+        \draw[<->] (Vex32) edge node {} (Vin33);
+        \draw[<->] (Vex32) edge node {} (Vin34);
+        \draw[<->] (Vin33) edge node {} (Vin34);
+        \draw[<->] (Vex35) edge node {} (Vex36);
+        \draw[<->] (Vex35) edge[bend left=25] node {} (Vex37);
+        \draw[<->] (Vex35) edge node {} (Vin38);
+        \draw[<->] (Vex35) edge node {} (Vin39);
+        \draw[<->] (Vex36) edge node {} (Vex37);
+        \draw[<->] (Vex36) edge node {} (Vin38);
+        \draw[<->] (Vex36) edge node {} (Vin39);
+        \draw[<->] (Vex37) edge node {} (Vin38);
+        \draw[<->] (Vex37) edge node {} (Vin39);
+        \draw[<->] (Vin38) edge node {} (Vin39);
+        \draw[<->] (Vex40) edge node {} (Vex41);
+        \draw[<->] (Vex40) edge[bend left=25] node {} (Vex42);
+        \draw[<->] (Vex40) edge node {} (Vin43);
+        \draw[<->] (Vex40) edge node {} (Vin44);
+        \draw[<->] (Vex41) edge node {} (Vex42);
+        \draw[<->] (Vex41) edge node {} (Vin43);
+        \draw[<->] (Vex41) edge node {} (Vin44);
+        \draw[<->] (Vex42) edge node {} (Vin43);
+        \draw[<->] (Vex42) edge node {} (Vin44);
+        \draw[<->] (Vin43) edge node {} (Vin44);
     \end{scope}
 \end{tikzpicture}

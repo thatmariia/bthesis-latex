@@ -1,9 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\stimfigcap\footnote{
-    Because of the polysemous nature of the word \say{figure}, it is written in italics when referring to the \stimfig{} within a stimulus.
-}-ground segregation is a concept that refers to the way the brain organizes visual information into distinct objects and backgrounds. This process allows us to perceive and understand the world by organizing complex visual stimuli into meaningful objects and backgrounds. In this process, the \stimfig{} is the object or part of the visual stimulus that is perceived as the main subject, while the ground is the surrounding context or background. Researchers in the field of perception have long been interested in understanding how the brain processes and organizes visual information through \stimfig-ground segregation \cite{Julesz1983, Julesz1984, Nothdurft1985a, Williams1992, Wagemans2012}.
+\stimfigcap-ground segregation is a concept that refers to the way the brain organizes visual information into distinct objects and backgrounds. This process allows us to perceive and understand the world by organizing complex visual stimuli into meaningful objects and backgrounds. In this process, the \stimfig{} is the object or part of the visual stimulus that is perceived as the main subject, while the ground is the surrounding context or background. Researchers in the field of perception have long been interested in understanding how the brain processes and organizes visual information through \stimfig-ground segregation \cite{Julesz1983, Julesz1984, Nothdurft1985a, Williams1992, Wagemans2012}.
 Many studies have focused on the mechanisms underlying this process using visual texture stimuli. In particular, they investigated the role of a single feature, such as contrast, spatial frequency, color, orientation, or movement direction, in determining the difference between the \stimfig{} and background \cite{Hadjipapas2015, Bredfeldt2002, Henriksson2008, Shapley2011, Lamme1995}. Such an approach allows for simpler segregation than analyzing textures defined by multiple features \cite{Sagi1984, Treisman1980}.
 
 The degree to which texture elements differ in a \stimfig{} and background affects the speed and accuracy of \stimfig-ground segregation \cite{Nothdurft1985a, Nothdurft1985b, Landy1991, Motoyoshi1999, Nothdurft1991a, Nothdurft1991b, DeWeerd1992}.
@@ -11,11 +9,29 @@ In particular, studies have shown that the extent of difference between elements
 
 Brain oscillations are repetitive patterns of neural activity that can be observed in the brain. These patterns occur at different frequencies and have been linked to a range of mental states and cognitive processes \cite{BuzsakiBook2006:5}. Notably, gamma brain waves (25-80 Hz) are believed to be involved in perception \cite{Eckhorn1988, Gray1989, Kreiter1996, Livingstone1996, Fries1997, Gail2000}. The mechanisms that give rise to gamma oscillations are not well understood, but it is thought that they result from the synchronized activity of neurons in the brain \cite{Wang1996, Buzsaki2012, Fries2015}. This synchronization may be influenced by the interaction of inhibitory and excitatory neurons, as well as the action of neurotransmitters \cite{Fries2007, Tiesinga2009, Tiesinga2010}. 
 
-Synchronization in networks of weakly coupled oscillators (WCOs) is influenced by two factors: the degree to which the intrinsic frequencies of the oscillators differ (detuning) and the strength of their coupling \cite{Pikovsky2002, Tiesinga2010, Lowet2015}. If the coupling strength is strong enough, the oscillators will synchronize, with the critical value for synchronization depending on the detuning. The region of synchronization in the parameter space is referred to as \say{Arnold tongue} due to its triangular shape.
+Synchronization in networks of weakly coupled oscillators (WCOs) is influenced by two factors: the degree to which the intrinsic frequencies of the oscillators differ (detuning) and the strength of their coupling \cite{Pikovsky2002, Tiesinga2010, Lowet2015}. If the coupling strength is strong enough, the oscillators synchronize, with the critical value for synchronization depending on the detuning. The region of synchronization in the two-dimensional parameter space is referred to as \say{Arnold tongue} due to its triangular shape.
 Neural computational models often depict local neuronal populations as oscillators, as they can produce gamma rhythms in response to local stimulation \cite{IzhikevichBook2004:9}. The strength of synchronization between them depends on the two characteristics mentioned above. The contrast between elements in a texture stimulus impacts the frequency detuning \cite{Lowet2017, Ray2010}, and the proximity of those elements affects the coupling strength \cite{Gilbert1983, Tso1986a, Lowet2015, Lowet2017, Stettler2002, MaryamPLACEHOLDER}. Hence, these parameters influence local synchronization between neurons, as confirmed by previous studies \cite{Lowet2017, MaryamPLACEHOLDER}. Section \ref{sec:twco} gives a more in-depth description of the effects of stimuli features on neural synchronization.
 
-A recent study by Karimian has proposed a model of the visual cortex using Kuramoto oscillators and Gabor texture stimuli with varying contrast heterogeneity among texture elements and their coarseness \cite{MaryamPLACEHOLDER}. In these textures, a \stimfig{} region was defined by less heterogeneous contrasts compared to the background.
+A recent study by Karimian has proposed a model of the visual cortex using Kuramoto oscillators and Gabor texture stimuli with varying contrast heterogeneity among texture elements and their coarseness \cite{MaryamPLACEHOLDER}, as shown in the examples in Figure \ref{fig:gabor-contrast-example}. In these textures, a \stimfig{} region was defined by less heterogeneous contrasts compared to the background.
 They then used this model to evaluate the extent to which synchrony is predictive of human performance in a \stimfig-ground segregation experiment. The results showed that human \stimfig-ground segregation performance with the same stimuli conformed to model simulations. This suggests that synchrony of gamma oscillations is predictive of human performance in \stimfig-ground segregation. 
+
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{src/assets/images/25patches/dist-1.0000___contrast-0.0100.png}
+        \caption{Low contrast heterogeneity and low coarseness.}
+    \end{subfigure}
+    \hspace{0.03\textwidth}
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.65\textwidth]{src/assets/images/25patches/dist-1.5000___contrast-1.0000.png}
+        \caption{High contrast heterogeneity and high coarseness.}
+    \end{subfigure}
+    \caption[Gabor stimuli examples]{Examples of a Gabor texture stimuli with varying contrast heterogeneity among texture elements and their coarseness.}
+    \label{fig:gabor-contrast-example}
+\end{figure}
+
 
 The Pyramidal Interneuron Network Gamma (PING) model is a computational model that seeks to explain the origins of gamma oscillations in the brain. It proposes that these oscillations are generated by the interactions between two types of brain cells: pyramidal cells and interneurons \cite{Wilson1972, Whittington2000, Hansel2003}. Pyramidal cells are excitatory neurons that transmit signals to other brain regions, while interneurons are inhibitory neurons that help regulate the activity of pyramidal cells. The PING model focuses on the transmission of signals between these neurons. In contrast, the Kuramoto model focuses solely on the synchronization of oscillating units \cite{Breakspear2010}, such as the firing of neurons. This difference in focus means that the PING model is considered to be more biologically plausible, as it more accurately represents the complex interactions between neurons in the brain.
 
@@ -26,8 +42,8 @@ We imitate the behavior of neurons using the Izhikevich model, which has been sh
 
 Modeling \stimfig-ground segregation in the brain can provide insights into the underlying neural mechanisms and computational principles of this process. These insights can help us understand how the brain processes visual information and how it is affected by various factors.
 
-One of the potential applications of modeling \stimfig-ground segregation is in the development of Artificial Intelligence (AI) algorithms that can mimic human visual perception, such as image and video recognition, object detection, and scene understanding. Current state-of-the-art AI models often rely on deep learning techniques, which do not explicitly model figure-ground segregation and can struggle to identify and segment objects in complex or cluttered scenes accurately \cite{Chu2020}. In contrast, a \stimfig-ground segregation neural model explicitly takes into account the principles of visual perception, which can help it identify and segment objects AI might not. 
-Secondly, \stimfig-ground segregation models can be more data and computationally efficient than current state-of-the-art AI models, as they do not require large amounts of training data and can be applied to a wide range of visual scenes. This makes them more practical and scalable for real-world applications. 
+One of the potential applications of modeling \stimfig-ground segregation is in aiding the development of Artificial Intelligence (AI) algorithms that can mimic human visual perception, such as image and video recognition, object detection, and scene understanding. Current state-of-the-art AI models often rely on deep learning techniques, which do not explicitly model figure-ground segregation and can struggle to identify and segment objects in complex or cluttered scenes accurately \cite{Chu2020}. As \stimfig-ground segregation neural models explicitly take into account the principles of visual perception, they have the potential to help the AI identify objects with higher accuracy.
+Secondly, \stimfig-ground segregation models can be more data and computationally efficient than current state-of-the-art AI models, as they do not require large amounts of training data and can be applied to a wide range of visual scenes. Thus, if integrated into an AI model, these models can improve the time-to-solution and reduce the reliance on data.
 Finally, neural perception models can provide a more interpretable and explainable representation of visual information, as they explicitly model the underlying computational principles. This can help better understand and interpret how these models work and how they can be improved.
 
 Another conceivable application of figure-ground segregation models is in the study of visual disorders and dysfunctions. By understanding the neural mechanisms that regulate figure-ground segregation in the brain, researchers may be able to identify the underlying causes of visual disorders, such as amblyopia (lazy eye) or strabismus (crossed eyes), and develop more effective interventions and treatments for these conditions.
@@ -51,7 +67,7 @@ The thesis is divided into several sections:
 
     \item Having defined the model, its architecture, and the external stimuli, we describe the evaluation of the model's simulations in terms of synchrony in the gamma range.
 
-    \item Consequently, we present the results of our simulations and compare them to the results of behavioral experiments performed by Karimian \cite{MaryamPLACEHOLDER}. We use statistical analyses and basic machine learning to evaluate the potential of our model to predict human behavior accurately.
+    \item Consequently, we present the results of our simulations and compare them to the results of behavioral experiments performed by Karimian \cite{MaryamPLACEHOLDER}. We use statistical analyses to evaluate the potential of our model to predict human behavior accurately.
 
     \item Finally, we summarize our findings and discuss the implications of our study.
 \end{itemize}

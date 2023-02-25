@@ -1,14 +1,14 @@
 \subsubsection{Coupling}
 
 The interaction strength of lateral connections is represented by a matrix of coupling weights $K: E \to \mathbb{R}$, in which $K_{(v \to w)}$ is the coupling weight between the neurons $v$ and $w$. 
-The coupling weight between each pair of neurons is defined by an exponential function decaying with the euclidean distance in the visual cortex between the oscillators they belong to \cite{Lowet2015}. 
-
-The PING networks in Figure \ref{fig:oscillatory-grid-graph} are reduced to the point oscillators as portrayed in Figure \ref{fig:oscillatory-point-grid}. In the visual field, we assume the unit distance between the neighbouring PING networks. Then the coupling weigh between the neurons $v$ and $w$ is
+The coupling weight between each pair of neurons $v$ and $w$ is defined through an exponential function decaying with the euclidean distance in the visual cortex between the oscillators they belong to \cite{Lowet2015}: 
 \begin{equation}
-    K_{(v \to w)} = C_{\type(v) \to \type(w)} \exp \left( \frac{-\| \cmap(v), \cmap(w) \|}{s_{\type(v) \to \type(w)}} \right),
+    K_{(v \to w)} = C_{\type(v) \to \type(w)} \exp \left( \frac{-\| \cmap(v) - \cmap(w) \|}{s_{\type(v) \to \type(w)}} \right),
     \label{eq:coupling-weights}
 \end{equation}
 where $C$ and $s$ are connectivity dependent values representing the maximum connection strength between neurons and the decay rate of connectivity over space, respectively. The values for these constants are presented in Table \ref{tab:connectivity-network-constants}.
+
+The PING networks in Figure \ref{fig:oscillatory-grid-graph} are reduced to the point oscillators as portrayed in Figure \ref{fig:oscillatory-point-grid}. In the visual field, we assume the unit distance between the neighbouring PING networks.
 
 \begin{figure}[!htp]
     \centering
